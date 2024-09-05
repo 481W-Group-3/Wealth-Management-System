@@ -3,9 +3,11 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* color-scheme: light dark; */
+  color: black;
+  /* background-color: #242424; */
+  background-image: url(background.jpg);
+
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -29,3 +31,5 @@ a:hover {
 h1 {
   font-size: 3.2em;
 }
+
+/* color scheme from dark to light: #153243 #284B63 #6F8FA0 #B5D2DD #E2EEF3 */

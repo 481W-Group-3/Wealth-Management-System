@@ -1,6 +1,7 @@
 package com.wealth_management_system.BackWealthApp.domain;
 
 import jakarta.persistence.*;
+import java.util.*;
 import jdk.jfr.DataAmount;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,7 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name="users")
+@Table(name="user")
 @DataAmount
 public class User implements UserDetails {
 
@@ -20,12 +21,16 @@ public class User implements UserDetails {
     private String password;
     private String firstName;
     private String message;
+    private ArrayList<Investment> investment;
+    private Random random = new Random();
 
     public User(String username, String password) {
+    	this.id = random.nextInt(100000)+100000;
         this.username = username;
         this.password = password;
         firstName = "firstName";
         message = "message";
+        this.investment = new ArrayList<Investment>();
     }
 
     public User(){
@@ -78,6 +83,14 @@ public class User implements UserDetails {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+    
+    public ArrayList<Investment> getInvestment(){
+    	return investment;
+    }
+    
+    public void setInvestment(ArrayList<Investment> investment) {
+    	this.investment = investment;
     }
 }
 

@@ -10,6 +10,9 @@ import java.io.*;
 @DataAmount
 
 public class Asset {
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String type;
 	private String desc;

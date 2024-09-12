@@ -8,6 +8,9 @@ import java.util.*;
 @Table(name = "property")
 @DataAmount
 public class Property {
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String address;
 	private String city;

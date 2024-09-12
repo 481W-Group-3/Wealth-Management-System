@@ -8,6 +8,9 @@ import jdk.jfr.DataAmount;
 @Table(name="renter")
 @DataAmount
 public class Renter {
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
 	private int age;

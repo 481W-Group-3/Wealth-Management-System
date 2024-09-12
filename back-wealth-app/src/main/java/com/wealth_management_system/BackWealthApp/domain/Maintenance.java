@@ -9,6 +9,9 @@ import java.util.*;
 @DataAmount
 
 public class Maintenance {
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String desc;
 	private double partsCost;

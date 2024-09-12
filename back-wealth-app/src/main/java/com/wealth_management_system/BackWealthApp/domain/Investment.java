@@ -9,6 +9,9 @@ import java.io.*;
 @DataAmount
 
 public class Investment {
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String type;
 	private double principalMonthly;

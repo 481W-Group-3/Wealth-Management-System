@@ -19,7 +19,6 @@ public class Asset {
 	private double origValue;
 	private double currentValue;
 	private Date currentDate;
-	private Investment investment;
 	
 	//Get id
 	public int id() {
@@ -79,16 +78,6 @@ public class Asset {
 	//Set current date
 	public void setCurrentDate(Date currentDate) {
 		this.currentDate = currentDate;
-	}
-	
-	//Get investment
-	public Investment getInvestment() {
-		return investment;
-	}
-	
-	//Set investment
-	public void setInvestment(Investment investment) {
-		this.investment = investment;
 	}
 	
 	

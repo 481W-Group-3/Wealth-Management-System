@@ -19,7 +19,6 @@ public class Maintenance {
 	private double costTotal = partsCost+laborCost;
 	private Date dateStarted;
 	private Date dateComplete;
-	private Property property;
 	
 	//Get id
 	public int getId() {
@@ -86,14 +85,4 @@ public class Maintenance {
 		this.dateComplete = dateComplete;
 	}
 	
-	//Get the property where the work was done
-	public Property getProperty() {
-		return property;
-	}
-	
-	//Set the property where the work was done
-	public void setProperty(Property property) {
-		this.property = property;
-	}
-
 }

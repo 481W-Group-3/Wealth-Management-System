@@ -93,7 +93,7 @@ const HomePage = () => {
         }
         p {
           margin: 0;
-          color: #666;
+          color: #000;
           font-size: 0.9em;
           font-family: 'Roboto', sans-serif; /* Use Roboto for card text */
           font-weight: 100; /* Thin weight */

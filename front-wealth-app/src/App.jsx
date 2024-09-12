@@ -14,7 +14,9 @@ function App() {
                 <Routes>
                     <Route Component={MainLandingPage} path={"/"}/>
                     <Route Component={RealEstatePage} path="/real-estate"/>
+                    
                     <Route Component={UserPage} path={"/user"}/>
+                     
                 </Routes>
                 <Footer/>
             </BrowserRouter>

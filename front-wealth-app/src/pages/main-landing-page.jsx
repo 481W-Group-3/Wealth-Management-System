@@ -51,11 +51,10 @@ const HomePage = () => {
           margin-top: 50px;
         }
         .dashboard-title {
-          text-align: left;
           margin-bottom: 30px;
           color: #333;
           font-family: 'Roboto', sans-serif; /* Use Roboto for titles */
-          font-weight: 100; /* Thin weight */
+          font-weight: 100;
         }
         .card-grid {
           display: grid;

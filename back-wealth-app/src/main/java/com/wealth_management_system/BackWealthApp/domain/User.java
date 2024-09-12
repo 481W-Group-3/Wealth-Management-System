@@ -21,7 +21,6 @@ public class User implements UserDetails {
     private String password;
     private String firstName;
     private String message;
-    private ArrayList<Investment> investment;
 
     public User(){
         username = "backend";
@@ -75,12 +74,5 @@ public class User implements UserDetails {
         this.message = message;
     }
     
-    public ArrayList<Investment> getInvestment(){
-    	return investment;
-    }
-    
-    public void setInvestment(ArrayList<Investment> investment) {
-    	this.investment = investment;
-    }
 }
 

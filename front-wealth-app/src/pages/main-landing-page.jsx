@@ -34,7 +34,6 @@ const HomePage = () => {
       </div>
       <style jsx>{`
         .home-container {
-          background-color: #d6d6d6;
           min-height: calc(100vh - 60px);
           display: flex;
           justify-content: center;
@@ -48,8 +47,7 @@ const HomePage = () => {
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
           width: 80%;
           max-width: 1000px;
-          margin-top: 50px;
-        }
+       }
         .dashboard-title {
           text-align: left;
           margin-bottom: 30px;

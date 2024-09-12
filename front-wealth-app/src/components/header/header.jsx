@@ -10,7 +10,7 @@ const Header = () => {
                 <div className={"header-divider"}>
                     <Link to={"/"}>
                         {/* <h1> Wealth Management Systems </h1> */}
-                        <div id={"logo"}><img src={logo} alt={"logo"} height={'50%'} width={'50%'}></img></div>
+                        <div id={"logo"}><img src={logo} alt={"logo"} height={'40%'} width={'40%'}></img></div>
                     </Link>
                     <div className={"header-links"}>
                         <Link to={"/"}>

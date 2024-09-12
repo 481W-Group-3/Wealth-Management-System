@@ -8,6 +8,9 @@ import java.util.*;
 @Table(name = "property")
 @DataAmount
 public class Property {
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String address;
 	private String city;
@@ -17,22 +20,8 @@ public class Property {
 	private double insuranceMonthly;
 	private double mortgageMonthly;
 	private String type;
-	private Renter renter;
-	private Lease lease;
 	private double incomeMonthly;
 	private double revenue = incomeMonthly-taxMonthly-insuranceMonthly-mortgageMonthly;
-	private ArrayList<Maintenance> maintenance;
-	private Random random;
-	
-	//Constructor
-	public Property(String address, String city, String state, int zipCode) {
-		this.id = random.nextInt(100000)+600000;
-		this.address = address;
-		this.city = city;
-		this.state = state;
-		this.zipCode = zipCode;
-		this.maintenance = new ArrayList<Maintenance>();
-	}
 	
 	//Get id
 	public int getId() {
@@ -124,26 +113,6 @@ public class Property {
 		this.type = type;
 	}
 	
-	//Get renter
-	public Renter getRenter() {
-		return renter;
-	}
-	
-	//Set renter
-	public void setRenter(Renter renter) {
-		this.renter = renter;
-	}
-	
-	//Get lease
-	public Lease getLease() {
-		return lease;
-	}
-	
-	//Set lease
-	public void setLease(Lease lease) {
-		this.lease = lease;
-	}
-	
 	//Get income
 	public double getIncome() {
 		return incomeMonthly;
@@ -160,10 +129,4 @@ public class Property {
 	}
 	
 	//The revenue is set when the mortgage, insurance, tax, and income are set
-	
-	//Get the maintenance list
-	public ArrayList<Maintenance> getMaintenance(){
-		return maintenance;
-	}
-
 }

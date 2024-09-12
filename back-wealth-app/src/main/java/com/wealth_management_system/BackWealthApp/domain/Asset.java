@@ -10,22 +10,15 @@ import java.io.*;
 @DataAmount
 
 public class Asset {
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String type;
 	private String desc;
 	private double origValue;
 	private double currentValue;
 	private Date currentDate;
-	private Investment investment;
-	private Random random;
-	
-	//Constructor
-	public Asset(String type, String desc, double origValue) {
-		this.id = random.nextInt(100000)+300000;
-		this.type = type;
-		this.desc = desc;
-		this.origValue = origValue;
-	}
 	
 	//Get id
 	public int id() {
@@ -85,16 +78,6 @@ public class Asset {
 	//Set current date
 	public void setCurrentDate(Date currentDate) {
 		this.currentDate = currentDate;
-	}
-	
-	//Get investment
-	public Investment getInvestment() {
-		return investment;
-	}
-	
-	//Set investment
-	public void setInvestment(Investment investment) {
-		this.investment = investment;
 	}
 	
 	

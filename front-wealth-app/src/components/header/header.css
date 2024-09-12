@@ -19,18 +19,16 @@
 
 .header-divider {
     display: flex;
-    /* justify-content: space-between; */
     align-items: center;
     padding: 10px 20px;
     height: 150px;
-    align-items: left;
+    justify-content: space-around;
 }
 
 .header-logo {
     height: 100%;
     display: flex;
     align-items: left;
-    
 }
 
 .header-logo img {
@@ -66,25 +64,15 @@
     color: inherit;
 }
 
+span {
+    font-weight: 550;
+    color: black;
+    font-size: larger;
+}
 
-@media (max-width: 768px) {
-    .header-divider {
-        flex-direction: column;
-        height: auto;
-        padding: 20px;
+@media (max-width: 700px) {
+    .header-spacing {
+        margin-right: 12%;
     }
 
-    .header-logo, .header-title, .header-links {
-        width: 100%;
-        text-align: center;
-        margin: 10px 0;
-    }
-
-    .header-links {
-        justify-content: center;
-    }
-
-    .header-background {
-        height: 100%;
-    } 
 }

@@ -10,14 +10,14 @@ const Header = () => {
                 <div className={"header-divider"}>
                     <Link to={"/"}>
                         {/* <h1> Wealth Management Systems </h1> */}
-                        <div id={"logo"}><img src={logo} alt={"logo"} height={'40%'} width={'40%'}></img></div>
+                        <img src={logo} alt={"logo"} height={'auto'} width={'200px'}></img>
                     </Link>
                     <div className={"header-links"}>
                         <Link to={"/"}>
-                            <p>Home</p>
+                            <span>Home</span>
                         </Link>
                         <Link to={"/user"}>
-                            <p>Login</p>
+                            <span>Login</span>
                         </Link>
                     </div>
                 </div>

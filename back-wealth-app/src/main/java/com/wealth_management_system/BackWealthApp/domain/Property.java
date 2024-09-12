@@ -25,17 +25,6 @@ public class Property {
 	private double incomeMonthly;
 	private double revenue = incomeMonthly-taxMonthly-insuranceMonthly-mortgageMonthly;
 	private ArrayList<Maintenance> maintenance;
-	private Random random;
-	
-	//Constructor
-	public Property(String address, String city, String state, int zipCode) {
-		this.id = random.nextInt(100000)+600000;
-		this.address = address;
-		this.city = city;
-		this.state = state;
-		this.zipCode = zipCode;
-		this.maintenance = new ArrayList<Maintenance>();
-	}
 	
 	//Get id
 	public int getId() {

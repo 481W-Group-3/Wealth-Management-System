@@ -1,0 +1,41 @@
+package com.wealth_management_system.BackWealthApp.service;
+
+import java.util.List;
+
+import com.wealth_management_system.BackWealthApp.domain.Maintenance;
+import com.wealth_management_system.BackWealthApp.domain.Property;
+import com.wealth_management_system.BackWealthApp.domain.Renter;
+
+public interface PropertyService {
+	
+	//add a property to the list
+	Property addProperty(Property property);
+	
+	//get property by Id
+	Property getPropertyById(int id);
+	
+	//list all the properties owned by the user
+	List<Property> listAllProperties();
+	
+	//update Property
+	Property updateProperty(Property property);
+	
+	//delete any property by id
+	void deleteProperty(int id);
+	
+	//link a renter to the property
+	void linkRenterToProperty(int propertyId, int renterId);
+	
+	//link lease to property
+	void linkLeaseToProperty(int propertyId, int leaseId);
+	
+	//get the list of renters for property
+	List<Renter> getRentersByProperty(int propertyId);
+	
+	//get the list of maintenance done for property
+	List<Maintenance> getMaintenanceByProperty(int propertyId);
+	
+	//calculate the revenue
+	double calculateRevenue(int propertyId);
+
+}

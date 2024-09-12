@@ -23,15 +23,6 @@ public class Investment {
 	private ArrayList<Property> property;
 	private Asset asset;
 	private User user;
-	private Random random;
-	
-	//Constructor for monthly principal
-	public Investment(String type, double principalInitial) {
-		this.id = random.nextInt(100000)+200000;
-		this.type = type;
-		this.principalInitial = principalInitial;
-		this.property = new ArrayList<Property>();
-	}
 	
 	//Get id
 	public int getId() {

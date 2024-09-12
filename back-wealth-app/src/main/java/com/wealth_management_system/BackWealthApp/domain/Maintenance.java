@@ -20,16 +20,6 @@ public class Maintenance {
 	private Date dateStarted;
 	private Date dateComplete;
 	private Property property;
-	private Random random;
-	
-	//Constructor
-	public Maintenance(String desc, Date dateStarted, Property property) {
-		this.id = random.nextInt(100000)+500000;
-		this.desc = desc;
-		this.dateStarted = dateStarted;
-		this.property = property;
-		property.getMaintenance().add(this);
-	}
 	
 	//Get id
 	public int getId() {

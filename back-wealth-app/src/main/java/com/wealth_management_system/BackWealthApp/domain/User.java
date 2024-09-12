@@ -22,16 +22,6 @@ public class User implements UserDetails {
     private String firstName;
     private String message;
     private ArrayList<Investment> investment;
-    private Random random = new Random();
-
-    public User(String username, String password) {
-    	this.id = random.nextInt(100000)+100000;
-        this.username = username;
-        this.password = password;
-        firstName = "firstName";
-        message = "message";
-        this.investment = new ArrayList<Investment>();
-    }
 
     public User(){
         username = "backend";

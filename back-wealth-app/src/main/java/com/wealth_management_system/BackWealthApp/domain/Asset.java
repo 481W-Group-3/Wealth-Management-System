@@ -20,15 +20,6 @@ public class Asset {
 	private double currentValue;
 	private Date currentDate;
 	private Investment investment;
-	private Random random;
-	
-	//Constructor
-	public Asset(String type, String desc, double origValue) {
-		this.id = random.nextInt(100000)+300000;
-		this.type = type;
-		this.desc = desc;
-		this.origValue = origValue;
-	}
 	
 	//Get id
 	public int id() {

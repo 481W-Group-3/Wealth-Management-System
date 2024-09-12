@@ -16,14 +16,6 @@ public class Renter {
 	private int age;
 	private String email;
 	private int creditScore;
-	private Random random;
-	
-	//Constructor
-	public Renter(String name, String email) {
-		this.id = random.nextInt(100000)+700000;
-		this.name = name;
-		this.email = email;
-	}
 	
 	//Get id (can we generate this automatically?)
 	public int getId() {

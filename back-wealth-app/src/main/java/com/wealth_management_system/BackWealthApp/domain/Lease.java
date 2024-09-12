@@ -23,16 +23,6 @@ public class Lease {
 	private int rentDueDay;
 	private double securityDeposit;
 	private File document;
-	private Random random;
-	
-	//Constructor
-	public Lease(Property property, Date startDate, Date endDate) {
-		this.id = random.nextInt(100000)+400000;
-		this.property = property;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.renter = new ArrayList<Renter>();
-	}
 	
 	//Get id
 	public int getId() {

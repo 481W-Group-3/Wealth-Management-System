@@ -56,13 +56,6 @@ const User = () => {
                 Show password
                 <span className="checkmark"></span>
             </label><br />
-            {/* <input
-                    type="checkbox"
-                    id="showPassword"
-                    checked={showPassword}
-                    onChange={(e) => setShowPassword(e.target.checked)}
-                />
-            <label htmlFor="showPassword">Show password</label><br /> */}
 
 
             {/* login button */}
@@ -79,13 +72,6 @@ const User = () => {
                 Remember me
                 <span className="checkmark"></span>
             </label><br />
-            {/* <input
-                type="checkbox"
-                id="rememberMe"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-            />
-            <label htmlFor="rememberMe">Remember me</label><br /> */}
 
 
             {/* forgot password and create account links */}
@@ -100,16 +86,3 @@ const User = () => {
 };
 
 export default User;
-
-
-
-
-// const User = () => {
-//     return(
-//         <div>
-//             <p>This is the second page</p>
-//         </div>
-//     )
-// }
-
-// export default User;

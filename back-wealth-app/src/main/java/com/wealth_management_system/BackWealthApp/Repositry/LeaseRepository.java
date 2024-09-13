@@ -9,3 +9,4 @@ import com.wealth_management_system.BackWealthApp.domain.Lease;
 public interface LeaseRepository extends JpaRepository<Lease, Integer>{
 
 }
+

@@ -5,22 +5,43 @@ import jdk.jfr.DataAmount;
 import java.util.*;
 import java.io.*;
 
+
 @Entity
 @Table(name = "lease")
 @DataAmount
-
-
 public class Lease {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private Date startDate;
-	private Date endDate;
+	//private Date startDate;
+	//private Date endDate;
+	private String leaseType;
 	private double paymentMonthly;
+	
+	
+	 @OneToMany(mappedBy = "lease")
+	private Set<Renter> renters;
+	
 	private int rentDueDay;
 	private double securityDeposit;
-	private File document;
+	@ManyToOne
+    @JoinColumn(name = "property_id")
+    private Property property;
+	//private File document;
+	@Transient
+	private Random random;
+	
+	//Constructor
+	public Lease() {
+		this.random = new Random();
+        this.id = random.nextInt(100000) + 400000;
+		//this.property = property;
+		//this.startDate = startDate;
+		//this.endDate = endDate;
+		//this.renter = new ArrayList<Renter>();
+	}
+
 	
 	//Get id
 	public int getId() {
@@ -32,6 +53,15 @@ public class Lease {
 		this.id = id;
 	}
 	
+	public String getLeaseType() {
+        return leaseType;
+    }
+
+    public void setLeaseType(String leaseType) {
+        this.leaseType = leaseType;
+    }
+	
+    /*
 	//Get start date
 	public Date getStartDate() {
 		return startDate;
@@ -51,7 +81,7 @@ public class Lease {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	
+	*/
 	//Get payment monthly
 	public double getPaymentMonthly() {
 		return paymentMonthly;
@@ -62,6 +92,30 @@ public class Lease {
 		this.paymentMonthly = paymentMonthly;
 	}
 	
+
+	/*
+	//Get renter
+	public ArrayList<Renter> getRenter() {
+		return renter;
+	}
+	
+	//Set renter
+	public void setRenter(ArrayList<Renter> renter) {
+		this.renter = renter;
+	}
+	
+	//Get property
+	public Property getProperty() {
+		return property;
+	}
+	
+	//Set property
+	public void setProperty(Property property) {
+		this.property = property;
+	}
+	*/
+	
+
 	//Get rent due day
 	public int getRentDueDay() {
 		return rentDueDay;
@@ -81,7 +135,16 @@ public class Lease {
 	public void setSecurityDeposit(double securityDeposit) {
 		this.securityDeposit = securityDeposit;
 	}
+
+	public Property getProperty() {
+		return property;
+	}
+
+	public void setProperty(Property property) {
+		this.property = property;
+	}
 	
+	/*
 	//Get the lease document
 	public File getDocument() {
 		return document;
@@ -90,6 +153,6 @@ public class Lease {
 	//Set the lease document
 	public void setDocument(File document) {
 		this.document = document;
-	}
+	}*/
 	
 }

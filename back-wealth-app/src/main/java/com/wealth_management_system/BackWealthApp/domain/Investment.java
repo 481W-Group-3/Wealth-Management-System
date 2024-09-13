@@ -3,6 +3,7 @@ import jakarta.persistence.*;
 import jdk.jfr.DataAmount;
 import java.util.*;
 
+
 @Entity
 @Table(name = "investment")
 @DataAmount
@@ -17,8 +18,27 @@ public class Investment {
 	private double principalYearly;
 	private double principalInitial;
 	private double currentValue;
-	private Date currentDate;
-	private Date previousEditDate;
+
+	//private Date currentDate;
+	//private Date previousEditDate;
+	
+	@OneToMany(mappedBy = "investment")
+	private ArrayList<Property> property;
+	@OneToMany(mappedBy = "investment")
+	private Set<Asset> asset;
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+	private Random random;
+	
+	//Constructor for monthly principal
+	public Investment(String type, double principalInitial) {
+		this.id = random.nextInt(100000)+200000;
+		this.type = type;
+		this.principalInitial = principalInitial;
+		this.property = new ArrayList<Property>();
+	}
+
 	
 	//Get id
 	public int getId() {
@@ -79,7 +99,7 @@ public class Investment {
 	public void setCurrentValue(double currentValue) {
 		this.currentValue = currentValue;
 	}
-	
+	/*
 	//Get current date
 	public Date getCurrentDate() {
 		return currentDate;
@@ -98,6 +118,34 @@ public class Investment {
 	//Set previous edit date
 	public void setPreviousEditDate(Date previousEditDate) {
 		this.previousEditDate = previousEditDate;
+	}
+	
+	
+	*/
+	//Get user
+	public User getUser() {
+		return user;
+	}
+	
+	//Set user
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public ArrayList<Property> getProperty() {
+		return property;
+	}
+
+	public void setProperty(ArrayList<Property> property) {
+		this.property = property;
+	}
+
+	public Set<Asset> getAsset() {
+		return asset;
+	}
+
+	public void setAsset(Set<Asset> asset) {
+		this.asset = asset;
 	}
 
 	

@@ -8,6 +8,9 @@ import java.util.*;
 @Table(name = "property")
 @DataAmount
 public class Property {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String address;
 	private String city;
@@ -17,11 +20,21 @@ public class Property {
 	private double insuranceMonthly;
 	private double mortgageMonthly;
 	private String type;
-	private Renter renter;
-	private Lease lease;
+	@OneToMany(mappedBy = "property")
+	private Set<Renter> renter;
+	
+	@OneToMany(mappedBy = "property")
+    private Set<Lease> leases;
 	private double incomeMonthly;
 	private double revenue = incomeMonthly-taxMonthly-insuranceMonthly-mortgageMonthly;
-	private ArrayList<Maintenance> maintenance;
+	@OneToMany(mappedBy = "property")
+    private Set<Maintenance> maintenanceRecords;
+	
+	
+
+	@ManyToOne
+	@JoinColumn(name = "investment_id")
+	private Investment investment;
 	private Random random;
 	
 	//Constructor
@@ -31,9 +44,10 @@ public class Property {
 		this.city = city;
 		this.state = state;
 		this.zipCode = zipCode;
-		this.maintenance = new ArrayList<Maintenance>();
+		this.maintenanceRecords = new HashSet<>();
 	}
-	
+
+
 	//Get id
 	public int getId() {
 		return id;
@@ -123,7 +137,8 @@ public class Property {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
+
+	/*
 	//Get renter
 	public Renter getRenter() {
 		return renter;
@@ -133,7 +148,8 @@ public class Property {
 	public void setRenter(Renter renter) {
 		this.renter = renter;
 	}
-	
+	*/
+	/*
 	//Get lease
 	public Lease getLease() {
 		return lease;
@@ -143,7 +159,16 @@ public class Property {
 	public void setLease(Lease lease) {
 		this.lease = lease;
 	}
+	*/
 	
+	public Set<Lease> getLeases() {
+		return leases;
+	}
+
+	public void setLeases(Set<Lease> leases) {
+		this.leases = leases;
+	}
+
 	//Get income
 	public double getIncome() {
 		return incomeMonthly;
@@ -158,12 +183,38 @@ public class Property {
 	public double getRevenue() {
 		return revenue;
 	}
+
+	public Investment getInvestment() {
+		return investment;
+	}
+
+	public void setInvestment(Investment investment) {
+		this.investment = investment;
+	}
+
+	public Set<Renter> getRenter() {
+		return renter;
+	}
+
+	public void setRenter(Set<Renter> renter) {
+		this.renter = renter;
+	}
+	
+	public Set<Maintenance> getMaintenanceRecords() {
+		return maintenanceRecords;
+	}
+
+
+	public void setMaintenanceRecords(Set<Maintenance> maintenanceRecords) {
+		this.maintenanceRecords = maintenanceRecords;
+	}
 	
 	//The revenue is set when the mortgage, insurance, tax, and income are set
-	
+	/*
 	//Get the maintenance list
 	public ArrayList<Maintenance> getMaintenance(){
 		return maintenance;
 	}
+	*/
 
 }

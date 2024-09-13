@@ -9,6 +9,8 @@ public class UserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    	
         return new User();
     }
+   
 }

@@ -4,21 +4,30 @@ import jdk.jfr.DataAmount;
 import java.util.*;
 import java.io.*;
 
+
 @Entity
 @Table(name = "investment")
 @DataAmount
 
 public class Investment {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String type;
 	private double principalMonthly;
 	private double principalYearly;
 	private double principalInitial;
 	private double currentValue;
-	private Date currentDate;
-	private Date previousEditDate;
+	//private Date currentDate;
+	//private Date previousEditDate;
+	
+	@OneToMany(mappedBy = "investment")
 	private ArrayList<Property> property;
-	private Asset asset;
+	@OneToMany(mappedBy = "investment")
+	private Set<Asset> asset;
+	@ManyToOne
+	@JoinColumn(name = "user_id")
 	private User user;
 	private Random random;
 	
@@ -89,7 +98,7 @@ public class Investment {
 	public void setCurrentValue(double currentValue) {
 		this.currentValue = currentValue;
 	}
-	
+	/*
 	//Get current date
 	public Date getCurrentDate() {
 		return currentDate;
@@ -110,16 +119,8 @@ public class Investment {
 		this.previousEditDate = previousEditDate;
 	}
 	
-	//Get property
-	public ArrayList<Property> getProperty() {
-		return property;
-	}
 	
-	//Set property
-	public void setProperty(ArrayList<Property> property) {
-		this.property = property;
-	}
-	
+	*/
 	//Get user
 	public User getUser() {
 		return user;
@@ -129,15 +130,22 @@ public class Investment {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
-	//Get asset
-	public Asset getAsset() {
+
+	public ArrayList<Property> getProperty() {
+		return property;
+	}
+
+	public void setProperty(ArrayList<Property> property) {
+		this.property = property;
+	}
+
+	public Set<Asset> getAsset() {
 		return asset;
 	}
-	
-	//Set asset
-	public void setAsset(Asset asset) {
+
+	public void setAsset(Set<Asset> asset) {
 		this.asset = asset;
 	}
+	
 	
 }

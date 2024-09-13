@@ -7,14 +7,25 @@ import jdk.jfr.DataAmount;
 @Entity
 @Table(name="renter")
 @DataAmount
+
 public class Renter {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
 	private int age;
 	private String email;
 	private int creditScore;
 	private Random random;
-	
+	@ManyToOne
+    @JoinColumn(name = "property_id")
+    private Property property;
+	@ManyToOne
+    @JoinColumn(name = "lease_id") 
+    private Lease lease;
+
+
 	//Constructor
 	public Renter(String name, String email) {
 		this.id = random.nextInt(100000)+700000;
@@ -70,6 +81,14 @@ public class Renter {
 	//Set creditScore
 	public void setCreditScore(int creditScore) {
 		this.creditScore = creditScore;
+	}
+	
+	public Property getProperty() {
+		return property;
+	}
+
+	public void setProperty(Property property) {
+		this.property = property;
 	}
 
 }

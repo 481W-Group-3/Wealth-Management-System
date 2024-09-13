@@ -9,6 +9,9 @@ import jdk.jfr.DataAmount;
 @DataAmount
 
 public class Admin {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String email;
 	private String password;

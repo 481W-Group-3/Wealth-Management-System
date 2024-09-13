@@ -21,6 +21,8 @@ public class User implements UserDetails {
     private String password;
     private String firstName;
     private String message;
+    private String email;
+    @OneToMany(mappedBy = "user")
     private ArrayList<Investment> investment;
     private Random random = new Random();
 
@@ -39,6 +41,17 @@ public class User implements UserDetails {
         firstName = "firstName";
         message = "message";
     }
+    
+ 
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 
     public int getId() {
         return id;
@@ -92,5 +105,6 @@ public class User implements UserDetails {
     public void setInvestment(ArrayList<Investment> investment) {
     	this.investment = investment;
     }
+    
 }
 

@@ -9,6 +9,9 @@ import java.util.*;
 @DataAmount
 
 public class Maintenance {
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String desc;
 	private double partsCost;
@@ -16,17 +19,6 @@ public class Maintenance {
 	private double costTotal = partsCost+laborCost;
 	private Date dateStarted;
 	private Date dateComplete;
-	private Property property;
-	private Random random;
-	
-	//Constructor
-	public Maintenance(String desc, Date dateStarted, Property property) {
-		this.id = random.nextInt(100000)+500000;
-		this.desc = desc;
-		this.dateStarted = dateStarted;
-		this.property = property;
-		property.getMaintenance().add(this);
-	}
 	
 	//Get id
 	public int getId() {
@@ -93,14 +85,4 @@ public class Maintenance {
 		this.dateComplete = dateComplete;
 	}
 	
-	//Get the property where the work was done
-	public Property getProperty() {
-		return property;
-	}
-	
-	//Set the property where the work was done
-	public void setProperty(Property property) {
-		this.property = property;
-	}
-
 }

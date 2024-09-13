@@ -11,25 +11,16 @@ import java.io.*;
 
 
 public class Lease {
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private Date startDate;
 	private Date endDate;
 	private double paymentMonthly;
-	private ArrayList<Renter> renter;
-	private Property property;
 	private int rentDueDay;
 	private double securityDeposit;
 	private File document;
-	private Random random;
-	
-	//Constructor
-	public Lease(Property property, Date startDate, Date endDate) {
-		this.id = random.nextInt(100000)+400000;
-		this.property = property;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.renter = new ArrayList<Renter>();
-	}
 	
 	//Get id
 	public int getId() {
@@ -69,26 +60,6 @@ public class Lease {
 	//Set payment monthly
 	public void setPaymentMonthly(double paymentMonthly) {
 		this.paymentMonthly = paymentMonthly;
-	}
-	
-	//Get renter
-	public ArrayList<Renter> getRenter() {
-		return renter;
-	}
-	
-	//Set renter
-	public void setRenter(ArrayList<Renter> renter) {
-		this.renter = renter;
-	}
-	
-	//Get property
-	public Property getProperty() {
-		return property;
-	}
-	
-	//Set property
-	public void setProperty(Property property) {
-		this.property = property;
 	}
 	
 	//Get rent due day

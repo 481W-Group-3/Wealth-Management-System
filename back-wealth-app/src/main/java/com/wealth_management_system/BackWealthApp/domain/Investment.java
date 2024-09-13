@@ -2,13 +2,15 @@ package com.wealth_management_system.BackWealthApp.domain;
 import jakarta.persistence.*;
 import jdk.jfr.DataAmount;
 import java.util.*;
-import java.io.*;
 
 @Entity
 @Table(name = "investment")
 @DataAmount
 
 public class Investment {
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String type;
 	private double principalMonthly;
@@ -17,18 +19,6 @@ public class Investment {
 	private double currentValue;
 	private Date currentDate;
 	private Date previousEditDate;
-	private ArrayList<Property> property;
-	private Asset asset;
-	private User user;
-	private Random random;
-	
-	//Constructor for monthly principal
-	public Investment(String type, double principalInitial) {
-		this.id = random.nextInt(100000)+200000;
-		this.type = type;
-		this.principalInitial = principalInitial;
-		this.property = new ArrayList<Property>();
-	}
 	
 	//Get id
 	public int getId() {
@@ -109,35 +99,6 @@ public class Investment {
 	public void setPreviousEditDate(Date previousEditDate) {
 		this.previousEditDate = previousEditDate;
 	}
-	
-	//Get property
-	public ArrayList<Property> getProperty() {
-		return property;
-	}
-	
-	//Set property
-	public void setProperty(ArrayList<Property> property) {
-		this.property = property;
-	}
-	
-	//Get user
-	public User getUser() {
-		return user;
-	}
-	
-	//Set user
-	public void setUser(User user) {
-		this.user = user;
-	}
-	
-	//Get asset
-	public Asset getAsset() {
-		return asset;
-	}
-	
-	//Set asset
-	public void setAsset(Asset asset) {
-		this.asset = asset;
-	}
+
 	
 }

@@ -1,4 +1,5 @@
 import "./header.css";
+import logo from "../../assets/logo.png";
 import {Link} from "react-router-dom";
 
 const Header = () => {
@@ -8,14 +9,15 @@ const Header = () => {
             <div className={"page-container"}>
                 <div className={"header-divider"}>
                     <Link to={"/"}>
-                        <h1> Wealth Management Systems </h1>
+                        {/* <h1> Wealth Management Systems </h1> */}
+                        <img src={logo} alt={"logo"} height={'auto'} width={'200px'}></img>
                     </Link>
                     <div className={"header-links"}>
                         <Link to={"/"}>
-                            <p>Home</p>
+                            <span>Home</span>
                         </Link>
                         <Link to={"/user"}>
-                            <p>User Login</p>
+                            <span>Login</span>
                         </Link>
                     </div>
                 </div>

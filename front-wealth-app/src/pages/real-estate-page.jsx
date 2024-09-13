@@ -343,7 +343,8 @@ const RealEstatePage = () => {
           padding: 20px;
           max-width: 1200px;
           margin: 0 auto;
-          background: #d6d6d6;
+          backgroundImage:C:\Users\Shaun\Documents\GitHub\Wealth-Management-System\front-wealth-app\src\teapot.jpg;
+
         }
         h1, h2, h3, h4 {
           color: #333;
@@ -351,11 +352,13 @@ const RealEstatePage = () => {
           text-align: center;
         }
         .content {
-          background-color: white;
           padding: 30px;
           border-radius: 8px;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
           overflow: hidden;
+            /* Add this line to reduce saturation */
+          background-color: rgba(255, 255, 255, 0.5); /* Adjust the last value (0.5) to control the level of desaturation */
+          background-blend-mode: saturation;
         }
         .two-column-layout {
           display: flex;
@@ -370,6 +373,9 @@ const RealEstatePage = () => {
           flex-direction: column;
           gap: 15px;
           align-items: center;
+            /* Add this line to reduce saturation */
+          background-color: rgba(255, 255, 255, 0.3); /* Adjust the last value (0.5) to control the level of desaturation */
+          background-blend-mode: saturation;
         }
         input, button {
           padding: 10px;
@@ -386,7 +392,7 @@ const RealEstatePage = () => {
           width: auto;
         }
         button {
-          background-color: #007bff;
+          background-color: #2b5887;
           color: white;
           border: none;
           cursor: pointer;
@@ -440,6 +446,9 @@ const RealEstatePage = () => {
           padding: 10px;
           border-radius: 4px;
           text-align: right;
+            /* Add this line to reduce saturation */
+          background-color: rgba(255, 255, 255, 0.3); /* Adjust the last value (0.5) to control the level of desaturation */
+          background-blend-mode: saturation;
         }
         .button-container {
           display: flex;
@@ -447,7 +456,7 @@ const RealEstatePage = () => {
           margin-top: 20px;
         }
         .tax-btn {
-          background-color: #28a745;
+          background-color: #3e784b;
           color: white;
           border: none;
           padding: 10px 20px;
@@ -480,6 +489,15 @@ const RealEstatePage = () => {
           display: inline-block;
           margin-bottom: 15px;
           box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1{
+          font-family: 'Quicksand', sans-serif; 
+          font-weight: 100;
+        }
+
+        h2{
+          font-family: 'Quicksand', sans-serif; 
+          font-weight: 100; /* Bold weight */
         }
       `}</style>
     </div>

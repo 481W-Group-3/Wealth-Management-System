@@ -10,8 +10,8 @@ import java.util.*;
 public class Property {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private long id;
 	private String address;
 	private String city;
 	private String state;
@@ -36,11 +36,9 @@ public class Property {
 	@ManyToOne
 	@JoinColumn(name = "investment_id")
 	private Investment investment;
-	private Random random;
 	
 	//Constructor
 	public Property(String address, String city, String state, int zipCode) {
-		this.id = random.nextInt(100000)+600000;
 		this.address = address;
 		this.city = city;
 		this.state = state;
@@ -51,12 +49,12 @@ public class Property {
 
 
 	//Get id
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	
 	//Set id
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	

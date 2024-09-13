@@ -15,8 +15,8 @@ import java.util.List;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long id;
     private String username;
     private String password;
     private String firstName;
@@ -25,10 +25,8 @@ public class User implements UserDetails {
     private String email;
     @OneToMany(mappedBy = "user")
     private ArrayList<Investment> investment;
-    private Random random = new Random();
 
     public User(String username, String password) {
-    	this.id = random.nextInt(100000)+100000;
         this.username = username;
         this.password = password;
         firstName = "firstName";
@@ -55,11 +53,11 @@ public class User implements UserDetails {
     }
 
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

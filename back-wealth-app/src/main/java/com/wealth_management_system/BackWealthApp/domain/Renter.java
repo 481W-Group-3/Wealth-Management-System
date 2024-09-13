@@ -11,9 +11,9 @@ import jdk.jfr.DataAmount;
 public class Renter {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 
-	private int id;
+	private long id;
 	private String name;
 	private int age;
 	private String email;
@@ -36,12 +36,12 @@ public class Renter {
 	}
 
 	//Get id (can we generate this automatically?)
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	
 	//Set id (can we generate this automatically?)
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	

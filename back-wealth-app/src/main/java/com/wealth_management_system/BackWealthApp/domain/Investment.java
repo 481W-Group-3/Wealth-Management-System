@@ -11,8 +11,8 @@ import java.util.*;
 public class Investment {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private long id;
 	private String type;
 	private double principalMonthly;
 	private double principalYearly;
@@ -29,11 +29,9 @@ public class Investment {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
-	private Random random;
 	
 	//Constructor for monthly principal
 	public Investment(String type, double principalInitial) {
-		this.id = random.nextInt(100000)+200000;
 		this.type = type;
 		this.principalInitial = principalInitial;
 		this.property = new ArrayList<Property>();
@@ -41,12 +39,12 @@ public class Investment {
 
 	
 	//Get id
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	
 	//Set id
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	

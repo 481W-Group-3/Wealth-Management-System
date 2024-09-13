@@ -12,8 +12,8 @@ import java.io.*;
 public class Asset {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private long id;
 	private String type;
 	private String descr;
 	private double origValue;
@@ -23,11 +23,9 @@ public class Asset {
 	@ManyToOne
     @JoinColumn(name = "investment_id") // Foreign key column
     private Investment investment;
-	private Random random;
 	
 	//Constructor
 	public Asset(String type, String descr, double origValue) {
-		this.id = random.nextInt(100000)+300000;
 		this.type = type;
 		this.descr = descr;
 		this.origValue = origValue;
@@ -35,12 +33,12 @@ public class Asset {
 
 	
 	//Get id
-	public int id() {
+	public long id() {
 		return id;
 	}
 	
 	//Set id
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	

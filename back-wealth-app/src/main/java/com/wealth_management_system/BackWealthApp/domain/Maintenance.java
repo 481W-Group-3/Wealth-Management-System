@@ -13,8 +13,8 @@ import org.springframework.data.annotation.Transient;
 public class Maintenance {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private long id;
 	private String descr;
 	private double partsCost;
 	private double laborCost;
@@ -24,15 +24,12 @@ public class Maintenance {
 	//private Date dateComplete;
 	
 	@Transient
-	private Random random;
 	 @ManyToOne
 	 @JoinColumn(name = "property_id") // Foreign key column
 	 private Property property;
 	
 	//Constructor
 	public Maintenance(String descr/*, Date dateStarted*/ ,Property property) {
-		this.random = new Random(); // Initialize Random here
-	    this.id = random.nextInt(100000) + 500000;
 		this.descr = descr;
 		//this.dateStarted = dateStarted;
 		//this.property = property;
@@ -41,12 +38,12 @@ public class Maintenance {
 
 	
 	//Get id
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	
 	//Set id
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	

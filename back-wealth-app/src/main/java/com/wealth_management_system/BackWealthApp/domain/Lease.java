@@ -12,8 +12,8 @@ import java.io.*;
 public class Lease {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private long id;
 	//private Date startDate;
 	//private Date endDate;
 	private String leaseType;
@@ -29,13 +29,9 @@ public class Lease {
     @JoinColumn(name = "property_id")
     private Property property;
 	//private File document;
-	@Transient
-	private Random random;
 	
 	//Constructor
 	public Lease() {
-		this.random = new Random();
-        this.id = random.nextInt(100000) + 400000;
 		//this.property = property;
 		//this.startDate = startDate;
 		//this.endDate = endDate;
@@ -44,12 +40,12 @@ public class Lease {
 
 	
 	//Get id
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	
 	//Set id
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	

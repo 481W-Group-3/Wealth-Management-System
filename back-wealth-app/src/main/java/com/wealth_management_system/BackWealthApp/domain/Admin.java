@@ -11,18 +11,18 @@ import jdk.jfr.DataAmount;
 public class Admin {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private long id;
 	private String email;
 	private String password;
 	
 	//Get id
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	
 	//Set id
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	

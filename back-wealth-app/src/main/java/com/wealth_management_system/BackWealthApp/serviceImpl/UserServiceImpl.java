@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.wealth_management_system.BackWealthApp.Repositry.UserRepositry;
-import com.wealth_management_system.BackWealthApp.domain.User;
+import com.wealth_management_system.BackWealthApp.repositry.UserRepositry;
+import com.wealth_management_system.BackWealthApp.domain.MyUser;
 import com.wealth_management_system.BackWealthApp.service.UserService;
 
 @Service
@@ -17,20 +17,20 @@ public class UserServiceImpl implements UserService{
 	
 	
 	@Override
-	public User createUser(User user) {
+	public MyUser createUser(MyUser user) {
 		// TODO Auto-generated method stub
 		
 		return userRepository.save(user);
 	}
 
 	@Override
-	public User getUserByUsername(String user) {
+	public MyUser getUserByUsername(String user) {
 		// TODO Auto-generated method stub
 		return userRepository.findByUsername(user);
 	}
 
 	@Override
-	public List<User> listAllUsers() {
+	public List<MyUser> listAllUsers() {
 		// TODO Auto-generated method stub
 		return userRepository.findAll();
 	}

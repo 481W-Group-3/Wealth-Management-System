@@ -2,19 +2,18 @@ package com.wealth_management_system.BackWealthApp.service;
 
 import java.util.List;
 
-import com.wealth_management_system.BackWealthApp.domain.User;
- 
+import com.wealth_management_system.BackWealthApp.domain.MyUser;
+
 public interface UserService {
 	
-	
 	//save a user
-	User createUser(User user);
+	MyUser createUser(MyUser user);
 	
 	//get a user by user name
-	User getUserByUsername(String user);
+	MyUser getUserByUsername(String user);
 	
 	//list all the users
-	List<User> listAllUsers();
+	List<MyUser> listAllUsers();
 	
 	//change password
 	void changePassword(int userId, String newPassword);

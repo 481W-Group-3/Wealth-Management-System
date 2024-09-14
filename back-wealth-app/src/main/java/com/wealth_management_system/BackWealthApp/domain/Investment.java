@@ -28,7 +28,7 @@ public class Investment {
 	private Set<Asset> asset;
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private User user;
+	private MyUser user;
 	
 	//Constructor for monthly principal
 	public Investment(String type, double principalInitial) {
@@ -37,7 +37,11 @@ public class Investment {
 		this.property = new ArrayList<Property>();
 	}
 
-	
+	public Investment() {
+
+	}
+
+
 	//Get id
 	public long getId() {
 		return id;
@@ -121,12 +125,12 @@ public class Investment {
 	
 	*/
 	//Get user
-	public User getUser() {
+	public MyUser getUser() {
 		return user;
 	}
 	
 	//Set user
-	public void setUser(User user) {
+	public void setUser(MyUser user) {
 		this.user = user;
 	}
 

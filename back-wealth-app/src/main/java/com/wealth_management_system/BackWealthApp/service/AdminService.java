@@ -3,7 +3,7 @@ package com.wealth_management_system.BackWealthApp.service;
 import java.util.List;
 
 import com.wealth_management_system.BackWealthApp.domain.Admin;
-import com.wealth_management_system.BackWealthApp.domain.User;
+import com.wealth_management_system.BackWealthApp.domain.MyUser;
 
 public interface AdminService {
 	
@@ -32,7 +32,7 @@ public interface AdminService {
 	void performSystemMaintenance();
 	
 	//list all the users
-	List<User> listAllUsers();
+	List<MyUser> listAllUsers();
 	
 	//delete a user's account
 	void deleteUserAccount(int userId);

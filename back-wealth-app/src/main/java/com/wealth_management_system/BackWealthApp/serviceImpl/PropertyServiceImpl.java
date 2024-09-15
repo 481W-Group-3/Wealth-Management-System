@@ -32,8 +32,11 @@ public class PropertyServiceImpl implements PropertyService {
 
 	@Override
 	public Property getPropertyById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		if(propertyRepository.findById(id).isPresent()) {
+			return propertyRepository.findById(id).get();
+		}else {
+			throw new RuntimeException("Property not find");
+		}
 	}
 
 	@Override

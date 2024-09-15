@@ -11,9 +11,7 @@ public class Property {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private long id;
-	
-
+	private int id;
 	private String address;
 	private String city;
 	private String state;
@@ -52,25 +50,15 @@ public class Property {
 
 
 
-//	//Get id
-//	public int getId() {
-//		return id;
-//	}
-//	
-//	//Set id
-//	public void setId(int id) {
-//		this.id = id;
-//	}
-	
 	//Get id
-		public long getId() {
-			return id;
-		}
-		
-		//Set id
-		public void setId(long id) {
-			this.id = id;
-		}
+	public int getId() {
+		return id;
+	}
+	
+	//Set id
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	//Get address
 	public String getAddress() {

@@ -12,8 +12,8 @@ public class Renter {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private long id;
-	 
+
+	private int id;
 	private String name;
 	private int age;
 	private String email;
@@ -37,25 +37,15 @@ public class Renter {
 		this.email = email;
 	}
 
-//	//Get id (can we generate this automatically?)
-//	public int getId() {
-//		return id;
-//	}
-//	
-//	//Set id (can we generate this automatically?)
-//	public void setId(int id) {
-//		this.id = id;
-//	}
-	
 	//Get id (can we generate this automatically?)
-		public long getId() {
-			return id;
-		}
-		
-		//Set id (can we generate this automatically?)
-		public void setId(long id) {
-			this.id = id;
-		}
+	public int getId() {
+		return id;
+	}
+	
+	//Set id (can we generate this automatically?)
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	//Get name
 	public String getName() {

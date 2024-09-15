@@ -13,9 +13,7 @@ public class Lease {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private long id;
-	
-	
+	private int id;
 	//private Date startDate;
 	//private Date endDate;
 	private String leaseType;
@@ -41,15 +39,15 @@ public class Lease {
 	}
 
 	
-//	//Get id
-//	public int getId() {
-//		return id;
-//	}
-//	
-//	//Set id
-//	public void setId(int id) {
-//		this.id = id;
-//	}
+	//Get id
+	public int getId() {
+		return id;
+	}
+	
+	//Set id
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	public String getLeaseType() {
         return leaseType;

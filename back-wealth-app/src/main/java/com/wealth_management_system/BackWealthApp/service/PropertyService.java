@@ -1,6 +1,6 @@
 package com.wealth_management_system.BackWealthApp.service;
 
-import java.util.List;
+import java.util.*;
 
 import com.wealth_management_system.BackWealthApp.domain.Maintenance;
 import com.wealth_management_system.BackWealthApp.domain.Property;

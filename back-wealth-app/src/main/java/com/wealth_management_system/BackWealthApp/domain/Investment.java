@@ -12,9 +12,7 @@ public class Investment {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private long id;
-	
-	
+	private int id;
 	private String type;
 	private double principalMonthly;
 	private double principalYearly;
@@ -46,16 +44,16 @@ public class Investment {
 
 	}
 
-//
-//	//Get id
-//	public int getId() {
-//		return id;
-//	}
-//	
-//	//Set id
-//	public void setId(int id) {
-//		this.id = id;
-//	}
+
+	//Get id
+	public int getId() {
+		return id;
+	}
+	
+	//Set id
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	//Get type
 	public String getType() {

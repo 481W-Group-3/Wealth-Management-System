@@ -13,7 +13,7 @@ public class Asset {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private long id;
+	private int id;
 	private String type;
 	private String descr;
 	private double origValue;
@@ -35,15 +35,15 @@ public class Asset {
 	}
 
 	
-//	//Get id
-//	public int id() {
-//		return id;
-//	}
-//	
-//	//Set id
-//	public void setId(int id) {
-//		this.id = id;
-//	}
+	//Get id
+	public int id() {
+		return id;
+	}
+	
+	//Set id
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	//Get type
 	public String getType() {
@@ -84,6 +84,17 @@ public class Asset {
 	public void setCurrentValue(double currentValue) {
 		this.currentValue = currentValue;
 	}
+	
+	//Get investment
+	public Investment getInvestment() {
+		return investment;
+	}
+	
+	//Set investment
+	public void setInvestment(Investment investment) {
+		this.investment = investment;
+	}
+	
 	/*
 	//Get current date
 	public Date getCurrentDate() {

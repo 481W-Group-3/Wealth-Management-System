@@ -14,9 +14,7 @@ public class Maintenance {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private long id;
-
-	
+	private int id;
 	private String descr;
 	private double partsCost;
 	private double laborCost;
@@ -40,15 +38,15 @@ public class Maintenance {
 	}
 
 	
-//	//Get id
-//	public int getId() {
-//		return id;
-//	}
-//	
-//	//Set id
-//	public void setId(int id) {
-//		this.id = id;
-//	}
+	//Get id
+	public int getId() {
+		return id;
+	}
+	
+	//Set id
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	//Get description
 	public String getDescr() {
@@ -84,7 +82,12 @@ public class Maintenance {
 	public double getCostTotal() {
 		return costTotal;
 	}
-
+	
+	//Set total cost
+	public void setCostTotal(double costTotal) {
+		this.costTotal = costTotal;
+	}
+	
 	public Property getProperty() {
 		return property;
 	}

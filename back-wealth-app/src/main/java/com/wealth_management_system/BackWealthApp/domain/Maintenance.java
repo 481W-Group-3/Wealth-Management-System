@@ -14,7 +14,7 @@ public class Maintenance {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private long id;
+	private int id;
 	private String descr;
 	private double partsCost;
 	private double laborCost;
@@ -38,12 +38,12 @@ public class Maintenance {
 
 	
 	//Get id
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 	
 	//Set id
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	

@@ -1,6 +1,6 @@
 package com.wealth_management_system.BackWealthApp.service;
 
-import java.util.List;
+import java.util.*;
 
 import com.wealth_management_system.BackWealthApp.domain.Maintenance;
 
@@ -10,13 +10,13 @@ public interface MaintenanceService {
 	Maintenance logMaintenance(Maintenance maintenance);
 	
 	//// get the maintenance detail by id
-	Maintenance getMaintenanceById(int id);
+	Optional<Maintenance> getMaintenanceById(int id);
 	
 	//list all the maintenance tasks
 	List<Maintenance> listAllMaintenanceTasks();
 	
 	//update the maintenance task
-	Maintenance updateMaintenance(long id, Maintenance updatedMaintenance);
+	Maintenance updateMaintenance(int id, Maintenance updatedMaintenance);
 	
 	//delete a maintenance
 	void deleteMaintenance(int id);

@@ -11,7 +11,7 @@ public interface AdminService {
 	Admin createAdmin(Admin admin);
 	
 	//get an admin info by id
-	Admin getAdminById(long id);
+	Admin getAdminById(int id);
 	
 	//get the list of all admins
 	List<Admin> listAllAdmins();
@@ -20,10 +20,10 @@ public interface AdminService {
 	Admin updateAdmin(Admin admin);
 	
 	//delete an admin from the list
-	void deleteAdmin(long id);
+	void deleteAdmin(int id);
 	
 	//reset a user's password
-	void resetUserPassword(long userId, String password);
+	void resetUserPassword(int userId, String password);
 	
 	// monitor the system's health
 	void monitorSystemHealth();
@@ -35,6 +35,6 @@ public interface AdminService {
 	List<MyUser> listAllUsers();
 	
 	//delete a user's account
-	void deleteUserAccount(long userId);
+	void deleteUserAccount(int userId);
 
 }

@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void changePassword(long userId, String newPassword) {
+	public void changePassword(int userId, String newPassword) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public void deleteUser(long id) {
+	public void deleteUser(int id) {
 		userRepository.deleteById((int)id);
 	}
 

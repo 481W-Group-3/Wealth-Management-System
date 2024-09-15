@@ -16,7 +16,7 @@ public interface UserService {
 	List<MyUser> listAllUsers();
 	
 	//change password
-	void changePassword(long userId, String newPassword);
+	void changePassword(int userId, String newPassword);
 	
 	//reset password
 	void resetPassword(String email);
@@ -25,7 +25,7 @@ public interface UserService {
 	void linkUserToProperty(int userId, int propertyId);
 	
 	//delete user
-	void deleteUser(long id);
+	void deleteUser(int id);
 	
 
 }

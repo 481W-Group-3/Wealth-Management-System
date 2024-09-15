@@ -31,7 +31,7 @@ public class AdminServiceImpl implements AdminService{
 		
 	//get an admin info by id
 	@Override
-	public Admin getAdminById(long id) {
+	public Admin getAdminById(int id) {
 		Optional<Admin> adminRep = adminRepository.findById((int)id);
 		if(adminRep.isPresent()) {
 			Admin admin = adminRep.get();
@@ -63,13 +63,13 @@ public class AdminServiceImpl implements AdminService{
 		
 	//delete an admin from the list
 	@Override
-	public void deleteAdmin(long id) {
+	public void deleteAdmin(int id) {
 		adminRepository.deleteById((int)id);
 	}
 		
 	//reset a user's password
 	@Override
-	public void resetUserPassword(long userId, String password) {
+	public void resetUserPassword(int userId, String password) {
 		userService.changePassword(userId, password);
 	}
 		
@@ -93,7 +93,7 @@ public class AdminServiceImpl implements AdminService{
 		
 	//delete a user's account
 	@Override
-	public void deleteUserAccount(long userId) {
+	public void deleteUserAccount(int userId) {
 		userService.deleteUser(userId);
 	}
 }

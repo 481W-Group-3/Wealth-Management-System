@@ -15,8 +15,9 @@ import com.wealth_management_system.BackWealthApp.service.MaintenanceService;
  */
 
 @Service
-public class MaintenanceServiceImpl {
+public class MaintenanceServiceImpl implements MaintenanceService {
 	private final MaintenanceRepository maintenanceRepository;
+	private PropertyServiceImpl propertyService;
 	
 	@Autowired
 	public MaintenanceServiceImpl(MaintenanceRepository maintenanceRepository) {
@@ -24,22 +25,26 @@ public class MaintenanceServiceImpl {
 	}
 	
 	//Log the maintenance
+	@Override
 	public Maintenance logMaintenance(Maintenance maintenance) {
 		return maintenanceRepository.save(maintenance);
 	}
 		
 	// get the maintenance detail by id
-	public Optional<Maintenance> getMaintenanceById(long id) {
+	@Override
+	public Optional<Maintenance> getMaintenanceById(int id) {
 		return maintenanceRepository.findById((int)id);
 	}
 		
 	//list all the maintenance tasks
+	@Override
 	public List<Maintenance> listAllMaintenanceTasks(){
 		return maintenanceRepository.findAll();
 	}
 		
 	//update the maintenance task
-	public Maintenance updateMaintenance(long id, Maintenance updatedMaintenance) {
+	@Override
+	public Maintenance updateMaintenance(int id, Maintenance updatedMaintenance) {
 		Optional<Maintenance> existingMaintenance = maintenanceRepository.findById((int)id);
 		if(existingMaintenance.isPresent()) {
 			Maintenance maintenance = existingMaintenance.get();
@@ -55,21 +60,22 @@ public class MaintenanceServiceImpl {
 	}
 		
 	//delete a maintenance
-	public void deleteMaintenance(long id) {
+	@Override
+	public void deleteMaintenance(int id) {
 		maintenanceRepository.deleteById((int)id);
 	}
 		
 	//link a maintenance to a property
-	public void linkMaintenanceToProperty(long maintenanceId, long propertyId) {
-		
+	@Override
+	public void linkMaintenanceToProperty(int maintenanceId, int propertyId) {
+		Optional<Maintenance> maintenanceRep = maintenanceRepository.findById((int)maintenanceId);
+		Optional<Property> propertyRep = propertyService.findById(propertyId);
 	}
 		
 	//list all the maintenances done on a property
-	/*
+	@Override
 	public List<Maintenance> getMaintenanceByProperty(int propertyId){
-		
-		return List<Maintenance> maintenance;
+		return propertyService.getMaintenanceByProperty(propertyId);
 	}
-	*/
 
 }

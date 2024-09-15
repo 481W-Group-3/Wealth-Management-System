@@ -16,13 +16,16 @@ public interface UserService {
 	List<MyUser> listAllUsers();
 	
 	//change password
-	void changePassword(int userId, String newPassword);
+	void changePassword(long userId, String newPassword);
 	
 	//reset password
 	void resetPassword(String email);
 	
 	//Link the user to property using id
 	void linkUserToProperty(int userId, int propertyId);
+	
+	//delete user
+	void deleteUser(long id);
 	
 
 }

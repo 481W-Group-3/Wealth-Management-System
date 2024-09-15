@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void changePassword(int userId, String newPassword) {
+	public void changePassword(long userId, String newPassword) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -51,6 +51,11 @@ public class UserServiceImpl implements UserService{
 	public void linkUserToProperty(int userId, int propertyId) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public void deleteUser(long id) {
+		userRepository.deleteById((int)id);
 	}
 
 	

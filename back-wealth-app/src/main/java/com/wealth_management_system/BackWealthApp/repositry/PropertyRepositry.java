@@ -1,4 +1,4 @@
-package com.wealth_management_system.BackWealthApp.Repositry;
+package com.wealth_management_system.BackWealthApp.repositry;
 
 import java.util.List;
 

@@ -13,17 +13,22 @@ public class Investment {
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
+	
+	
 	private String type;
 	private double principalMonthly;
 	private double principalYearly;
 	private double principalInitial;
 	private double currentValue;
+	
 
 	//private Date currentDate;
 	//private Date previousEditDate;
 	
 	@OneToMany(mappedBy = "investment")
 	private ArrayList<Property> property;
+	
+	
 	@OneToMany(mappedBy = "investment")
 	private Set<Asset> asset;
 	@ManyToOne
@@ -41,16 +46,16 @@ public class Investment {
 
 	}
 
-
-	//Get id
-	public long getId() {
-		return id;
-	}
-	
-	//Set id
-	public void setId(long id) {
-		this.id = id;
-	}
+//
+//	//Get id
+//	public int getId() {
+//		return id;
+//	}
+//	
+//	//Set id
+//	public void setId(int id) {
+//		this.id = id;
+//	}
 	
 	//Get type
 	public String getType() {

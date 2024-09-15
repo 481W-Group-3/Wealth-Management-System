@@ -15,6 +15,8 @@ public class Maintenance {
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
+
+	
 	private String descr;
 	private double partsCost;
 	private double laborCost;
@@ -23,11 +25,12 @@ public class Maintenance {
 	//private Date dateStarted;
 	//private Date dateComplete;
 	
+	
 	@Transient
 	 @ManyToOne
 	 @JoinColumn(name = "property_id") // Foreign key column
 	 private Property property;
-	
+//	
 	//Constructor
 	public Maintenance(String descr/*, Date dateStarted*/ ,Property property) {
 		this.descr = descr;
@@ -37,15 +40,15 @@ public class Maintenance {
 	}
 
 	
-	//Get id
-	public long getId() {
-		return id;
-	}
-	
-	//Set id
-	public void setId(long id) {
-		this.id = id;
-	}
+//	//Get id
+//	public int getId() {
+//		return id;
+//	}
+//	
+//	//Set id
+//	public void setId(int id) {
+//		this.id = id;
+//	}
 	
 	//Get description
 	public String getDescr() {

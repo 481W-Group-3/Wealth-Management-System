@@ -20,9 +20,12 @@ public class Asset {
 	private double currentValue;
 	//private Date currentDate;
 	//private Investment investment;
+	
 	@ManyToOne
     @JoinColumn(name = "investment_id") // Foreign key column
     private Investment investment;
+	
+	
 	
 	//Constructor
 	public Asset(String type, String descr, double origValue) {
@@ -32,15 +35,15 @@ public class Asset {
 	}
 
 	
-	//Get id
-	public long id() {
-		return id;
-	}
-	
-	//Set id
-	public void setId(long id) {
-		this.id = id;
-	}
+//	//Get id
+//	public int id() {
+//		return id;
+//	}
+//	
+//	//Set id
+//	public void setId(int id) {
+//		this.id = id;
+//	}
 	
 	//Get type
 	public String getType() {

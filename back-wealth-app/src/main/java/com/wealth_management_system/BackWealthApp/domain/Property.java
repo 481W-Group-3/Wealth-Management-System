@@ -12,6 +12,8 @@ public class Property {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
+	
+
 	private String address;
 	private String city;
 	private String state;
@@ -20,6 +22,8 @@ public class Property {
 	private double insuranceMonthly;
 	private double mortgageMonthly;
 	private String type;
+	
+	
 
 	@OneToMany(mappedBy = "property")
 	private Set<Renter> renter;
@@ -48,15 +52,25 @@ public class Property {
 
 
 
-	//Get id
-	public long getId() {
-		return id;
-	}
+//	//Get id
+//	public int getId() {
+//		return id;
+//	}
+//	
+//	//Set id
+//	public void setId(int id) {
+//		this.id = id;
+//	}
 	
-	//Set id
-	public void setId(long id) {
-		this.id = id;
-	}
+	//Get id
+		public long getId() {
+			return id;
+		}
+		
+		//Set id
+		public void setId(long id) {
+			this.id = id;
+		}
 	
 	//Get address
 	public String getAddress() {
@@ -160,7 +174,7 @@ public class Property {
 	public void setLease(Lease lease) {
 		this.lease = lease;
 	}
-	*/
+	
 	
 	public Set<Lease> getLeases() {
 		return leases;

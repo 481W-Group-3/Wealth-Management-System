@@ -12,14 +12,16 @@ public class Renter {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-
 	private long id;
+	 
 	private String name;
 	private int age;
 	private String email;
 	private int creditScore;
 
-	private Random random;
+	//private Random random;
+	
+	  
 	@ManyToOne
     @JoinColumn(name = "property_id")
     private Property property;
@@ -30,20 +32,30 @@ public class Renter {
 
 	//Constructor
 	public Renter(String name, String email) {
-		this.id = random.nextInt(100000)+700000;
+		
 		this.name = name;
 		this.email = email;
 	}
 
-	//Get id (can we generate this automatically?)
-	public long getId() {
-		return id;
-	}
+//	//Get id (can we generate this automatically?)
+//	public int getId() {
+//		return id;
+//	}
+//	
+//	//Set id (can we generate this automatically?)
+//	public void setId(int id) {
+//		this.id = id;
+//	}
 	
-	//Set id (can we generate this automatically?)
-	public void setId(long id) {
-		this.id = id;
-	}
+	//Get id (can we generate this automatically?)
+		public long getId() {
+			return id;
+		}
+		
+		//Set id (can we generate this automatically?)
+		public void setId(long id) {
+			this.id = id;
+		}
 	
 	//Get name
 	public String getName() {

@@ -16,15 +16,15 @@ public class Admin {
 	private String email;
 	private String password;
 	
-	//Get id
-	public long getId() {
-		return id;
-	}
-	
-	//Set id
-	public void setId(long id) {
-		this.id = id;
-	}
+//	//Get id
+//	public int getId() {
+//		return id;
+//	}
+//	
+//	//Set id
+//	public void setId(int id) {
+//		this.id = id;
+//	}
 	
 	//Get email
 	public String getEmail() {
@@ -45,5 +45,6 @@ public class Admin {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 
 }

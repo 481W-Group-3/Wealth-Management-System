@@ -81,6 +81,17 @@ public class Asset {
 	public void setCurrentValue(double currentValue) {
 		this.currentValue = currentValue;
 	}
+	
+	//Get investment
+	public Investment getInvestment() {
+		return investment;
+	}
+	
+	//Set investment
+	public void setInvestment(Investment investment) {
+		this.investment = investment;
+	}
+	
 	/*
 	//Get current date
 	public Date getCurrentDate() {

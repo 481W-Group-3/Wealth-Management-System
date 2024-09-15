@@ -81,7 +81,12 @@ public class Maintenance {
 	public double getCostTotal() {
 		return costTotal;
 	}
-
+	
+	//Set total cost
+	public void setCostTotal(double costTotal) {
+		this.costTotal = costTotal;
+	}
+	
 	public Property getProperty() {
 		return property;
 	}

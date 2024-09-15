@@ -16,7 +16,7 @@ public interface MaintenanceService {
 	List<Maintenance> listAllMaintenanceTasks();
 	
 	//update the maintenance task
-	Maintenance updateMaintenance(Maintenance maintenance);
+	Maintenance updateMaintenance(long id, Maintenance updatedMaintenance);
 	
 	//delete a maintenance
 	void deleteMaintenance(int id);

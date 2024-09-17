@@ -33,14 +33,9 @@ public class AssetServiceImpl implements AssetService {
 
 	//Find an asset by id
 	@Override
-	public Asset getAssetById(int id) {
+	public Optional<Asset> getAssetById(int id) {
 		Optional<Asset> assetRep = assetRepository.findById(id);
-		if(assetRep.isPresent()) {
-			Asset asset = assetRep.get();
-			return asset;
-		}else {
-			throw new RuntimeException("Asset not found");
-		}
+		return assetRep;
 	}
 	
 	//List all the assets

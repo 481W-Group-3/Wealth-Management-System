@@ -1,6 +1,7 @@
 package com.wealth_management_system.BackWealthApp.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.wealth_management_system.BackWealthApp.domain.Asset;
 
@@ -10,7 +11,7 @@ public interface AssetService {
 	Asset addAsset(Asset asset);
 	
 	//get an asset info by id
-	Asset getAssetById(int id);
+	Optional<Asset> getAssetById(int id);
 	
 	//list all the assets 
 	List<Asset> listAllAssets();

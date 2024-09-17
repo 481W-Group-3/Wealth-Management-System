@@ -15,10 +15,21 @@ public class AuthenticationController {
     private UserRepositry userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
+/*
     @PostMapping("/register/user")
     public MyUser createUser(@RequestBody MyUser user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
+ */   
+    
+    @PostMapping("/register/user")
+    public MyUser createUser(@RequestBody MyUser user) {
+    
+    
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
+    }
+    
+    
 }

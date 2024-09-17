@@ -65,5 +65,25 @@ public class MyUser implements UserDetails {
     public void setRole(String role) {
         this.role = role;
     }
+    
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;  // For now, returning true (can customize logic)
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;  // Can be customized based on user status
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;  // Same as above
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;  // You can use this to enable/disable users
+    }
 }
 

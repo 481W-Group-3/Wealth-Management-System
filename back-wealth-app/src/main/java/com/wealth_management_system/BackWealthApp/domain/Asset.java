@@ -12,8 +12,8 @@ import java.io.*;
 public class Asset {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	private String type;
 	private String descr;
 	private double origValue;
@@ -33,12 +33,12 @@ public class Asset {
 
 	
 	//Get id
-	public long id() {
+	public int id() {
 		return id;
 	}
 	
 	//Set id
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	

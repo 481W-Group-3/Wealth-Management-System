@@ -10,8 +10,8 @@ import java.util.*;
 public class Property {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	private String address;
 	private String city;
 	private String state;
@@ -49,12 +49,12 @@ public class Property {
 
 
 	//Get id
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 	
 	//Set id
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	

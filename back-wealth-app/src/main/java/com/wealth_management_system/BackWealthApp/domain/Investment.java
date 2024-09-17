@@ -11,8 +11,8 @@ import java.util.*;
 public class Investment {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	private String type;
 	private double principalMonthly;
 	private double principalYearly;
@@ -43,12 +43,12 @@ public class Investment {
 
 
 	//Get id
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 	
 	//Set id
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	

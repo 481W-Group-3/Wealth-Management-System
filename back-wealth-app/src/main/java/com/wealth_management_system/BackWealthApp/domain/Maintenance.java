@@ -13,8 +13,8 @@ import org.springframework.data.annotation.Transient;
 public class Maintenance {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	private String descr;
 	private double partsCost;
 	private double laborCost;
@@ -38,12 +38,12 @@ public class Maintenance {
 
 	
 	//Get id
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 	
 	//Set id
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	

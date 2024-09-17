@@ -54,4 +54,6 @@ public class AssetController {
 		assetService.deleteAsset(id);
 		return ResponseEntity.ok("Asset deleted successfully");
 	}
+	
+	
 }

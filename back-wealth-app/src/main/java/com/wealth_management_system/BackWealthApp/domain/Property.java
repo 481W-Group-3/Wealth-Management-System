@@ -10,7 +10,7 @@ import java.util.*;
 public class Property {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
 	private String address;
 	private String city;

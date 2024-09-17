@@ -12,7 +12,7 @@ import java.io.*;
 public class Lease {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
 	//private Date startDate;
 	//private Date endDate;

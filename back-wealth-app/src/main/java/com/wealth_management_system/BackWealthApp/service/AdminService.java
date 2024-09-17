@@ -23,7 +23,7 @@ public interface AdminService {
 	void deleteAdmin(int id);
 	
 	//reset a user's password
-	void resetUserPassword(int userId);
+	void resetUserPassword(int userId, String password);
 	
 	// monitor the system's health
 	void monitorSystemHealth();

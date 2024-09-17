@@ -24,5 +24,8 @@ public interface UserService {
 	//Link the user to property using id
 	void linkUserToProperty(int userId, int propertyId);
 	
+	//delete user
+	void deleteUser(int id);
+	
 
 }

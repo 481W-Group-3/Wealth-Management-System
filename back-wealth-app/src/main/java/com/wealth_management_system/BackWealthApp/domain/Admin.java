@@ -11,7 +11,7 @@ import jdk.jfr.DataAmount;
 public class Admin {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
 	private String email;
 	private String password;

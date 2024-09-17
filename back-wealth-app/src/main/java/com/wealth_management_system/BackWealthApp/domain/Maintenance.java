@@ -13,7 +13,7 @@ import org.springframework.data.annotation.Transient;
 public class Maintenance {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
 	private String descr;
 	private double partsCost;
@@ -81,7 +81,12 @@ public class Maintenance {
 	public double getCostTotal() {
 		return costTotal;
 	}
-
+	
+	//Set total cost
+	public void setCostTotal(double costTotal) {
+		this.costTotal = costTotal;
+	}
+	
 	public Property getProperty() {
 		return property;
 	}

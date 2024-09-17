@@ -12,7 +12,7 @@ import java.io.*;
 public class Asset {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
 	private String type;
 	private String descr;
@@ -81,6 +81,17 @@ public class Asset {
 	public void setCurrentValue(double currentValue) {
 		this.currentValue = currentValue;
 	}
+	
+	//Get investment
+	public Investment getInvestment() {
+		return investment;
+	}
+	
+	//Set investment
+	public void setInvestment(Investment investment) {
+		this.investment = investment;
+	}
+	
 	/*
 	//Get current date
 	public Date getCurrentDate() {

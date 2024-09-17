@@ -34,7 +34,6 @@ const HomePage = () => {
       </div>
       <style jsx>{`
         .home-container {
-          backgroundImage:C:\Users\Shaun\Documents\GitHub\Wealth-Management-System\front-wealth-app\src\teacup.jpg;
           min-height: calc(100vh - 60px);
           display: flex;
           justify-content: center;

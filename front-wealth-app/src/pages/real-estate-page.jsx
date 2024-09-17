@@ -345,8 +345,7 @@ const RealEstatePage = () => {
           padding: 20px;
           max-width: 1200px;
           margin: 0 auto;
-          backgroundImage:C:\Users\Shaun\Documents\GitHub\Wealth-Management-System\front-wealth-app\src\teapot.jpg;
-
+        
         }
         h1, h2, h3, h4 {
           color: #333;
@@ -359,7 +358,7 @@ const RealEstatePage = () => {
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
           overflow: hidden;
             /* Add this line to reduce saturation */
-          background-color: rgba(255, 255, 255, 0.5); /* Adjust the last value (0.5) to control the level of desaturation */
+          background-color: rgba(255, 255, 255, 1); /* Adjust the last value (0.5) to control the level of desaturation */
           background-blend-mode: saturation;
         }
         .two-column-layout {

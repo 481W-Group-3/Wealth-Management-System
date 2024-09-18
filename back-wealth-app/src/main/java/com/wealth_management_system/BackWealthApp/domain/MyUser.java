@@ -19,6 +19,7 @@ public class MyUser implements UserDetails {
     private String username;
     private String password;
     private String role;
+    private String email;
 
     public MyUser(){
     }
@@ -85,5 +86,13 @@ public class MyUser implements UserDetails {
     public boolean isEnabled() {
         return true;  // You can use this to enable/disable users
     }
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 }
 

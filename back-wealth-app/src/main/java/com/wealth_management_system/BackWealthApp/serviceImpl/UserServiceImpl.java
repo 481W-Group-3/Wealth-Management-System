@@ -28,6 +28,13 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		return userRepository.findByUsername(user);
 	}
+	
+	public void updateUser(MyUser user) {
+	    // Check if user exists before updating
+	    if (userRepository.existsById(user.getId())) 
+	        userRepository.save(user);
+	    
+	}
 
 	@Override
 	public List<MyUser> listAllUsers() {

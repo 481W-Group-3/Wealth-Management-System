@@ -12,6 +12,9 @@ public interface UserService {
 	//get a user by user name
 	MyUser getUserByUsername(String user);
 	
+	//update a user
+	void updateUser(MyUser user);
+	
 	//list all the users
 	List<MyUser> listAllUsers();
 	

@@ -19,11 +19,10 @@
 
 .header-divider {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     padding: 10px 20px;
     height: 150px;
-    align-items: left;
 }
 
 .header-logo {
@@ -66,24 +65,14 @@
     color: inherit;
 }
 
-@media (max-width: 768px) {
-    .header-divider {
-        flex-direction: column;
-        height: auto;
-        padding: 20px;
-    }
+span {
+    font-weight:550;
+    color: black;
+    font-size: larger;
+}
 
-    .header-logo, .header-title, .header-links {
-        width: 100%;
-        text-align: center;
-        margin: 10px 0;
-    }
-
-    .header-links {
-        justify-content: center;
-    }
-
-    .header-background {
-        height: 100%;
+@media (max-width: 700px) {
+    .header-spacing {
+        margin-right: 12%;
     }
 }

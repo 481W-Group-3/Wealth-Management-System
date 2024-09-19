@@ -1,0 +1,42 @@
+form {
+    background-color: #E2EEF3;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding-top: 20px;
+    text-align: center;
+    margin: auto;
+    width: 300px;
+    height: 275px;
+    border: 1px solid #284B63;
+    border-radius: 5px;
+    line-height: 2;
+    font-size: 16px;
+}
+
+button {
+    background-color: #6F8FA0;
+    color: #E2EEF3;
+    border: 3px solid #284B63;
+    font-size: 18px;
+    width: 210px;
+    border-radius: 5px;
+    transition-duration: 0.4s;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+button:hover {
+    background-color: #284B63;
+}
+
+input {
+    border-radius: 5px;
+    width: 200px;
+    height: 20px;
+}
+
+.mylabels {
+    color: black;
+    text-align: left;
+    margin-left: 50px;
+}

@@ -23,6 +23,7 @@
     padding: 10px 20px;
     height: 150px;
     justify-content: space-around;
+
 }
 
 .header-logo {
@@ -65,6 +66,7 @@
 }
 
 span {
+
     font-weight: 550;
     color: black;
     font-size: larger;
@@ -74,5 +76,6 @@ span {
     .header-spacing {
         margin-right: 12%;
     }
+
 
 }

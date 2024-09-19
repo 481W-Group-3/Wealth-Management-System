@@ -81,7 +81,7 @@ const UserCreate = () => {
                 <label htmlFor="password">Password:</label>
             </div>
             <input 
-            type="text"
+            type="password"
             /*id="password"
             name="password"
             value={password}*/
@@ -93,7 +93,7 @@ const UserCreate = () => {
                 <label htmlFor="repeatpassword">Re-enter Password</label>
             </div>
             <input 
-                type="text"
+                type="password"
                 /*id="repeatpassword"
                 name="repeatpassword"
                 value={repeatPassword}*/

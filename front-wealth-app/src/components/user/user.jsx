@@ -78,7 +78,7 @@ const User = () => {
             <a href="#">
                 <div className="mylabels">Forgot password?</div>
             </a>
-            <a href="#">
+            <a href="/account-creation">
                 <div className="mylabels">Create an account</div>
             </a>
         </form>

@@ -6,13 +6,28 @@ const User = () => {
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const user = "USER";
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        
+        const userData = {
+            "username": email, 
+            "password": password,
+            "role": user};
+        
+        fetch('http://localhost:8080/register/user', {
+            method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(userData)
+        }).then(() => {
+            console.log("posted data")
+        })
+        
         // send data to server here
         console.log('Email:', email);
         console.log('Password:', password);
-        console.log('Remember me:', rememberMe);
+        console.log(userData);
     };
 
     const handleShowPassword = () => {

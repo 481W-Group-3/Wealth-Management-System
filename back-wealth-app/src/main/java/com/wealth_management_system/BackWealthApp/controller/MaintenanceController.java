@@ -3,6 +3,7 @@ package com.wealth_management_system.BackWealthApp.controller;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,7 +19,7 @@ import com.wealth_management_system.BackWealthApp.serviceImpl.MaintenanceService
 
 @Controller
 @RequestMapping("/maintenance")
-public class MaintenanceController {
+public class MaintenanceController extends WebMvcAutoConfiguration {
 	private final MaintenanceServiceImpl maintenanceService;
 	
 	@Autowired
@@ -26,7 +27,7 @@ public class MaintenanceController {
 		this.maintenanceService = maintenanceService;
 	}
 	
-	@PostMapping("/maintenance")
+	@PostMapping("/maintenance/log")
 	public ResponseEntity<Maintenance> logMaintenance(@RequestBody Maintenance maintenance) {
 		Maintenance newMaintenance = maintenanceService.logMaintenance(maintenance);
 		return ResponseEntity.ok(newMaintenance);
@@ -38,24 +39,24 @@ public class MaintenanceController {
 		return maintenance.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 	}
 	
-	@GetMapping("/maintenance")
+	@GetMapping("/maintenance/list")
 	public List<Maintenance> listAllMaintenanceTasks(){
 		return maintenanceService.listAllMaintenanceTasks();
 	}
 	
-	@PutMapping("/maintenance/{id}")
+	@PutMapping("/maintenance/update/{id}")
 	public ResponseEntity<Maintenance> updateMaintenance(@PathVariable int id, @RequestBody Maintenance maintenance){
 		Maintenance updatedMaintenance = maintenanceService.updateMaintenance(id, maintenance);
 		return ResponseEntity.ok(updatedMaintenance);
 	}
 	
-	@DeleteMapping("/maintenance/{id}")
+	@DeleteMapping("/maintenance/delete/{id}")
 	public ResponseEntity<String> deleteMaintenance(@PathVariable int id){
 		maintenanceService.deleteMaintenance(id);
 		return ResponseEntity.ok("Maintenance task deleted successfully");
 	}
 	
-	@GetMapping("/maintenance")
+	@GetMapping("/maintenance/propertylist")
 	public List<Maintenance> listMaintenanceByProperty(@PathVariable int id){
 		return maintenanceService.getMaintenanceByProperty(id);
 	}

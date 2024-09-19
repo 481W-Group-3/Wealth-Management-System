@@ -31,14 +31,9 @@ public class AdminServiceImpl implements AdminService{
 		
 	//get an admin info by id
 	@Override
-	public Admin getAdminById(int id) {
+	public Optional<Admin> getAdminById(int id) {
 		Optional<Admin> adminRep = adminRepository.findById((int)id);
-		if(adminRep.isPresent()) {
-			Admin admin = adminRep.get();
-			return admin;
-		} else {
-			throw new RuntimeException("Admin not found");
-		}
+		return adminRep;
 	}
 		
 	//get the list of all admins

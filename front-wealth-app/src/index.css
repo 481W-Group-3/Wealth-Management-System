@@ -3,13 +3,25 @@
   line-height: 1.5;
   font-weight: 400;
   color: black;
-  background-image: url(background.jpg);
+  background-image: url(teacups.jpg);
   background-size: cover;
   background-attachment: fixed;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-image: url('/wallhaven-zxollj.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  
+  /* Add this line to reduce saturation */
+  /* background-color: rgba(255, 255, 255, 0.5); Adjust the last value (0.5) to control the level of desaturation */
+  /* background-blend-mode: saturation; */
 }
 
 html, body {

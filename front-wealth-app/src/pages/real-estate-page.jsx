@@ -48,7 +48,7 @@ const RealEstatePage = () => {
 
   const toggleLeaseView = (propertyId) => {
     setViewingLeaseForProperty(prevId => prevId === propertyId ? null : propertyId);
-    setEditingLease(null); // Reset editing state when toggling view
+    setEditingLease(null);
   };
 
   const startEditingLease = (propertyId, lease) => {
@@ -66,12 +66,10 @@ const RealEstatePage = () => {
       if (property.id === propertyId) {
         let updatedLeases;
         if (editingLease) {
-          // Update existing lease
           updatedLeases = property.leases.map(lease => 
             lease.id === editingLease.id ? { ...newLease, id: lease.id } : lease
           );
         } else {
-          // Add new lease
           const newLeaseWithId = { ...newLease, id: property.leases.length + 1, isActive: true };
           updatedLeases = [...property.leases, newLeaseWithId];
         }
@@ -109,9 +107,9 @@ const RealEstatePage = () => {
     const daysUntilExpiration = Math.ceil((expirationDate - today) / (1000 * 60 * 60 * 24));
 
     if (daysUntilExpiration <= 30) {
-      return 'rgba(255, 0, 0, 0.2)'; // Light red
+      return 'rgba(255, 0, 0, 0.2)';
     } else if (daysUntilExpiration <= 60) {
-      return 'rgba(255, 165, 0, 0.2)'; // Light orange
+      return 'rgba(255, 165, 0, 0.2)';
     }
     return '';
   };
@@ -184,61 +182,65 @@ const RealEstatePage = () => {
                       </tr>
                       {viewingLeaseForProperty === property.id && (
                         <tr>
-                          <td colSpan="5">
-                          <h3 className="lease-header-highlight">Leases for {property.address}</h3>
-                            {property.leases.map(lease => (
-                              <div key={lease.id} className="lease-info">
-                                {editingLease && editingLease.id === lease.id ? (
-                                  <form onSubmit={(e) => { e.preventDefault(); addOrUpdateLease(property.id); }}>
-                                    <input
-                                      type="text"
-                                      placeholder="Tenant Name"
-                                      value={newLease.tenantName}
-                                      onChange={(e) => setNewLease({...newLease, tenantName: e.target.value})}
-                                    />
-                                    <input
-                                      type="date"
-                                      placeholder="Start Date"
-                                      value={newLease.startDate}
-                                      onChange={(e) => setNewLease({...newLease, startDate: e.target.value})}
-                                    />
-                                    <input
-                                      type="date"
-                                      placeholder="End Date"
-                                      value={newLease.endDate}
-                                      onChange={(e) => setNewLease({...newLease, endDate: e.target.value})}
-                                    />
-                                    <input
-                                      type="number"
-                                      placeholder="Rent Collection Day"
-                                      value={newLease.rentCollectionDay}
-                                      onChange={(e) => setNewLease({...newLease, rentCollectionDay: e.target.value})}
-                                    />
-                                    <button type="submit">Update Lease</button>
-                                    <button type="button" onClick={cancelEditingLease}>Cancel</button>
-                                  </form>
-                                ) : (
-                                  <>
-                                    <p>Tenant: {lease.tenantName}</p>
-                                    <p>Start Date: {lease.startDate}</p>
-                                    <p>End Date: {lease.endDate}</p>
-                                    <p>Rent Collection Day: {lease.rentCollectionDay}</p>
-                                    <div className="button-group">
-                                    <button onClick={() => startEditingLease(property.id, lease)} className="edit-btn">
-                                      Edit Lease
-                                    </button>
-                                    <button onClick={() => deleteLease(property.id, lease.id)} className="delete-btn">
-                                      Delete Lease
-                                    </button>
-                                  </div>
-                                </>
-                                )}
-                              </div>
-                            ))}
+                          <td colSpan="5" className="lease-details-cell">
+                            <h3 className="lease-header-highlight">Leases for {property.address}</h3>
+                            <div className="lease-list">
+                              {property.leases.map(lease => (
+                                <div key={lease.id} className="lease-info">
+                                  {editingLease && editingLease.id === lease.id ? (
+                                    <form onSubmit={(e) => { e.preventDefault(); addOrUpdateLease(property.id); }} className="edit-lease-form">
+                                      <input
+                                        type="text"
+                                        placeholder="Tenant Name"
+                                        value={newLease.tenantName}
+                                        onChange={(e) => setNewLease({...newLease, tenantName: e.target.value})}
+                                      />
+                                      <input
+                                        type="date"
+                                        placeholder="Start Date"
+                                        value={newLease.startDate}
+                                        onChange={(e) => setNewLease({...newLease, startDate: e.target.value})}
+                                      />
+                                      <input
+                                        type="date"
+                                        placeholder="End Date"
+                                        value={newLease.endDate}
+                                        onChange={(e) => setNewLease({...newLease, endDate: e.target.value})}
+                                      />
+                                      <input
+                                        type="number"
+                                        placeholder="Rent Collection Day"
+                                        value={newLease.rentCollectionDay}
+                                        onChange={(e) => setNewLease({...newLease, rentCollectionDay: e.target.value})}
+                                      />
+                                      <div className="form-buttons">
+                                        <button type="submit">Update Lease</button>
+                                        <button type="button" onClick={cancelEditingLease}>Cancel</button>
+                                      </div>
+                                    </form>
+                                  ) : (
+                                    <>
+                                      <p>Tenant: {lease.tenantName}</p>
+                                      <p>Start Date: {lease.startDate}</p>
+                                      <p>End Date: {lease.endDate}</p>
+                                      <p>Rent Collection Day: {lease.rentCollectionDay}</p>
+                                      <div className="button-group">
+                                        <button onClick={() => startEditingLease(property.id, lease)} className="edit-btn">
+                                          Edit Lease
+                                        </button>
+                                        <button onClick={() => deleteLease(property.id, lease.id)} className="delete-btn">
+                                          Delete Lease
+                                        </button>
+                                      </div>
+                                    </>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
                             {!editingLease && (
-                              <>
+                              <div className="add-new-lease">
                                 <h4>Add New Lease</h4>
-                                <form onSubmit={(e) => { e.preventDefault(); addOrUpdateLease(property.id); }}>
+                                <form onSubmit={(e) => { e.preventDefault(); addOrUpdateLease(property.id); }} className="add-lease-form">
                                   <input
                                     type="text"
                                     placeholder="Tenant Name"
@@ -265,7 +267,7 @@ const RealEstatePage = () => {
                                   />
                                   <button type="submit">Add Lease</button>
                                 </form>
-                              </>
+                              </div>
                             )}
                           </td>
                         </tr>
@@ -343,7 +345,7 @@ const RealEstatePage = () => {
           padding: 20px;
           max-width: 1200px;
           margin: 0 auto;
-          background: #d6d6d6;
+        
         }
         h1, h2, h3, h4 {
           color: #333;
@@ -351,11 +353,13 @@ const RealEstatePage = () => {
           text-align: center;
         }
         .content {
-          background-color: white;
           padding: 30px;
           border-radius: 8px;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
           overflow: hidden;
+            /* Add this line to reduce saturation */
+          background-color: rgba(255, 255, 255, 1); /* Adjust the last value (0.5) to control the level of desaturation */
+          background-blend-mode: saturation;
         }
         .two-column-layout {
           display: flex;
@@ -370,6 +374,10 @@ const RealEstatePage = () => {
           flex-direction: column;
           gap: 15px;
           align-items: center;
+            /* Add this line to reduce saturation */
+          background-color: rgba(255, 255, 255, 0.3); /* Adjust the last value (0.5) to control the level of desaturation */
+          background-blend-mode: saturation;
+          outline: none;
         }
         input, button {
           padding: 10px;
@@ -386,7 +394,7 @@ const RealEstatePage = () => {
           width: auto;
         }
         button {
-          background-color: #007bff;
+          background-color: #2b5887;
           color: white;
           border: none;
           cursor: pointer;
@@ -440,6 +448,9 @@ const RealEstatePage = () => {
           padding: 10px;
           border-radius: 4px;
           text-align: right;
+            /* Add this line to reduce saturation */
+          background-color: rgba(255, 255, 255, 0.3); /* Adjust the last value (0.5) to control the level of desaturation */
+          background-blend-mode: saturation;
         }
         .button-container {
           display: flex;
@@ -447,7 +458,7 @@ const RealEstatePage = () => {
           margin-top: 20px;
         }
         .tax-btn {
-          background-color: #28a745;
+          background-color: #3e784b;
           color: white;
           border: none;
           padding: 10px 20px;
@@ -464,6 +475,9 @@ const RealEstatePage = () => {
           padding: 10px;
           margin-bottom: 10px;
           border-radius: 4px;
+            /* Add this line to reduce saturation */
+          background-color: rgba(255, 255, 255, 0.3); /* Adjust the last value (0.5) to control the level of desaturation */
+          background-blend-mode: saturation;
         }
         @media (max-width: 768px) {
           .two-column-layout {
@@ -474,12 +488,23 @@ const RealEstatePage = () => {
           }
         }
         .lease-header-highlight {
-          background-color: #8effc1;
+          background-color: #83b57f;
+          color: white;
+          font-weight: normal;
           padding: 10px;
           border-radius: 5px;
           display: inline-block;
           margin-bottom: 15px;
           box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1{
+          font-family: 'Quicksand', sans-serif; 
+          font-weight: 100;
+        }
+
+        h2{
+          font-family: 'Quicksand', sans-serif; 
+          font-weight: 100; /* Bold weight */
         }
       `}</style>
     </div>

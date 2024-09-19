@@ -51,8 +51,8 @@ const HomePage = () => {
         .dashboard-title {
           margin-bottom: 30px;
           color: #333;
-          font-family: 'Roboto', sans-serif; /* Use Roboto for titles */
-          font-weight: 100;
+          font-family: 'Quicksand', sans-serif; 
+          font-weight: 300;
         }
         .card-grid {
           display: grid;
@@ -88,14 +88,14 @@ const HomePage = () => {
         h3 {
           margin: 0;
           color: #444;
-          font-family: 'Roboto', sans-serif; /* Use Roboto for card titles */
-          font-weight: 700; /* Bold weight */
+          font-family: 'Quicksand', sans-serif; 
+          font-weight: 600; /* Bold weight */
         }
         p {
           margin: 0;
           color: #000;
           font-size: 0.9em;
-          font-family: 'Roboto', sans-serif; /* Use Roboto for card text */
+          font-family: 'Quicksand', sans-serif; 
           font-weight: 100; /* Thin weight */
         }
       `}</style>

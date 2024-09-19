@@ -18,27 +18,26 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public MyUser createUser(MyUser user) {
-		// TODO Auto-generated method stub
-		
+		if(userRepository.findByUsername(user.getUsername()) == null) {
+			System.out.println("User already exists");
+			return null;
+		}
 		return userRepository.save(user);
 	}
 
 	@Override
 	public MyUser getUserByUsername(String user) {
-		// TODO Auto-generated method stub
 		return userRepository.findByUsername(user);
 	}
 
 	@Override
 	public List<MyUser> listAllUsers() {
-		// TODO Auto-generated method stub
 		return userRepository.findAll();
 	}
 
 	@Override
 	public void changePassword(int userId, String newPassword) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

@@ -4,29 +4,38 @@ import jakarta.persistence.*;
 import jdk.jfr.DataAmount;
 import java.util.*;
 
+import org.springframework.data.annotation.Transient;
+
 @Entity
 @Table(name = "maintenance")
 @DataAmount
 
 public class Maintenance {
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
-	private String desc;
+	private String descr;
 	private double partsCost;
 	private double laborCost;
 	private double costTotal = partsCost+laborCost;
-	private Date dateStarted;
-	private Date dateComplete;
-	private Property property;
-	private Random random;
+
+	//private Date dateStarted;
+	//private Date dateComplete;
+	
+	@Transient
+	 @ManyToOne
+	 @JoinColumn(name = "property_id") // Foreign key column
+	 private Property property;
 	
 	//Constructor
-	public Maintenance(String desc, Date dateStarted, Property property) {
-		this.id = random.nextInt(100000)+500000;
-		this.desc = desc;
-		this.dateStarted = dateStarted;
+	public Maintenance(String descr/*, Date dateStarted*/ ,Property property) {
+		this.descr = descr;
+		//this.dateStarted = dateStarted;
+		//this.property = property;
 		this.property = property;
-		property.getMaintenance().add(this);
 	}
+
 	
 	//Get id
 	public int getId() {
@@ -39,13 +48,13 @@ public class Maintenance {
 	}
 	
 	//Get description
-	public String getDesc() {
-		return desc;
+	public String getDescr() {
+		return descr;
 	}
 	
 	//Set description
 	public void setDesc(String desc) {
-		this.desc = desc;
+		this.descr = desc;
 	}
 	
 	//Get parts cost
@@ -73,6 +82,23 @@ public class Maintenance {
 		return costTotal;
 	}
 	
+	//Set total cost
+	public void setCostTotal(double costTotal) {
+		this.costTotal = costTotal;
+	}
+	
+	public Property getProperty() {
+		return property;
+	}
+
+	public void setProperty(Property property) {
+		this.property = property;
+	}
+
+	
+	
+	
+/*	
 	//Get the start date
 	public Date getDateStarted() {
 		return dateStarted;
@@ -92,7 +118,10 @@ public class Maintenance {
 	public void setDateComplete(Date dateComplete) {
 		this.dateComplete = dateComplete;
 	}
+	*/
 	
+
+	/*
 	//Get the property where the work was done
 	public Property getProperty() {
 		return property;
@@ -102,5 +131,6 @@ public class Maintenance {
 	public void setProperty(Property property) {
 		this.property = property;
 	}
+	*/
 
 }

@@ -9,17 +9,12 @@ import jdk.jfr.DataAmount;
 @DataAmount
 
 public class Admin {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
 	private String email;
 	private String password;
-	private Random random;
-	
-	//Constructor
-	public Admin(String email, String password) {
-		this.id = random.nextInt(100000)+900000;
-		this.email = email;
-		this.password = password;
-	}
 	
 	//Get id
 	public int getId() {

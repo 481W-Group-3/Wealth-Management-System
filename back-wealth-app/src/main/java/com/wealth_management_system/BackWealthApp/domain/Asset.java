@@ -5,27 +5,32 @@ import jdk.jfr.DataAmount;
 import java.util.*;
 import java.io.*;
 
+
 @Entity
 @Table(name = "asset")
 @DataAmount
-
 public class Asset {
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
 	private String type;
-	private String desc;
+	private String descr;
 	private double origValue;
 	private double currentValue;
-	private Date currentDate;
-	private Investment investment;
-	private Random random;
+	//private Date currentDate;
+	//private Investment investment;
+	@ManyToOne
+    @JoinColumn(name = "investment_id") // Foreign key column
+    private Investment investment;
 	
 	//Constructor
-	public Asset(String type, String desc, double origValue) {
-		this.id = random.nextInt(100000)+300000;
+	public Asset(String type, String descr, double origValue) {
 		this.type = type;
-		this.desc = desc;
+		this.descr = descr;
 		this.origValue = origValue;
 	}
+
 	
 	//Get id
 	public int id() {
@@ -48,13 +53,13 @@ public class Asset {
 	}
 	
 	//Get desc
-	public String getDesc() {
-		return desc;
+	public String getDescr() {
+		return descr;
 	}
 	
 	//Set desc
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescr(String desc) {
+		this.descr = desc;
 	}
 	
 	//Get origValue
@@ -77,16 +82,6 @@ public class Asset {
 		this.currentValue = currentValue;
 	}
 	
-	//Get current date
-	public Date getCurrentDate() {
-		return currentDate;
-	}
-	
-	//Set current date
-	public void setCurrentDate(Date currentDate) {
-		this.currentDate = currentDate;
-	}
-	
 	//Get investment
 	public Investment getInvestment() {
 		return investment;
@@ -96,6 +91,18 @@ public class Asset {
 	public void setInvestment(Investment investment) {
 		this.investment = investment;
 	}
+	
+	/*
+	//Get current date
+	public Date getCurrentDate() {
+		return currentDate;
+	}
+	
+	//Set current date
+	public void setCurrentDate(Date currentDate) {
+		this.currentDate = currentDate;
+	}
+*/
 	
 	
 }

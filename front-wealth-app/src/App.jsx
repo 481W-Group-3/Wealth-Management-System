@@ -5,6 +5,7 @@ import Footer from "./components/footer/footer.jsx";
 import MainLandingPage from "./pages/main-landing-page.jsx";
 import RealEstatePage from './pages/real-estate-page.jsx'; // Updated import
 import UserPage from "./pages/user-page.jsx";
+import UserCreate from "./pages/account-creation-page.jsx";
 
 function App() {
     return (
@@ -16,7 +17,7 @@ function App() {
                     <Route Component={RealEstatePage} path="/real-estate"/>
                     
                     <Route Component={UserPage} path={"/user"}/>
-                     
+                    <Route Component={UserCreate} path={"/account-creation"}/>
                 </Routes>
                 <Footer/>
             </BrowserRouter>

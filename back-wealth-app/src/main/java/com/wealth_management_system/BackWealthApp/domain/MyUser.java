@@ -97,9 +97,6 @@ public class MyUser implements UserDetails {
 		this.email = email;
 	}
 
-	public Integer getId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 }
 

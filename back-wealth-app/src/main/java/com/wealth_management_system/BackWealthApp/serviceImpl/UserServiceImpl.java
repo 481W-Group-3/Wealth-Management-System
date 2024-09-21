@@ -29,13 +29,14 @@ public class UserServiceImpl implements UserService{
 	public MyUser getUserByUsername(String user) {
 		return userRepository.findByUsername(user);
 	}
-	
+	/*
 	public void updateUser(MyUser user) {
 	    // Check if user exists before updating
 	    if (userRepository.existsById(user.getId())) 
 	        userRepository.save(user);
-	    
-	}
+	        }
+	*/    
+	
 
 	@Override
 	public List<MyUser> listAllUsers() {
@@ -67,6 +68,12 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public MyUser getUserByEmail(String email) {
 		return userRepository.findByEmail(email);
+	}
+
+	@Override
+	public void updateUser(MyUser user) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

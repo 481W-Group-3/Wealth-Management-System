@@ -11,7 +11,7 @@ import jdk.jfr.DataAmount;
 public class Renter {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 
 	private int id;
 	private String name;

@@ -12,6 +12,9 @@ public interface UserService {
 	//get a user by user name
 	MyUser getUserByUsername(String user);
 	
+	//get a user by email
+	MyUser getUserByEmail(String email);
+	
 	//update a user
 	void updateUser(MyUser user);
 	

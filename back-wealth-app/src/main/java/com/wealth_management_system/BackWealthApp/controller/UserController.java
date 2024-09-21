@@ -18,13 +18,20 @@ import com.wealth_management_system.BackWealthApp.service.UserService;
 
 
 
-@Controller
+@RestController
 //@RequestMapping(path="/user")
 public class UserController {
 	
 	
 		@Autowired
 	    private UserService userService;
+		
+		
+		@PostMapping("/test")
+	    public String testConnection() {
+			System.out.println("This is the test connection");
+	        return "Connection Successful!";
+	    }
 		
 		@GetMapping("/details")
 		public String getUserDetails(Model model, Authentication authentication) {

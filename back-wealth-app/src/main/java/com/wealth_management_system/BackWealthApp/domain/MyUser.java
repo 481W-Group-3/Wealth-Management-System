@@ -3,6 +3,7 @@ package com.wealth_management_system.BackWealthApp.domain;
 import jakarta.persistence.*;
 import jdk.jfr.DataAmount;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -10,7 +11,6 @@ import java.util.List;
 
 @Entity
 @Table(name="user")
-@DataAmount
 public class MyUser implements UserDetails {
 
     @Id
@@ -24,9 +24,10 @@ public class MyUser implements UserDetails {
     public MyUser(){
     }
 
-    public MyUser(String username, String password, String role) {
+    public MyUser(String username, String password, String role, String email) {
         this.username = username;
         this.password = password;
+        this.email=email;
         this.role = role;
     }
 
@@ -48,7 +49,7 @@ public class MyUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+    	return List.of(new SimpleGrantedAuthority(role));
     }
 
     public String getPassword() {

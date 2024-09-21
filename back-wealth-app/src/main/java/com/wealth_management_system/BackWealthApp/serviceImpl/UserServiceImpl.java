@@ -18,10 +18,10 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public MyUser createUser(MyUser user) {
-//		if(userRepository.findByUsername(user.getUsername()) == null) {
-//			System.out.println("User already exists");
-//			return null;
-//		}
+		if(userRepository.findByUsername(user.getUsername()) != null) {
+			System.out.println("User already exists");
+			return null;
+		}
 		return userRepository.save(user);
 	}
 

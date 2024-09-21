@@ -10,35 +10,35 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name="user")
+@Table(name = "user")
 public class MyUser implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
+
     private String username;
     private String password;
     private String role;
     private String email;
 
-    public MyUser(){
+    public MyUser() {
     }
 
     public MyUser(String username, String password, String role, String email) {
         this.username = username;
         this.password = password;
-        this.email=email;
         this.role = role;
+        this.email = email;
     }
 
-//    public int getId() {
-//        return id;
-//    }
-//
-//    public void setId(int id) {
-//        this.id = id;
-//    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
@@ -50,7 +50,7 @@ public class MyUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-    	return List.of(new SimpleGrantedAuthority(role));
+        return List.of(new SimpleGrantedAuthority(role));
     }
 
     public String getPassword() {
@@ -68,7 +68,7 @@ public class MyUser implements UserDetails {
     public void setRole(String role) {
         this.role = role;
     }
-    
+
     @Override
     public boolean isAccountNonExpired() {
         return true;  // For now, returning true (can customize logic)
@@ -89,14 +89,14 @@ public class MyUser implements UserDetails {
         return true;  // You can use this to enable/disable users
     }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	
+
 }
 

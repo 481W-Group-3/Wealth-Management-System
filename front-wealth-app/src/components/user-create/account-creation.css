@@ -1,1 +1,29 @@
+.create-account-container h2{
+    margin: 5px 0
+}
 
+.create-account-container form{
+    padding: 10px 0;
+    margin: auto;
+}
+
+.in-form-container {
+    width: 220px;
+    margin: auto;
+}
+
+.form-component{
+    display: flex;
+    flex-direction: column;
+}
+
+.form-component label{
+    text-align: left;
+    width: 200px;
+    margin: 5px;
+}
+
+.form-component input{
+    width: 200px;
+    margin: 5px auto 10px;
+}

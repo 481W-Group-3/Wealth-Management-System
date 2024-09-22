@@ -82,3 +82,4 @@ public class RenterController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
+

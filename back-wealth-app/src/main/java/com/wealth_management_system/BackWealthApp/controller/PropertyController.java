@@ -90,3 +90,4 @@ public class PropertyController {
         return ResponseEntity.ok(revenue);
     }
 }
+

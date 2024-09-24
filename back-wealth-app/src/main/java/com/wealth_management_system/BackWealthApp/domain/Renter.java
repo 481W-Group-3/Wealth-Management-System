@@ -11,7 +11,7 @@ import jdk.jfr.DataAmount;
 public class Renter {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 
 	private int id;
 	private String name;
@@ -19,7 +19,9 @@ public class Renter {
 	private String email;
 	private int creditScore;
 
-	private Random random;
+	//private Random random;
+	
+	  
 	@ManyToOne
     @JoinColumn(name = "property_id")
     private Property property;
@@ -30,7 +32,7 @@ public class Renter {
 
 	//Constructor
 	public Renter(String name, String email) {
-		this.id = random.nextInt(100000)+700000;
+		
 		this.name = name;
 		this.email = email;
 	}

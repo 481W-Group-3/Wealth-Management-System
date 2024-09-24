@@ -3,7 +3,6 @@
     flex-direction: column;
     width: 100%;
     position: relative;
-    margin-bottom: 20px;
     align-items: left;
 }
 
@@ -20,10 +19,8 @@
 .header-divider {
     display: flex;
     align-items: center;
-    padding: 10px 20px;
     height: 150px;
-    justify-content: space-around;
-
+    justify-content: space-between;
 }
 
 .header-logo {

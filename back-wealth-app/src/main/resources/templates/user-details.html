@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Details</title>
+</head>
+<body>
+    <h1>User Details</h1>
+    <p>Name: <span th:text="${user.username}"></span></p>
+    <p>Email: <span th:text="${user.email}"></span></p>
+    
+    <a href="update-profile">Edit Profile</a>
+ <!--    <form action="/user/delete-account" method="POST">
+        <button type="submit">Delete Account</button>
+    </form>-->
+
+   <p th:if="${message}" th:text="${message}"></p>
+</body>

@@ -1,46 +1,44 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
 
-.footer-container {
+.footer-background {
     background-color: white;
-    padding: 2rem 1rem;
     font-family: 'Quicksand', sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
 }
 
 .footer-content {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    flex-wrap: wrap;
-    max-width: 1200px;
-    margin: 0 auto;
+    text-align: left;
+    min-width: 200px;
 }
 
-.footer-nav ul {
-    list-style-type: none;
-    padding: 0;
+.footer-content h3, .footer-content p{
+    margin: 5px 0;
 }
 
-.footer-nav li {
-    margin-bottom: 0.5rem;
-}
-
-.footer-nav a {
-    color: #333;
+.footer-content a {
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
-.footer-nav a:hover {
+.footer-content a:hover {
     color: #007bff;
 }
 
-.footer-contact h3 {
+.footer-content h3 {
     margin-top: 0;
 }
 
 .footer-bottom {
     text-align: center;
-    margin-top: 2rem;
-    padding-top: 1rem;
+    padding: 1rem;
     border-top: 1px solid #eee;
 }
 

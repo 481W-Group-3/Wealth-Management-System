@@ -8,6 +8,7 @@ import com.wealth_management_system.BackWealthApp.domain.MyUser;
 @Repository
 public interface UserRepositry extends JpaRepository<MyUser, Integer> {
 	MyUser findByUsername(String username);
+	MyUser findByEmail(String email);
 //	List<User> findByEmail(String email);
     
 

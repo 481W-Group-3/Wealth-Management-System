@@ -3,10 +3,13 @@ package com.wealth_management_system.BackWealthApp.security;
 
 import com.wealth_management_system.BackWealthApp.service.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
@@ -14,8 +17,12 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -29,27 +36,15 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(registry -> {
-            registry.requestMatchers("/home", "/register/**", "/login").permitAll();
+            registry.requestMatchers("/home", "/register/**", "/loginUser").permitAll();
             registry.anyRequest().authenticated();
         })
-                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
+                //.formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
+                .cors(corsCustomizer -> corsCustomizer.configurationSource(corsConfigurationSource()))
                 .build();
     }
 
-//    @Bean
-//    public UserDetailsService userDetailService() {
-//        UserDetails user = User.builder()
-//                .username("user")
-//                .password(passwordEncoder().encode("asdf"))
-//                .roles("USER")
-//                .build();
-//        UserDetails admin = User.builder()
-//                .username("admin")
-//                .password(passwordEncoder().encode("admin"))
-//                .roles("ADMIN")
-//                .build();
-//        return new InMemoryUserDetailsManager(user, admin);
-//    }
+
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -63,9 +58,48 @@ public class SecurityConfig {
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
+    
+    @Bean
+    public AuthenticationManager authManager(HttpSecurity http) throws Exception {
+        AuthenticationManagerBuilder authenticationManagerBuilder = 
+                http.getSharedObject(AuthenticationManagerBuilder.class);
+        authenticationManagerBuilder.userDetailsService(userDetailService).passwordEncoder(passwordEncoder());
+        return authenticationManagerBuilder.build();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowCredentials(true);
+        configuration.addAllowedOriginPattern("*"); // Your frontend origin
+        configuration.addAllowedHeader("*"); // Allow all headers
+        configuration.addAllowedMethod("*"); // Allow all methods
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+    
+//  @Bean
+//  public UserDetailsService userDetailService() {
+//      UserDetails user = User.builder()
+//              .username("user")
+//              .password(passwordEncoder().encode("asdf"))
+//              .roles("USER")
+//              .build();
+//      UserDetails admin = User.builder()
+//              .username("admin")
+//              .password(passwordEncoder().encode("admin"))
+//              .roles("ADMIN")
+//              .build();
+//      return new InMemoryUserDetailsManager(user, admin);
+//  }
+
+
+    
 }

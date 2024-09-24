@@ -18,12 +18,15 @@ public class Investment {
 	private double principalYearly;
 	private double principalInitial;
 	private double currentValue;
+	
 
 	//private Date currentDate;
 	//private Date previousEditDate;
 	
 	@OneToMany(mappedBy = "investment")
 	private ArrayList<Property> property;
+	
+	
 	@OneToMany(mappedBy = "investment")
 	private Set<Asset> asset;
 	@ManyToOne

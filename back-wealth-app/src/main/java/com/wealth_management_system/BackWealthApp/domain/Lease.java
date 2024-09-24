@@ -109,7 +109,7 @@ public class Lease {
 	public void setProperty(Property property) {
 		this.property = property;
 	}
-	*/
+	
 	
 
 	//Get rent due day

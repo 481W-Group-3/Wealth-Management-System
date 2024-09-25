@@ -1,6 +1,7 @@
 import React from 'react';
+import backgroundImage from './images/formImage.jpg'; // Adjust the path as needed
 
-const FormCard = ({ 
+const FormCards = ({ 
   welcomeTitle, 
   welcomeText, 
   handleSubmit, 
@@ -15,18 +16,19 @@ const FormCard = ({
   createAccountLink
 }) => {
   return (
-    <div className="flex flex-col md:flex-row gap-8">
+    <div className="flex flex-col md:flex-row gap-8 bg-cover bg-center bg-no-repeat p-6 rounded-lg" 
+         style={{ backgroundImage: `url(${backgroundImage})` }}>
       {/* Left side: Welcome text */}
       <div className="w-full md:w-1/2">
-        <div className="bg-gray-100 p-6 rounded-lg shadow-md h-auto">
+        <div className="bg-white p-6 rounded-lg shadow-md h-auto">
           <h2 className="text-2xl font-bold mb-2">{welcomeTitle}</h2>
-          <p className="text-gray-600">{welcomeText}</p>
+          <p className="text-gray-800">{welcomeText}</p>
         </div>
       </div>
 
       {/* Right side: Login form */}
       <div className="w-full md:w-1/2">
-        <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <form onSubmit={handleSubmit} className="bg-white bg-opacity-80 shadow-md rounded px-8 pt-6 pb-8 mb-4">
           {errorMessage && <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">{errorMessage}</div>}
           
           {formFields.map((field, index) => (
@@ -55,7 +57,7 @@ const FormCard = ({
                   checked={showPassword}
                   onChange={handleShowPassword}
                 />
-                <span className="text-sm">Show password</span>
+                <span className="text-sm text-gray-700">Show password</span>
               </label>
             </div>
           )}
@@ -81,7 +83,7 @@ const FormCard = ({
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
                 />
-                <span className="text-sm">Remember me</span>
+                <span className="text-sm text-gray-700">Remember me</span>
               </label>
             </div>
           )}
@@ -99,4 +101,4 @@ const FormCard = ({
   );
 };
 
-export default FormCard;
+export default FormCards;

@@ -4,6 +4,10 @@ import { doLogin } from "../auth/login-info";
 import { useNavigate } from 'react-router-dom';
 import FormCards from './FormCard';
 import Cards from './cards';
+import investmentPlanningImage from './images/investment-planning.jpg';
+import retirementPlanningImage from './images/retirement-planning.jpg';
+import taxOptimizationImage from './images/tax-optimization.jpg';
+import formImage from './images/formImage.jpg';
 
 const User = () => {
     const [email, setEmail] = React.useState('');
@@ -61,17 +65,17 @@ const User = () => {
         title: "Our Services",
         cards: [
             {
-                imageSrc: "/api/placeholder/400/200",
+                imageSrc: investmentPlanningImage,
                 title: "Investment Planning",
                 description: "Personalized investment strategies tailored to your financial goals."
             },
             {
-                imageSrc: "/api/placeholder/400/200",
+                imageSrc: taxOptimizationImage,
                 title: "Retirement Planning",
                 description: "Secure your future with our comprehensive retirement planning services."
             },
             {
-                imageSrc: "/api/placeholder/400/200",
+                imageSrc: retirementPlanningImage,
                 title: "Tax Optimization",
                 description: "Maximize your returns with our expert tax optimization strategies."
             }

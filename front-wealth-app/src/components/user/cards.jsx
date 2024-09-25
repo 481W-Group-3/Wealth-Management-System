@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Card = ({ imageSrc, title, description }) => (
-  <div className="bg-white rounded-lg shadow-md overflow-hidden">
+  <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200"> {/* Added border class */}
     <img src={imageSrc} alt={title} className="w-full h-48 object-cover" />
     <div className="p-6">
       <h3 className="font-bold text-xl mb-2">{title}</h3>

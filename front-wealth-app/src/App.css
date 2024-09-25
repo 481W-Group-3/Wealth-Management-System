@@ -1,6 +1,6 @@
-
-#root {
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 .page-container{
   margin-left: 15%;

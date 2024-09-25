@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -19,9 +23,9 @@ body {
   background-repeat: no-repeat;
   min-height: 100vh;
   
-  /* Add this line to reduce saturation */
-  /* background-color: rgba(255, 255, 255, 0.5); Adjust the last value (0.5) to control the level of desaturation */
-  /* background-blend-mode: saturation; */
+ 
+  background-color: rgba(255, 255, 255, 0.5);
+  background-blend-mode: saturation; 
 }
 
 html, body {

@@ -498,13 +498,13 @@ const RealEstatePage = () => {
           box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         h1{
-          font-family: 'Quicksand', sans-serif; 
-          font-weight: 100;
+          font-family: 'Montserrat', sans-serif; 
+          font-weight: 300;
         }
 
         h2{
-          font-family: 'Quicksand', sans-serif; 
-          font-weight: 100; /* Bold weight */
+          font-family: 'Montserrat', sans-serif; 
+          font-weight: 300; /* Bold weight */
         }
       `}</style>
     </div>

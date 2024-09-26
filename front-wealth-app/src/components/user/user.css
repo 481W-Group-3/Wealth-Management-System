@@ -1,4 +1,24 @@
-form {
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap');
+
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+button {
+    transition-duration: 0.4s;
+}
+
+input[type=text]:focus, [type=password]:focus {
+    outline: none;
+    @apply border-2 border-[#284B63];
+}
+
+.mylabels {
+    @apply text-left ml-[60px] text-black;
+}
+
+/* You can remove or comment out the checkbox styling if it's not being used */
+/*form {
     background-color: #E2EEF3;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     padding-top: 20px;
@@ -57,6 +77,7 @@ label {
     text-align: left;
     margin-left: 60px;
 }
+*/
 
 
 /* start checkbox styling */

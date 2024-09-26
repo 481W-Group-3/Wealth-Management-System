@@ -69,7 +69,7 @@ const HomePage = () => {
                 .dashboard-title {
                     margin-bottom: 30px;
                     color: #333;
-                    font-family: 'Quicksand', sans-serif;
+                    font-family: 'Montserrat', sans-serif;
                     font-weight: 300;
                 }
 
@@ -108,7 +108,7 @@ const HomePage = () => {
                 .card-grid h3 {
                     margin: 0;
                     color: #444;
-                    font-family: 'Quicksand', sans-serif;
+                    font-family: 'Montserrat', sans-serif;
                     font-weight: 600; /* Bold weight */
                 }
 
@@ -116,7 +116,7 @@ const HomePage = () => {
                     margin: 0;
                     color: #000;
                     font-size: 0.9em;
-                    font-family: 'Quicksand', sans-serif;
+                    font-family: 'Montserrat', sans-serif;
                     font-weight: 100; /* Thin weight */
                 }
             `}</style>

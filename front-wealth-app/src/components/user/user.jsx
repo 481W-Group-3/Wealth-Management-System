@@ -7,7 +7,6 @@ import Cards from './cards';
 import investmentPlanningImage from './images/investment-planning.jpg';
 import retirementPlanningImage from './images/retirement-planning.jpg';
 import taxOptimizationImage from './images/tax-optimization.jpg';
-import formImage from './images/formImage.jpg';
 
 const User = () => {
     const [email, setEmail] = React.useState('');

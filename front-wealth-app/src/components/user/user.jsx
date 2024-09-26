@@ -1,102 +1,91 @@
-import "./user.css";
-import React, { useState } from 'react';
+import React from 'react';
+import { login } from "../../services/user-service";
+import { doLogin } from "../auth/login-info";
+import { useNavigate } from 'react-router-dom';
+import FormCards from './FormCard';
+import Cards from './cards';
+import investmentPlanningImage from './images/investment-planning.jpg';
+import retirementPlanningImage from './images/retirement-planning.jpg';
+import taxOptimizationImage from './images/tax-optimization.jpg';
 
 const User = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [rememberMe, setRememberMe] = useState(false);
-    const [showPassword, setShowPassword] = useState(false);
-    const user = "USER";
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        
-        const userData = {
-            "username": email, 
-            "password": password,
-            "role": user};
-        
-        fetch('http://localhost:8080/register/user', {
-            method: 'POST',
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(userData)
-        }).then(() => {
-            console.log("posted data")
-        })
-        
-        // send data to server here
-        console.log('Email:', email);
-        console.log('Password:', password);
-        console.log(userData);
-    };
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    const [rememberMe, setRememberMe] = React.useState(false);
+    const [showPassword, setShowPassword] = React.useState(false);
+    const [errorMessage, setErrorMessage] = React.useState('');
+    const navigate = useNavigate();
 
     const handleShowPassword = () => {
         setShowPassword(!showPassword);
-    }
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!email || !password) {
+            setErrorMessage("Please enter both email and password.");
+            return;
+        }
+        try {
+            const response = await login({ email, password });
+            if (response.success) {
+                doLogin(response.user, () => {
+                    console.log('Logged in successfully!');
+                    navigate('/logout');
+                });
+            } else {
+                setErrorMessage(response.message || "Invalid email or password.");
+            }
+        } catch (error) {
+            setErrorMessage("An error occurred. Please try again.");
+            console.error("Login error:", error.response ? error.response.data : error);
+        }
+    };
+
+    const formCardsProps = {
+        welcomeTitle: "Welcome Back!",
+        welcomeText: "Log in to access your account and manage your investments. If you're new here, feel free to explore our features below.",
+        handleSubmit: handleSubmit,
+        formFields: [
+            { name: 'email', type: 'text', label: 'Email', value: email, onChange: (e) => setEmail(e.target.value) },
+            { name: 'password', type: 'password', label: 'Password', value: password, onChange: (e) => setPassword(e.target.value) }
+        ],
+        showPassword: showPassword,
+        handleShowPassword: handleShowPassword,
+        rememberMe: rememberMe,
+        setRememberMe: setRememberMe,
+        errorMessage: errorMessage,
+        submitButtonText: "Log In",
+        forgotPasswordLink: { href: "#", text: "Forgot Password?" },
+        createAccountLink: { href: "/account-creation", text: "Create an account" }
+    };
+
+    const cardsProps = {
+        title: "Our Services",
+        cards: [
+            {
+                imageSrc: investmentPlanningImage,
+                title: "Investment Planning",
+                description: "Personalized investment strategies tailored to your financial goals."
+            },
+            {
+                imageSrc: taxOptimizationImage,
+                title: "Retirement Planning",
+                description: "Secure your future with our comprehensive retirement planning services."
+            },
+            {
+                imageSrc: retirementPlanningImage,
+                title: "Tax Optimization",
+                description: "Maximize your returns with our expert tax optimization strategies."
+            }
+        ]
+    };
 
     return (
-        <form onSubmit={handleSubmit}>
-            {/* email box */}
-            <div className="mylabels">
-                <label htmlFor="email">Email:</label>
-            </div>
-            <input
-                type="text"
-                id="email"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-
-            {/* password box */}
-            <div className="mylabels">
-                <label htmlFor="password">Password:</label>
-            </div>
-            <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            /><br />
-
-            {/* show/hide password checkbox */}
-            <label className="checkbox-container" htmlFor="showPassword">
-                <input
-                    type="checkbox"
-                    id="showPassword"
-                    checked={showPassword}
-                    onChange={handleShowPassword}
-                />
-                Show password
-                <span className="checkmark"></span>
-            </label><br />
-
-
-            {/* login button */}
-            <button type="submit">Log In</button><br />
-
-            {/* remember user checkbox */}
-            <label className="checkbox-container" htmlFor="rememberMe">
-                <input
-                    type="checkbox"
-                    id="rememberMe"
-                    checked={rememberMe}
-                    onChange={(e) => setRememberMe(e.target.checked)}
-                />
-                Remember me
-                <span className="checkmark"></span>
-            </label><br />
-
-
-            {/* forgot password and create account links */}
-            <a href="#">
-                <div className="mylabels">Forgot password?</div>
-            </a>
-            <a href="/account-creation">
-                <div className="mylabels">Create an account</div>
-            </a>
-        </form>
+        <div className="container mx-auto p-4">
+            <FormCards {...formCardsProps} />
+            <Cards {...cardsProps} />
+        </div>
     );
 };
 

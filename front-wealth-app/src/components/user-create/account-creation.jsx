@@ -1,93 +1,78 @@
 import "./account-creation.css";
-import React, { useState } from 'react';
+import React, {useState} from 'react';
+import {createAccount} from "../../services/user-service";
 
 const UserCreate = () => {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [userName, setUserName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [repeatPassword, setRepeatPassword] = useState('');
 
-    const handleSubmit = (e) => {
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const role = "USER"
+    const [password, setPassword] = useState('');
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        //if (true == true) {
-            //TODO Check if Email is in use when Database is implemented
-            console.log('First Name:', firstName);
-            console.log('Last Name:', lastName);
-            console.log('User Name:', userName);
-            console.log('Email:', email);
-            console.log('Password:', password);
+
+        //if (/*email in use*/) {
+        //TODO Check if Email is in use when Database is implemented
+        await createAccount({
+            'username': username, 
+            'password': password, 
+            'role': role,
+            'email': email
+        });
+        console.log('User Name:', username);
+        console.log('Email:', email);
+        console.log('Password:', password);
         //}
         //else {
-            //display Error Text somewhere.
+        //display Error Text somewhere.
         //}
     };
-
     return (
-        <form onSubmit={handleSubmit}>
-            // First Name
-            <div>
-            <label>First Name:</label>
+        <div className="page-container">
+            <div className={"create-account-container"}>
+                <form onSubmit={handleSubmit}>
+                    <div className={"in-form-container"}>
+                        <h2>Create Account</h2>
+                        <div className={"form-component"}>
+                            <label htmlFor="username">Username:</label>
+                            <input
+                                type="text"
+                                name="username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}>
+                            </input>
+                        </div>
+
+                        <div className={"form-component"}>
+                            <label htmlFor="email">Email:</label>
+                            <input
+                                type="text"
+                                name="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}>
+                            </input>
+                        </div>
+
+                        <div className={"form-component"}>
+                            <label htmlFor="password">Password:</label>
+                            <input
+                                type="password"
+                                name="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}>
+                            </input>
+                        </div>
+
+                        <button type="submit">Submit</button>
+                    </div>
+                </form>
             </div>
-            <input type="text">
-                
+        </div>
 
-            </input>
-
-            // Last Name
-            <div>
-                <label>Last Name:</label>
-            </div>
-            <input type="text">
-
-            </input>
-
-            // User Name
-            <div>
-                <label>Username:</label>
-            </div>
-            <input type="text">
-
-            </input>
-
-            // Email
-            <div>
-                <label>Email:</label>
-            </div>
-            <input type="text">
-
-            </input>
-
-            // Password
-            <div>
-                <label>Password:</label>
-            </div>
-            <input type="text">
-
-            </input>
-
-            // Repeat Password
-            <div>
-                <label>Re-enter Password</label>
-            </div>
-            <input type="text">
-
-            </input>
-
-
-
+    );
 
 
 };
 
-
-
-/*
-First Name
-Last Name
-Email
-Password
-Phone Number
-*/
 export default UserCreate;

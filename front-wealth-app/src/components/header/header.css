@@ -1,16 +1,20 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
 .header-container {
     display: flex;
     flex-direction: column;
     width: 100%;
     position: relative;
-    margin-bottom: 20px;
     align-items: left;
+    border-bottom: 1px solid #ccc;
+    background: #f2f2f2;
 }
 
 .header-background {
-    background: #B5D2DD;
     width: 100%;
-    height: 150px;
+    height: 75px;
     position: absolute;
     top: 0;
     left: 0;
@@ -20,9 +24,8 @@
 .header-divider {
     display: flex;
     align-items: center;
-    padding: 10px 20px;
-    height: 150px;
-    justify-content: space-around;
+    height: 75px;
+    justify-content: space-between;
 }
 
 .header-logo {
@@ -65,6 +68,7 @@
 }
 
 span {
+
     font-weight: 550;
     color: black;
     font-size: larger;
@@ -74,5 +78,6 @@ span {
     .header-spacing {
         margin-right: 12%;
     }
+
 
 }

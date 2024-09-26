@@ -20,6 +20,8 @@ public class Property {
 	private double insuranceMonthly;
 	private double mortgageMonthly;
 	private String type;
+	
+	
 
 	@OneToMany(mappedBy = "property")
 	private Set<Renter> renter;
@@ -160,7 +162,7 @@ public class Property {
 	public void setLease(Lease lease) {
 		this.lease = lease;
 	}
-	*/
+	
 	
 	public Set<Lease> getLeases() {
 		return leases;

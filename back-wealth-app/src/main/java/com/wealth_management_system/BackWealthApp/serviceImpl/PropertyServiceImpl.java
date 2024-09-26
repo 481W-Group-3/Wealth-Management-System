@@ -15,7 +15,7 @@ import com.wealth_management_system.BackWealthApp.service.PropertyService;
 /*
  * A service class to manipulate the Property entity
  */
-
+@Service
 public class PropertyServiceImpl implements PropertyService {
 	private final PropertyRepositry propertyRepository;
 	

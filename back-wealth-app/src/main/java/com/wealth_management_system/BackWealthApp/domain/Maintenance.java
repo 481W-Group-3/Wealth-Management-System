@@ -23,11 +23,12 @@ public class Maintenance {
 	//private Date dateStarted;
 	//private Date dateComplete;
 	
+	
 	@Transient
 	 @ManyToOne
 	 @JoinColumn(name = "property_id") // Foreign key column
 	 private Property property;
-	
+//	
 	//Constructor
 	public Maintenance(String descr/*, Date dateStarted*/ ,Property property) {
 		this.descr = descr;

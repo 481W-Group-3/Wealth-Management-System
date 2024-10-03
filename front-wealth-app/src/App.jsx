@@ -9,6 +9,7 @@ import User from './components/user/user.jsx';
 import TestComponent from './components/user/test.jsx';
 import LogoutPage from './components/user/logout.jsx';
 import AccountCreationPage from "./pages/account-creation-page.jsx";
+import InvestmentsLanding from './pages/investments-landing.jsx';
 
 function App() {
     return (
@@ -21,6 +22,7 @@ function App() {
                         <Route Component={RealEstatePage} path="/real-estate"/>
                         <Route Component={UserPage} path={"/user"}/>
                         <Route Component={AccountCreationPage} path="/account-creation"/>
+                        <Route Component={InvestmentsLanding} path="investments"/>
                         <Route path="/user" element={<User/>}/>
                         <Route path="/test" element={<TestComponent/>}/>
                         <Route path="/logout" element={<LogoutPage/>}/>

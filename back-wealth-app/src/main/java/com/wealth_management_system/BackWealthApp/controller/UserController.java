@@ -16,8 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.wealth_management_system.BackWealthApp.domain.MyUser;
 import com.wealth_management_system.BackWealthApp.service.UserService;
 
-
-
 @RestController
 //@RequestMapping(path="/user")
 public class UserController {

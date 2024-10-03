@@ -1,25 +1,27 @@
+import React from 'react';
 import "./header.css";
 import logo from "../../assets/logo.png";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ isLandingPage = false }) => {
     return (
-        <div className={"header-container"}>
-            <div className={"header-background"}/>
-            <div className={"page-container"}>
-                <div className={"header-divider"}>
-                    <Link to={"/"}>
-                        {/* <h1> Wealth Management Systems </h1> */}
-                        <img src={logo} alt={"logo"} height={'auto'} width={'200px'}></img>
+        <div className="header-container">
+            <div className="header-background" />
+            <div className="page-container">
+                <div className="header-divider">
+                    <Link to="/">
+                        <img src={logo} alt="logo" height='auto' width='200px' />
                     </Link>
-                    <div className={"header-links"}>
-                        <Link to={"/"}>
-                            <span>Home</span>
-                        </Link>
-                        <Link to={"/user"}>
-                            <span>Login</span>
-                        </Link>
-                    </div>
+                    {!isLandingPage && (
+                        <div className="header-links">
+                            <Link to="/">
+                                <span>Home</span>
+                            </Link>
+                            <Link to="/user">
+                                <span>Login</span>
+                            </Link>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
@@ -27,3 +29,9 @@ const Header = () => {
 }
 
 export default Header;
+
+/* In order to reuse this component, use the code below for pages using a header
+<Header />
+// or
+<Header isLandingPage={false} />
+*/

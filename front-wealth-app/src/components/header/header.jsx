@@ -9,12 +9,12 @@ const Header = ({ isLandingPage = false }) => {
             <div className="header-background" />
             <div className="page-container">
                 <div className="header-divider">
-                    <Link to="/">
+                    <Link to="/home">
                         <img src={logo} alt="logo" height='auto' width='200px' />
                     </Link>
                     {!isLandingPage && (
                         <div className="header-links">
-                            <Link to="/">
+                            <Link to="/home">
                                 <span>Home</span>
                             </Link>
                             <Link to="/user">

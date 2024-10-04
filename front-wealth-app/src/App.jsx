@@ -2,10 +2,10 @@ import './App.css'
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Header from "./components/header/header.jsx";
 import Footer from "./components/footer/footer.jsx";
-import MainLandingPage from "./pages/main-landing-page.jsx";
+import Dashboard from "./pages/dashboard.jsx";
 import RealEstatePage from './pages/real-estate-page.jsx';
-import UserPage from "./pages/user-page.jsx";
-import User from './components/user/user.jsx';
+import Login from "./pages/user-page.jsx";
+import User from './components/user/login.jsx';
 import TestComponent from './components/user/test.jsx';
 import LogoutPage from './components/user/logout.jsx';
 import AccountCreationPage from "./pages/account-creation-page.jsx";
@@ -18,8 +18,8 @@ function App() {
             <Header/>
                 <div className={"app-container"}>
                     <Routes>
-                        <Route Component={UserPage} path={"/"}/>
-                        <Route Component={MainLandingPage} path={"/home"}/>
+                        <Route Component={Login} path={"/"}/>
+                        <Route Component={Dashboard} path={"/home"}/>
                         <Route Component={RealEstatePage} path="/real-estate"/>
                         <Route Component={AccountCreationPage} path="/account-creation"/>
                         <Route Component={InvestmentsLanding} path="investments"/>

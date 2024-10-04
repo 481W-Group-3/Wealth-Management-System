@@ -1,4 +1,4 @@
-import User from "../components/user/user.jsx";
+import User from "../components/user/login.jsx";
 
 const UserPage = () => {
     return(

@@ -8,12 +8,12 @@ const Header = () => {
             <div className={"header-background"}/>
             <div className={"page-container"}>
                 <div className={"header-divider"}>
-                    <Link to={"/"}>
+                    <Link to={"/home"}>
                         {/* <h1> Wealth Management Systems </h1> */}
                         <img src={logo} alt={"logo"} height={'auto'} width={'200px'}></img>
                     </Link>
                     <div className={"header-links"}>
-                        <Link to={"/"}>
+                        <Link to={"/home"}>
                             <span>Home</span>
                         </Link>
                         <Link to={"/user"}>

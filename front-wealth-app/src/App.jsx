@@ -17,9 +17,9 @@ function App() {
                 <Header/>
                 <div className={"app-container"}>
                     <Routes>
-                        <Route Component={MainLandingPage} path={"/"}/>
+                        <Route Component={UserPage} path={"/"}/>
+                        <Route Component={MainLandingPage} path={"/home"}/>
                         <Route Component={RealEstatePage} path="/real-estate"/>
-                        <Route Component={UserPage} path={"/user"}/>
                         <Route Component={AccountCreationPage} path="/account-creation"/>
                         <Route path="/user" element={<User/>}/>
                         <Route path="/test" element={<TestComponent/>}/>

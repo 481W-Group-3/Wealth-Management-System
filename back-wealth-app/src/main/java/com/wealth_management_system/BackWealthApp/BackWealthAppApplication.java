@@ -10,7 +10,10 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import com.wealth_management_system.BackWealthApp.domain.MyUser;
 import com.wealth_management_system.BackWealthApp.service.UserService;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 public class BackWealthAppApplication {
@@ -23,12 +26,17 @@ public class BackWealthAppApplication {
 
         System.out.println("********************************");
 
-//        AuthenticationController authenticationController = new AuthenticationController();
-//        authenticationController.createUser(new MyUser("user", "user", "USER"));
-
     }
 
-
+//    @Bean
+//    public WebMvcConfigurer corsConfigurer() {
+//        return new WebMvcConfigurer() {
+//            @Override
+//            public void addCorsMappings(CorsRegistry registry) {
+//                registry.addMapping("/**").allowedOrigins("http://localhost:5173");
+//            }
+//        };
+//    }
 }
 
 

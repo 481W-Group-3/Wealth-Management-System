@@ -1,0 +1,69 @@
+.create-account-container h2{
+    margin: 5px 0
+}
+
+.create-account-container form{
+    padding: 10px 0;
+    margin: auto;
+}
+
+.in-form-container {
+    width: 220px;
+    margin: auto;
+}
+
+.form-component{
+    display: flex;
+    flex-direction: column;
+}
+
+#create-account-h2{
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 700;
+}
+
+.form-component label{
+    text-align: left;
+    width: 200px;
+    margin: 5px;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    font-weight: 700;
+}
+
+.form-component input{
+    width: 200px;
+    margin: 5px auto 10px;
+}
+
+#submitform {
+    height: 400px;
+    width: 300px;
+ background-color: #f2f2f2;
+ border-radius: 0.5em;
+ box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+#checkout-submit-button {
+    background-color: rgb(59 130 246);
+    color:white;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-weight: 700;
+    border-radius: 0.25em;
+    width: 220px;
+    margin-top: 15px;
+}
+
+#checkout-submit-button:hover {
+    background-color: rgb(29 78 216);
+    animation: animTwo 5s ease-out 1s
+}
+
+#checkout-submit-button:disabled {
+    background: #999;
+    color: #555;
+    cursor: not-allowed;
+  }

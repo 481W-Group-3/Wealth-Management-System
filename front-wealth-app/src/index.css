@@ -1,15 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color: black;
-  background-image: url(background.jpg);
+  background-image: url(teacups.jpg);
   background-size: cover;
   background-attachment: fixed;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-image: url('/wallhaven-zxollj.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  
+ 
+  background-color: rgba(255, 255, 255, 1);
+  background-blend-mode: saturation; 
 }
 
 html, body {
@@ -26,7 +42,6 @@ html, body {
 }
 
 a {
-  font-weight: 500;
   text-decoration: inherit;
   color: inherit;
 }

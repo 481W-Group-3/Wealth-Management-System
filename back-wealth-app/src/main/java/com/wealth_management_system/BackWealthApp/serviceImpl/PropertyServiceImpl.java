@@ -16,7 +16,9 @@ import com.wealth_management_system.BackWealthApp.domain.Property;
 import com.wealth_management_system.BackWealthApp.domain.Renter;
 import com.wealth_management_system.BackWealthApp.service.PropertyService;
 
-
+/*
+ * A service class to manipulate the Property entity
+ */
 @Service
 public class PropertyServiceImpl implements PropertyService {
 	private PropertyRepositry propertyRepository;
@@ -96,8 +98,8 @@ public class PropertyServiceImpl implements PropertyService {
 	@Override
 	public double calculateRevenue(int propertyId) {
 		 Property property = getPropertyById(propertyId);
-	   
-	     return property.calculateRevenue();
+		 return 0.0;
+	     //return property.calculateRevenue();
 	}
 
 }

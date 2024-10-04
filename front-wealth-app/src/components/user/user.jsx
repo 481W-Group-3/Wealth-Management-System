@@ -1,23 +1,20 @@
-import "./user.css";
-import React, { useState } from 'react';
+import React from 'react';
 import { login } from "../../services/user-service";
 import { doLogin } from "../auth/login-info";
 import { useNavigate } from 'react-router-dom';
+import FormCards from './FormCard';
+import Cards from './cards';
+import investmentPlanningImage from './images/investment-planning.jpg';
+import retirementPlanningImage from './images/retirement-planning.jpg';
+import taxOptimizationImage from './images/tax-optimization.jpg';
 
 const User = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [rememberMe, setRememberMe] = useState(false);
-    const [showPassword, setShowPassword] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    const [rememberMe, setRememberMe] = React.useState(false);
+    const [showPassword, setShowPassword] = React.useState(false);
+    const [errorMessage, setErrorMessage] = React.useState('');
     const navigate = useNavigate();
-
-    // // Redirect to dashboard if already logged in
-    // useEffect(() => {
-    //     if (isLoggedin()) {
-    //         window.location.href = "/dashboard";
-    //     }
-    // }, []);
 
     const handleShowPassword = () => {
         setShowPassword(!showPassword);
@@ -25,100 +22,70 @@ const User = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         if (!email || !password) {
             setErrorMessage("Please enter both email and password.");
             return;
         }
-        console.log("Email entered:", email);
-    console.log("Password entered:", password);
-
         try {
-            // Call the login service to validate the user's credentials
             const response = await login({ email, password });
-            console.log(response);
-            console.log(email);
-            console.log("you entered: ");
-            console.log("outside the if-else block")
-
             if (response.success) {
-                console.log("inside the if block")
-                // Save user data in localStorage using doLogin
                 doLogin(response.user, () => {
                     console.log('Logged in successfully!');
-                    //window.location.href = "/home"; // Redirect to dashboard
                     navigate('/logout');
                 });
             } else {
-                console.log("inside the else block")
-                // Show error message from API response or generic message
                 setErrorMessage(response.message || "Invalid email or password.");
             }
         } catch (error) {
-            console.log("inside the catch error block")
-            // Handle any errors that occur during the login process
             setErrorMessage("An error occurred. Please try again.");
             console.error("Login error:", error.response ? error.response.data : error);
-
         }
-        console.log("outside everything")
+    };
+
+    const formCardsProps = {
+        welcomeTitle: "Welcome Back!",
+        welcomeText: "Log in to access your account and manage your investments. If you're new here, feel free to explore our features below.",
+        handleSubmit: handleSubmit,
+        formFields: [
+            { name: 'email', type: 'text', label: 'Email', value: email, onChange: (e) => setEmail(e.target.value) },
+            { name: 'password', type: 'password', label: 'Password', value: password, onChange: (e) => setPassword(e.target.value) }
+        ],
+        showPassword: showPassword,
+        handleShowPassword: handleShowPassword,
+        rememberMe: rememberMe,
+        setRememberMe: setRememberMe,
+        errorMessage: errorMessage,
+        submitButtonText: "Log In",
+        forgotPasswordLink: { href: "#", text: "Forgot Password?" },
+        createAccountLink: { href: "/account-creation", text: "Create an account" }
+    };
+
+    const cardsProps = {
+        title: "Our Services",
+        cards: [
+            {
+                imageSrc: investmentPlanningImage,
+                title: "Investment Planning",
+                description: "Personalized investment strategies tailored to your financial goals."
+            },
+            {
+                imageSrc: taxOptimizationImage,
+                title: "Retirement Planning",
+                description: "Secure your future with our comprehensive retirement planning services."
+            },
+            {
+                imageSrc: retirementPlanningImage,
+                title: "Tax Optimization",
+                description: "Maximize your returns with our expert tax optimization strategies."
+            }
+        ]
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            {errorMessage && <div className="error-message">{errorMessage}</div>}
-            
-            <div className="mylabels">
-                <label htmlFor="email">Email:</label>
-            </div>
-            <input
-                type="text"
-                id="email"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-
-            <div className="mylabels">
-                <label htmlFor="password">Password:</label>
-            </div>
-            <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            /><br />
-
-            <label className="checkbox-container" htmlFor="showPassword">
-                <input
-                    type="checkbox"
-                    id="showPassword"
-                    checked={showPassword}
-                    onChange={handleShowPassword}
-                />
-                Show password
-            </label><br />
-
-            <button type="submit">Log In</button><br />
-
-            <label className="checkbox-container" htmlFor="rememberMe">
-                <input
-                    type="checkbox"
-                    id="rememberMe"
-                    checked={rememberMe}
-                    onChange={(e) => setRememberMe(e.target.checked)}
-                />
-                Remember me
-            </label><br />
-
-            <a href="#">
-                <div className="mylabels">Forgot password?</div>
-            </a>
-            <a href="#">
-                <div className="mylabels">Create an account</div>
-            </a>
-        </form>
+        <div className="container mx-auto p-4">
+            <FormCards {...formCardsProps} />
+            <Cards {...cardsProps} />
+        </div>
     );
 };
 

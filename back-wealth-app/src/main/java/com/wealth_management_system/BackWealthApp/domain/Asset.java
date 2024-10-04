@@ -20,9 +20,12 @@ public class Asset {
 	private double currentValue;
 	//private Date currentDate;
 	//private Investment investment;
+	
 	@ManyToOne
     @JoinColumn(name = "investment_id") // Foreign key column
     private Investment investment;
+	
+	
 	
 	//Constructor
 	public Asset(String type, String descr, double origValue) {

@@ -7,15 +7,11 @@ export const isLoggedin=()=>{
     }
 };
 
-
-
 export const doLogin = (userData, callback) => {
     // Save user data in localStorage or handle login logic
     localStorage.setItem('user', JSON.stringify(userData));
     callback();
 };
-
-
 export const doLogout=(next)=>{
     localStorage.removeItem('user');
     next();

@@ -31,96 +31,59 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-
     @PostMapping("/register/user")
-    public MyUser createUser(@RequestBody MyUser user) {
-        System.out.println(user.getUsername());
-        System.out.println(user.getPassword());
-        System.out.println(user.getRole());
+    public ResponseEntity<String> createUser(@RequestBody MyUser user) {
+        System.out.println("Creating Account: ");
+        System.out.println(user.getUsername() + " " + user.getPassword() + " " + user.getRole() + " " + user.getEmail());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userService.createUser(user);
+        if(userService.createUser(user) == null)
+            return new ResponseEntity<>("User Already Exists", HttpStatus.CONFLICT);
+        return new ResponseEntity<>("User Created Successfully", HttpStatus.CREATED);
     }
 
+    public String postMethodName(@RequestBody String entity) {
+        //TODO: process POST request
 
-
-public String postMethodName(@RequestBody String entity) {
-    //TODO: process POST request
-    
-    return entity;
-}
-
-
-
-
-@PostMapping("/loginUser")
-public ResponseEntity<Map<String, Object>> login(@RequestBody MyUser myUser) {
-    Map<String, Object> response = new HashMap<>();
-    System.out.println("Received login request for user: " + myUser.getEmail());
-
-    MyUser existingUser = userService.getUserByEmail(myUser.getEmail());
-
-    if (existingUser == null || !passwordEncoder.matches(myUser.getPassword(), existingUser.getPassword())) {
-        response.put("success", false);
-        response.put("message", "Login failed");
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        return entity;
     }
 
-    try {
-        Authentication authentication = authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(existingUser.getUsername(), myUser.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        
-        response.put("success", true);
-        response.put("message", "Login successful");
-        response.put("user", existingUser);
-        return ResponseEntity.ok(response);
-    } catch (BadCredentialsException e) {
-        response.put("success", false);
-        response.put("message", "Login failed");
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
-    } catch (Exception e) {
-        response.put("success", false);
-        response.put("message", "Authentication failed");
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+    @PostMapping("/loginUser")
+    public ResponseEntity<Map<String, Object>> login(@RequestBody MyUser myUser) {
+        Map<String, Object> response = new HashMap<>();
+        System.out.println("Received login request for user: " + myUser.getEmail());
+
+        MyUser existingUser = userService.getUserByEmail(myUser.getEmail());
+
+        if (existingUser == null || !passwordEncoder.matches(myUser.getPassword(), existingUser.getPassword())) {
+            response.put("success", false);
+            response.put("message", "Login failed");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        }
+
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(existingUser.getUsername(), myUser.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            response.put("success", true);
+            response.put("message", "Login successful");
+            response.put("user", existingUser);
+            return ResponseEntity.ok(response);
+        } catch (BadCredentialsException e) {
+            response.put("success", false);
+            response.put("message", "Login failed");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "Authentication failed");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+
+//    @GetMapping("/retrieve/user")
+//    public MyUser retrieveUser(@RequestParam("username") String username) {
+//        return userService.getUserByUsername(username);
+//    }
     }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //    @GetMapping("/retrieve/user")

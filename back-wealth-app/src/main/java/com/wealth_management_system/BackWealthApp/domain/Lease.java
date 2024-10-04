@@ -139,6 +139,13 @@ public class Lease {
 	public void setProperty(Property property) {
 		this.property = property;
 	}
+
+
+	public void addRenter(Renter renter) {
+		renters.add(renter);
+		renter.setLease(this);
+		
+	}
 	
 	/*
 	//Get the lease document

@@ -56,6 +56,12 @@ public class Lease {
     public void setLeaseType(String leaseType) {
         this.leaseType = leaseType;
     }
+    
+ // Method to add a renter to the lease
+    public void addRenter(Renter renter) {
+        renters.add(renter);
+        renter.setLease(this); // Set the lease in the renter
+    }
 	
     /*
 	//Get start date
@@ -87,18 +93,21 @@ public class Lease {
 	public void setPaymentMonthly(double paymentMonthly) {
 		this.paymentMonthly = paymentMonthly;
 	}
+
+
+	public Set<Renter> getRenters() {
+		return renters;
+	}
+
+
+	public void setRenters(Set<Renter> renters) {
+		this.renters = renters;
+	}
+	
+
 	
 
 	/*
-	//Get renter
-	public ArrayList<Renter> getRenter() {
-		return renter;
-	}
-	
-	//Set renter
-	public void setRenter(ArrayList<Renter> renter) {
-		this.renter = renter;
-	}
 	
 	//Get property
 	public Property getProperty() {

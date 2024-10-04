@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wealth_management_system.BackWealthApp.repositry.PropertyRepositry;
+import com.wealth_management_system.BackWealthApp.repositry.RenterRepository;
 import com.wealth_management_system.BackWealthApp.repositry.PropertyRepositry;
 import com.wealth_management_system.BackWealthApp.domain.Maintenance;
 import com.wealth_management_system.BackWealthApp.domain.Property;
@@ -17,7 +18,8 @@ import com.wealth_management_system.BackWealthApp.service.PropertyService;
  */
 @Service
 public class PropertyServiceImpl implements PropertyService {
-	private final PropertyRepositry propertyRepository;
+	private PropertyRepositry propertyRepository;
+	private RenterRepository renterRepository;
 	
 	@Autowired
 	public PropertyServiceImpl(PropertyRepositry propertyRepository) {
@@ -42,24 +44,44 @@ public class PropertyServiceImpl implements PropertyService {
 	@Override
 	public List<Property> listAllProperties() {
 		// TODO Auto-generated method stub
-		return null;
+		return propertyRepository.findAll();
 	}
 
 	@Override
 	public Property updateProperty(Property property) {
 		// TODO Auto-generated method stub
-		return null;
+		 if (!propertyRepository.existsById(property.getId())) {
+	            throw new RuntimeException("Property not found");
+	        }
+	        return propertyRepository.save(property); // Update and return the property
 	}
 
 	@Override
 	public void deleteProperty(int id) {
 		// TODO Auto-generated method stub
+		if (!propertyRepository.existsById(id)) {
+            throw new RuntimeException("Property not found");
+        }
+        propertyRepository.deleteById(id); // Delete the property by ID
 		
 	}
 
 	@Override
 	public void linkRenterToProperty(int propertyId, int renterId) {
 		// TODO Auto-generated method stub
+		Optional<Property> propertyOptional = propertyRepository.findById(propertyId);
+        Optional<Renter> renterOptional = renterRepository.findById(renterId);
+
+        if (propertyOptional.isPresent() && renterOptional.isPresent()) {
+            Property property = propertyOptional.get();
+            Renter renter = renterOptional.get();
+            
+            // Add the renter to the property
+            //property.addRenter(renter); // Assuming addRenter method exists in Property class
+            propertyRepository.save(property); // Save the updated property
+        } else {
+            throw new RuntimeException("Property or Renter not found");
+        }
 		
 	}
 

@@ -139,6 +139,11 @@ public class Property {
 	public void setType(String type) {
 		this.type = type;
 	}
+	
+	/*public void addRenter(Renter renter) {
+        renter.add(renter);
+        renter.setProperty(this); // Link back to the property
+    }
 
 
 	/*

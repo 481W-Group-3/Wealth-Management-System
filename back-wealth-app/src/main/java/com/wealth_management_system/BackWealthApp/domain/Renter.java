@@ -21,6 +21,7 @@ public class Renter {
 
 	//private Random random;
 	
+	//private List<Property> properties = new ArrayList<>();
 	  
 	@ManyToOne
     @JoinColumn(name = "property_id")
@@ -94,5 +95,8 @@ public class Renter {
 	public void setProperty(Property property) {
 		this.property = property;
 	}
+	public void setLease(Lease lease) {
+        this.lease = lease;
+    }
 
 }

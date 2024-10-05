@@ -1,35 +1,36 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import { getPropertyList, addNewProperty } from '../services/real-estate-service';
 const RealEstatePage = () => {
-  const [properties, setProperties] = useState([
-    { 
-      id: 1, 
-      address: '123 Main St', 
-      rent: 1500, 
-      occupied: true,
-      leases: [
-        { id: 1, startDate: '2023-01-01', endDate: '2023-12-31', tenantName: 'John Doe', rentCollectionDay: 1, isActive: true }
-      ]
-    },
-    { 
-      id: 2, 
-      address: '456 Elm St', 
-      rent: 1200, 
-      occupied: false,
-      leases: []
-    },
-  ]);
-  const [newProperty, setNewProperty] = useState({ address: '', rent: '', occupied: false });
+  const [properties, setProperties] = useState([]);
+  const [newProperty, setNewProperty] = useState({ address: '' });
   const [expenses, setExpenses] = useState([]);
   const [newExpense, setNewExpense] = useState({ description: '', amount: '' });
   const [newLease, setNewLease] = useState({ startDate: '', endDate: '', tenantName: '', rentCollectionDay: '' });
   const [viewingLeaseForProperty, setViewingLeaseForProperty] = useState(null);
   const [editingLease, setEditingLease] = useState(null);
 
-  const addProperty = (e) => {
+  useEffect(() => {
+    const fetchProperties = async () => {
+      const response = await getPropertyList();
+      if (response.success !== false) {
+        setProperties(response); 
+      } else {
+        console.error(response.message);
+      }
+    };
+    fetchProperties(); 
+  }, []);
+
+  const addProperty = async (e) => {
     e.preventDefault();
-    setProperties([...properties, { ...newProperty, id: properties.length + 1, rent: Number(newProperty.rent), leases: [] }]);
-    setNewProperty({ address: '', rent: '', occupied: false });
+    const addedProperty = await addNewProperty(newProperty);
+    if (addedProperty.success !== false) {
+      // Add the newly created property to the local state
+      setProperties([...properties, addedProperty]);
+      setNewProperty({ address: '', city: '', state: '', zipCode: '', taxMonthly: 0, insuranceMonthly: 0, mortgageMonthly: 0, type: '' });
+    } else {
+      console.error(addedProperty.message);
+    }
   };
 
   const deleteProperty = (id) => {

@@ -87,6 +87,12 @@ public class Lease {
 	public void setPaymentMonthly(double paymentMonthly) {
 		this.paymentMonthly = paymentMonthly;
 	}
+
+	public void addRenter(Renter renter) {
+		renters.add(renter);
+		renter.setLease(this);
+		
+	}
 	
 
 	/*
@@ -138,6 +144,13 @@ public class Lease {
 
 	public void setProperty(Property property) {
 		this.property = property;
+	}
+
+
+	public void addRenter(Renter renter) {
+		renters.add(renter);
+		renter.setLease(this);
+		
 	}
 	
 	/*

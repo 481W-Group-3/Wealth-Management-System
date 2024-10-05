@@ -5,9 +5,12 @@ import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.wealth_management_system.BackWealthApp.repositry.LeaseRepository;
+import com.wealth_management_system.BackWealthApp.repositry.MaintenanceRepository;
 import com.wealth_management_system.BackWealthApp.repositry.PropertyRepositry;
 import com.wealth_management_system.BackWealthApp.repositry.RenterRepository;
 import com.wealth_management_system.BackWealthApp.repositry.PropertyRepositry;
+import com.wealth_management_system.BackWealthApp.domain.Lease;
 import com.wealth_management_system.BackWealthApp.domain.Maintenance;
 import com.wealth_management_system.BackWealthApp.domain.Property;
 import com.wealth_management_system.BackWealthApp.domain.Renter;
@@ -20,16 +23,13 @@ import com.wealth_management_system.BackWealthApp.service.PropertyService;
 public class PropertyServiceImpl implements PropertyService {
 	private PropertyRepositry propertyRepository;
 	private RenterRepository renterRepository;
+	private LeaseRepository leaseRepository;
+	private MaintenanceRepository maintenanceRepository;
 	
-	@Autowired
-	public PropertyServiceImpl(PropertyRepositry propertyRepository) {
-		this.propertyRepository = propertyRepository;
-	}
 
 	@Override
 	public Property addProperty(Property property) {
-		// TODO Auto-generated method stub
-		return null;
+		return propertyRepository.save(property);
 	}
 
 	@Override
@@ -43,70 +43,63 @@ public class PropertyServiceImpl implements PropertyService {
 
 	@Override
 	public List<Property> listAllProperties() {
-		// TODO Auto-generated method stub
 		return propertyRepository.findAll();
 	}
 
 	@Override
 	public Property updateProperty(Property property) {
-		// TODO Auto-generated method stub
-		 if (!propertyRepository.existsById(property.getId())) {
-	            throw new RuntimeException("Property not found");
-	        }
-	        return propertyRepository.save(property); // Update and return the property
+		if (propertyRepository.existsById(property.getId())) {
+            return propertyRepository.save(property);
+        } else {
+            throw new RuntimeException("Property not found for update");
+        }
 	}
 
 	@Override
 	public void deleteProperty(int id) {
-		// TODO Auto-generated method stub
-		if (!propertyRepository.existsById(id)) {
-            throw new RuntimeException("Property not found");
-        }
-        propertyRepository.deleteById(id); // Delete the property by ID
+		propertyRepository.deleteById(id);
 		
 	}
 
 	@Override
 	public void linkRenterToProperty(int propertyId, int renterId) {
-		// TODO Auto-generated method stub
-		Optional<Property> propertyOptional = propertyRepository.findById(propertyId);
-        Optional<Renter> renterOptional = renterRepository.findById(renterId);
+		 Property property = getPropertyById(propertyId);
+	        Renter renter = renterRepository.findById(renterId)
+	                .orElseThrow(() -> new RuntimeException("Renter not found"));
 
-        if (propertyOptional.isPresent() && renterOptional.isPresent()) {
-            Property property = propertyOptional.get();
-            Renter renter = renterOptional.get();
-            
-            // Add the renter to the property
-            //property.addRenter(renter); // Assuming addRenter method exists in Property class
-            propertyRepository.save(property); // Save the updated property
-        } else {
-            throw new RuntimeException("Property or Renter not found");
-        }
+	        
+	        property.addRenter(renter);
+	        propertyRepository.save(property);
 		
 	}
 
 	@Override
 	public void linkLeaseToProperty(int propertyId, int leaseId) {
-		// TODO Auto-generated method stub
+		 Property property = getPropertyById(propertyId);
+	       
+	     Lease lease = leaseRepository.findById(leaseId).orElseThrow(() -> new RuntimeException("Lease not found"));
+	      property.addLease(lease); 
+	        propertyRepository.save(property);
 		
 	}
 
 	@Override
 	public List<Renter> getRentersByProperty(int propertyId) {
-		// TODO Auto-generated method stub
-		return null;
+		 Property property = getPropertyById(propertyId);
+	     return renterRepository.findByProperty(property);
 	}
 
 	@Override
 	public List<Maintenance> getMaintenanceByProperty(int propertyId) {
-		// TODO Auto-generated method stub
-		return null;
+		Property property = getPropertyById(propertyId);
+        return maintenanceRepository.findByProperty(property);
 	}
 
 	@Override
 	public double calculateRevenue(int propertyId) {
-		// TODO Auto-generated method stub
-		return 0;
+		 Property property = getPropertyById(propertyId);
+		 return 0.0;
+	     //return property.calculateRevenue();
 	}
 
 }

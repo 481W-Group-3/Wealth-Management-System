@@ -95,8 +95,11 @@ public class Renter {
 	public void setProperty(Property property) {
 		this.property = property;
 	}
+	
+
 	public void setLease(Lease lease) {
-        this.lease = lease;
-    }
+		this.lease = lease;
+		
+	}
 
 }

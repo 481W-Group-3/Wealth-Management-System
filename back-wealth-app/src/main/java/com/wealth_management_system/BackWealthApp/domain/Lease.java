@@ -57,11 +57,7 @@ public class Lease {
         this.leaseType = leaseType;
     }
     
- // Method to add a renter to the lease
-    public void addRenter(Renter renter) {
-        renters.add(renter);
-        renter.setLease(this); // Set the lease in the renter
-    }
+
 	
     /*
 	//Get start date
@@ -94,17 +90,11 @@ public class Lease {
 		this.paymentMonthly = paymentMonthly;
 	}
 
-
-	public Set<Renter> getRenters() {
-		return renters;
+	public void addRenter(Renter renter) {
+		renters.add(renter);
+		renter.setLease(this);
+		
 	}
-
-
-	public void setRenters(Set<Renter> renters) {
-		this.renters = renters;
-	}
-	
-
 	
 
 	/*
@@ -147,6 +137,13 @@ public class Lease {
 
 	public void setProperty(Property property) {
 		this.property = property;
+	}
+
+
+	public void addRenter(Renter renter) {
+		renters.add(renter);
+		renter.setLease(this);
+		
 	}
 	
 	/*

@@ -20,7 +20,7 @@ public class InvestmentController {
     private InvestmentService investmentService;
 
     // Add a new investment
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Investment> addInvestment(@RequestBody Investment investment) {
         Investment newInvestment = investmentService.addInvestment(investment);
         return new ResponseEntity<>(newInvestment, HttpStatus.CREATED);

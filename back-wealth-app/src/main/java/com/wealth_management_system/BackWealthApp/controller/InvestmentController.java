@@ -70,12 +70,11 @@ public class InvestmentController {
     }
 
     // Get asset by investment ID
-    @GetMapping("/{investmentId}/asset")
+   /* @GetMapping("/{investmentId}/asset")
     public ResponseEntity<Asset> getAssetByInvestment(@PathVariable int investmentId) {
-        //Asset asset = investmentService.getAssetByInvestment(investmentId);
-        //return new ResponseEntity<>(asset, HttpStatus.OK);
-    	return null;
-    }
+        Asset asset = investmentService.getAssetByInvestment(investmentId);
+        return new ResponseEntity<>(asset, HttpStatus.OK);
+    }*/
 
     // Rebalance portfolio
     @PostMapping("/{investmentId}/rebalance")

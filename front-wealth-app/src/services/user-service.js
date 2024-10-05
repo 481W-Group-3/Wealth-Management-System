@@ -25,3 +25,32 @@ export const testConnection = async (data) => {
         }
     });
 };
+
+export const createInvestment = async (investmentData) => {
+    try {
+        const response = await axios.post(`${BASE_URL}/investments/create`, investmentData, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error creating investment:', error);
+        return { success: false, message: "An error occurred while creating the investment." };
+    }
+};
+
+export const getAllInvestments = async () => {
+    try {
+        const response = await axios.get(`${BASE_URL}/investments`, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        return response.data;  // This should return the list of investments
+    } catch (error) {
+        console.error('Error fetching investments:', error);
+        return { success: false, message: "An error occurred while fetching the investments." };
+    }
+};
+

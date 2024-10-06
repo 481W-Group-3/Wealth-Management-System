@@ -23,6 +23,13 @@ public class Property {
 	
 	
 
+	public Property() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	@OneToMany(mappedBy = "property")
 	private Set<Renter> renter;
 	

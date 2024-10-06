@@ -15,6 +15,7 @@ import com.wealth_management_system.BackWealthApp.service.InvestmentService;
 @Service
 public class InvestmentServiceImpl implements InvestmentService {
 	
+	@Autowired
 	private InvestmentRepository investmentRepository;
 	private Property property;
 	

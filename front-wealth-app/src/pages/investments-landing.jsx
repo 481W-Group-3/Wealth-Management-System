@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { addInvestment } from '../services/user-service';
+
 
 const InvestmentsLanding = () => {
   // Initial state for assets allocation
@@ -21,6 +24,7 @@ const InvestmentsLanding = () => {
   const [expenses, setExpenses] = useState([]);
   const [newExpense, setNewExpense] = useState({ description: '', amount: '' });
 
+
   // Rebalance function for assets allocation
   const rebalance = () => {
     const totalValue = assets.reduce((sum, asset) => sum + asset.currentValue, 0);
@@ -34,11 +38,76 @@ const InvestmentsLanding = () => {
   const totalValue = assets.reduce((sum, asset) => sum + asset.currentValue, 0);
 
   // Add and delete investment functionality
-  const addInvestment = (e) => {
+  // const handleaddInvestment = (e) => {
+  //   e.preventDefault();
+  //   setInvestments([...investments, { ...newInvestment, id: investments.length + 1, amount: Number(newInvestment.amount) }]);
+  //   setNewInvestment({ type: '', amount: '', returns: '' });
+  // };
+
+ // Retrieve the token
+const token = localStorage.getItem('token');
+
+const handleAddInvestment = async (e) => {
     e.preventDefault();
-    setInvestments([...investments, { ...newInvestment, id: investments.length + 1, amount: Number(newInvestment.amount) }]);
-    setNewInvestment({ type: '', amount: '', returns: '' });
-  };
+    
+    // Basic validation
+    if (!newInvestment.type || !newInvestment.amount || !newInvestment.returns) {
+        console.error('Please fill in all fields.');
+        return;
+    }
+
+    try {
+        // Ensure token is available
+        if (!token) {
+            console.error('No token found. User might not be logged in.');
+            return;
+        }
+
+        const response = await axios.post('http://localhost:8080/api/investments/create', newInvestment, {
+            headers: {
+                'Authorization': `Bearer ${token}`// Add your token here
+                
+            }
+        });
+
+        // Handle successful response
+        if (response.status === 200 || response.status === 201) {
+            setInvestments([...investments, { ...response.data, id: investments.length + 1 }]);
+            setNewInvestment({ type: '', amount: '', returns: '' });
+        } else {
+            console.error('Failed to add investment:', response.statusText);
+        }
+    } catch (error) {
+        // Detailed error handling
+        if (error.response) {
+            console.error('Error adding investment:', error.response.data);
+            console.error('Status code:', error.response.status);
+            console.error('Headers:', error.response.headers);
+        } else if (error.request) {
+            console.error('No response received:', error.request);
+        } else {
+            console.error('Error setting up request:', error.message);
+        }
+    }
+};
+
+
+
+
+  // Add and delete investment functionality
+  // const handleAddInvestment = async (e) => {
+  //   e.preventDefault();
+  //   const response = await addInvestment(newInvestment);  // Call the service
+
+  //   if (response) {
+  //     setInvestments([...investments, { ...response, id: investments.length + 1 }]);
+  //     setNewInvestment({ type: '', amount: '', returns: '' });
+  //   } else {
+  //     console.error('Failed to add investment.');
+  //   }
+  // };
+
+  
 
   const deleteInvestment = (id) => {
     setInvestments(investments.filter(investment => investment.id !== id));
@@ -112,7 +181,7 @@ const InvestmentsLanding = () => {
         <div className="two-column-layout">
           <div className="left-column">
             <h2>Add New Investment</h2>
-            <form onSubmit={addInvestment} className="investment-form">
+            <form onSubmit={handleAddInvestment} className="investment-form">
               <div className="form-row">
                 <input
                   type="text"

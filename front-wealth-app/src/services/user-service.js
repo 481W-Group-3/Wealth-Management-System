@@ -4,17 +4,28 @@ export const BASE_URL = 'http://localhost:8080';
 
 export const login = async (credentials) => {
     try {
-        const response = await axios.post(`${BASE_URL}/loginUser`, credentials, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        return response.data;
+        const response = await axios.post(`${BASE_URL}/loginUser`, credentials);
+        if (response.data.success && response.data.token) {
+            localStorage.setItem('token', response.data.token);
+            console.log(response.data.token);
+            
+            const token = response.data.token;
+            console.log(token);
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        } else {
+            console.error('Login successful, but token is missing.');
+        }
+
+
+        return response.data;  // This will contain the user data and status of the login
     } catch (error) {
-        console.error('Login error:', error.response ? error.response.data : error.message);
-        throw error;
+        // Handle any errors, e.g., if the request fails
+        console.error('Login error:', error);
+        return { success: false, message: "An error occurred during login." };
     }
 };
+
+
 
 export const createAccount = async (credentials) => {
     console.log('Creating account:', credentials);
@@ -29,31 +40,48 @@ export const testConnection = async (data) => {
     });
 };
 
-export const createInvestment = async (investmentData) => {
+export const fetchInvestments = async () => {
     try {
-        const response = await axios.post(`${BASE_URL}/investments/create`, investmentData, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
+        const token = localStorage.getItem('token'); // Adjust as necessary for where you store your token
+        const response = await axios.get(`${BASE_URL}/api/investments`, {
+            headers: { Authorization: `Bearer ${token}` } // Include token in header
+            
         });
-        return response.data;
+        return response.data;  // This will contain the array of investments
     } catch (error) {
-        console.error('Error creating investment:', error);
-        return { success: false, message: "An error occurred while creating the investment." };
+        console.error('Error fetching investments:', error);
+        return [];  // Return an empty array or handle the error as needed
     }
 };
 
-export const getAllInvestments = async () => {
+
+
+export const addInvestment = async (investment) => {
     try {
-        const response = await axios.get(`${BASE_URL}/investments`, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
+        const token = localStorage.getItem('token'); // Adjust as necessary for where you store your token
+        const response = await axios.post(`${BASE_URL}/api/investments/create`, investment, {
+            headers: { Authorization: `Bearer ${token}` } // Include token in header
         });
-        return response.data;  // This should return the list of investments
+        return response.data;  // This will contain the created investment data
     } catch (error) {
-        console.error('Error fetching investments:', error);
-        return { success: false, message: "An error occurred while fetching the investments." };
+        console.error('Error adding investment:', error.response || error);  // Log the full response if available
+        return null;  // Handle the error as needed
     }
 };
+
+
+
+
+
+
+export const deleteInvestment = async (id) => {
+    try {
+        await axios.delete(`${BASE_URL}/investments/${id}`); // Adjust the endpoint
+        return true;  // Return true on success
+    } catch (error) {
+        console.error('Error deleting investment:', error);
+        return false;  // Return false or handle the error as needed
+    }
+};
+
 

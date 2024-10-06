@@ -1,20 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { login } from "../../services/user-service";
-import { doLogin } from "../auth/login-info";
-import { useNavigate } from 'react-router-dom';
 import FormCards from './FormCard';
 import Cards from './cards';
 import investmentPlanningImage from './images/investment-planning.jpg';
 import retirementPlanningImage from './images/retirement-planning.jpg';
 import taxOptimizationImage from './images/tax-optimization.jpg';
+import useAuth from '../../utils/useAuth';
 
 const User = () => {
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
-    const [rememberMe, setRememberMe] = React.useState(false);
-    const [showPassword, setShowPassword] = React.useState(false);
-    const [errorMessage, setErrorMessage] = React.useState('');
-    const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [rememberMe, setRememberMe] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const { checkAuth } = useAuth();
 
     const handleShowPassword = () => {
         setShowPassword(!showPassword);
@@ -28,17 +27,19 @@ const User = () => {
         }
         try {
             const response = await login({ email, password });
+            console.log("This is before response.success");
             if (response.success) {
-                doLogin(response.user, () => {
-                    console.log('Logged in successfully!');
-                    navigate('/logout');
-                });
+                console.log('Logged in successfully!');
+                localStorage.setItem('user', JSON.stringify(response.user));
+                checkAuth();
+                // Refresh the page
+                window.location.href = '/dashboard';
             } else {
                 setErrorMessage(response.message || "Invalid email or password.");
             }
         } catch (error) {
             setErrorMessage("An error occurred. Please try again.");
-            console.error("Login error:", error.response ? error.response.data : error);
+            console.error("Login error:", error);
         }
     };
 

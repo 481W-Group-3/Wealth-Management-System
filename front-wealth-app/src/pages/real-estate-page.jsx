@@ -27,23 +27,23 @@ const RealEstatePage = () => {
   const [viewingLeaseForProperty, setViewingLeaseForProperty] = useState(null);
   const [editingLease, setEditingLease] = useState(null);
 
-  // // Adding a new property
-  // const handleAddProperty = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const addedProperty = await addProperty({ ...newProperty, rent: Number(newProperty.rent) });
-  //     setProperties([...properties, { ...addedProperty, leases: [] }]); // Assume the response includes the added property details
-  //     setNewProperty({ address: '', rent: '', occupied: false });
-  //   } catch (error) {
-  //     console.error('Error adding property:', error);
-  //   }
-  // };
-
-  const addProperty = (e) => {
+  // Adding a new property
+  const handleAddProperty = async (e) => {
     e.preventDefault();
-    setProperties([...properties, { ...newProperty, id: properties.length + 1, rent: Number(newProperty.rent), leases: [] }]);
-    setNewProperty({ address: '', rent: '', occupied: false });
+    try {
+      const addedProperty = await addProperty({ ...newProperty, rent: Number(newProperty.rent) });
+      setProperties([...properties, { ...addedProperty, leases: [] }]); // Assume the response includes the added property details
+      setNewProperty({ address: '', rent: '', occupied: false });
+    } catch (error) {
+      console.error('Error adding property:', error);
+    }
   };
+
+  // const addProperty = (e) => {
+  //   e.preventDefault();
+  //   setProperties([...properties, { ...newProperty, id: properties.length + 1, rent: Number(newProperty.rent), leases: [] }]);
+  //   setNewProperty({ address: '', rent: '', occupied: false });
+  // };
 
   const deleteProperty = (id) => {
     setProperties(properties.filter(property => property.id !== id));

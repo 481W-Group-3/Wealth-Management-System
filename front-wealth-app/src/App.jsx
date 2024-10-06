@@ -1,5 +1,5 @@
 import './App.css'
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/header/header.jsx";
 import Footer from "./components/footer/footer.jsx";
 import Dashboard from "./pages/dashboard.jsx";
@@ -10,22 +10,27 @@ import TestComponent from './components/user/test.jsx';
 import LogoutPage from './components/user/logout.jsx';
 import AccountCreationPage from "./pages/account-creation-page.jsx";
 import InvestmentsLanding from './pages/investments-landing.jsx';
+import ProtectedRoute from './components/ProtectedRoute'; 
 
 function App() {
     return (
         <div>
             <BrowserRouter>
-            <Header/>
+                <Header/>
                 <div className={"app-container"}>
                     <Routes>
-                        <Route Component={Login} path={"/"}/>
-                        <Route Component={Dashboard} path={"/home"}/>
-                        <Route Component={RealEstatePage} path="/real-estate"/>
-                        <Route Component={AccountCreationPage} path="/account-creation"/>
-                        <Route Component={InvestmentsLanding} path="investments"/>
-                        <Route path="/user" element={<User/>}/>
-                        <Route path="/test" element={<TestComponent/>}/>
-                        <Route path="/logout" element={<LogoutPage/>}/>
+                        {/* Unprotected Routes */}
+                        <Route path="/" element={<Login />} />
+                        <Route path="/account-creation" element={<AccountCreationPage />} />
+                        <Route path="/user" element={<User />} />
+
+                        {/* Protected Routes */}
+                        <Route path="/home" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                        <Route path="/real-estate" element={<ProtectedRoute><RealEstatePage /></ProtectedRoute>} />
+                        <Route path="/investments" element={<ProtectedRoute><InvestmentsLanding /></ProtectedRoute>} />
+                        <Route path="/test" element={<ProtectedRoute><TestComponent /></ProtectedRoute>} />
+                        <Route path="/logout" element={<ProtectedRoute><LogoutPage /></ProtectedRoute>} />
                     </Routes>
                 </div>
                 <Footer/>

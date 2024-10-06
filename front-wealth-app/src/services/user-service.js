@@ -4,12 +4,15 @@ export const BASE_URL = 'http://localhost:8080';
 
 export const login = async (credentials) => {
     try {
-        const response = await axios.post(`${BASE_URL}/loginUser`, credentials);
-        return response.data;  // This will contain the user data and status of the login
+        const response = await axios.post(`${BASE_URL}/loginUser`, credentials, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        return response.data;
     } catch (error) {
-        // Handle any errors, e.g., if the request fails
-        console.error('Login error:', error);
-        return {success: false, message: "An error occurred during login."};
+        console.error('Login error:', error.response ? error.response.data : error.message);
+        throw error;
     }
 };
 

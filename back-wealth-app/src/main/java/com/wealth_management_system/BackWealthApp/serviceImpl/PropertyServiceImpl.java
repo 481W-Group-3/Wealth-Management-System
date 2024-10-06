@@ -21,9 +21,13 @@ import com.wealth_management_system.BackWealthApp.service.PropertyService;
  */
 @Service
 public class PropertyServiceImpl implements PropertyService {
+	@Autowired
 	private PropertyRepositry propertyRepository;
+	@Autowired
 	private RenterRepository renterRepository;
+	@Autowired
 	private LeaseRepository leaseRepository;
+	@Autowired
 	private MaintenanceRepository maintenanceRepository;
 	
 

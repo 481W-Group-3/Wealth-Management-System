@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { addProperty } from '../services/propertyauth';
 
 const RealEstatePage = () => {
   const [properties, setProperties] = useState([
@@ -25,6 +26,18 @@ const RealEstatePage = () => {
   const [newLease, setNewLease] = useState({ startDate: '', endDate: '', tenantName: '', rentCollectionDay: '' });
   const [viewingLeaseForProperty, setViewingLeaseForProperty] = useState(null);
   const [editingLease, setEditingLease] = useState(null);
+
+  // // Adding a new property
+  // const handleAddProperty = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const addedProperty = await addProperty({ ...newProperty, rent: Number(newProperty.rent) });
+  //     setProperties([...properties, { ...addedProperty, leases: [] }]); // Assume the response includes the added property details
+  //     setNewProperty({ address: '', rent: '', occupied: false });
+  //   } catch (error) {
+  //     console.error('Error adding property:', error);
+  //   }
+  // };
 
   const addProperty = (e) => {
     e.preventDefault();
@@ -125,7 +138,7 @@ const RealEstatePage = () => {
         <div className="two-column-layout">
           <div className="left-column">
             <h2>Add New Property</h2>
-            <form onSubmit={addProperty}>
+            <form onSubmit={handleAddProperty}>
               <input
                 type="text"
                 placeholder="Address"

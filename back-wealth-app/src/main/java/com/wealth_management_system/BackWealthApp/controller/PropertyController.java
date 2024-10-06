@@ -22,6 +22,7 @@ public class PropertyController {
     @PostMapping("/add")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Property> addProperty(@RequestBody Property property) {
+    	System.out.println("recieved add property request from: " + property.getAddress());
         Property createdProperty = propertyService.addProperty(property);
         return ResponseEntity.ok(createdProperty);
     }

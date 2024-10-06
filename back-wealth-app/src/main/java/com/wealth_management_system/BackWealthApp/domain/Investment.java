@@ -23,9 +23,8 @@ public class Investment {
 	//private Date currentDate;
 	//private Date previousEditDate;
 	
-	@OneToMany(mappedBy = "investment")
-	private ArrayList<Property> property;
-	
+	@OneToMany(mappedBy = "investment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Property> property;
 	
 	@OneToMany(mappedBy = "investment")
 	private Set<Asset> asset;
@@ -104,6 +103,7 @@ public class Investment {
 	public void setCurrentValue(double currentValue) {
 		this.currentValue = currentValue;
 	}
+	
 	/*
 	//Get current date
 	public Date getCurrentDate() {
@@ -137,11 +137,13 @@ public class Investment {
 		this.user = user;
 	}
 
-	public ArrayList<Property> getProperty() {
+	
+
+	public List<Property> getProperty() {
 		return property;
 	}
 
-	public void setProperty(ArrayList<Property> property) {
+	public void setProperty(List<Property> property) {
 		this.property = property;
 	}
 

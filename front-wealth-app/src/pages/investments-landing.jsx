@@ -1,6 +1,8 @@
+import "./investment-landing.css"
+/*
 import React, { useState } from 'react';
 import axios from 'axios';
-import { addInvestment } from '../services/user-service';
+import { addInvestment } from '../services/investmentService';
 
 
 const InvestmentsLanding = () => {
@@ -132,7 +134,8 @@ const handleAddInvestment = async (e) => {
       <h1>Investments Management</h1>
 
       <div className="content">
-        {/* Asset Allocation & Market Predictions */}
+        {/* Asset Allocation & Market Predictions */
+        /*
         <div className="two-column-layout">
           <div className="left-column">
             <h2>Asset Allocation</h2>
@@ -176,8 +179,9 @@ const handleAddInvestment = async (e) => {
             </table>
           </div>
         </div>
-
+*/
         {/* Add Investments and Expenses */}
+        /*
         <div className="two-column-layout">
           <div className="left-column">
             <h2>Add New Investment</h2>
@@ -195,7 +199,8 @@ const handleAddInvestment = async (e) => {
                   value={newInvestment.amount}
                   onChange={(e) => setNewInvestment({ ...newInvestment, amount: e.target.value })}
                 />
-              </div> {/* end of row */}
+              </div> {/* end of row */
+              /*
               <div className="form-row">
                 <input
                   type="number"
@@ -204,7 +209,8 @@ const handleAddInvestment = async (e) => {
                   onChange={(e) => setNewInvestment({ ...newInvestment, returns: e.target.value })}
                 />
                 <button type="submit" className="add-btn">Add Investment</button>
-              </div> {/* end of row */}
+              </div> {/* end of row */
+              /*
             </form>
           </div>
 
@@ -255,10 +261,12 @@ const handleAddInvestment = async (e) => {
                   value={newExpense.amount}
                   onChange={(e) => setNewExpense({ ...newExpense, amount: e.target.value })}
                 />
-              </div> {/* end of row */}
+              </div> {/* end of row */
+              /*
               <div className="form-row">
                 <button type="submit" className="add-btn">Add Expense</button>
-              </div> {/* end of row */}
+              </div> {/* end of row */
+              /*
             </form>
           </div>
 
@@ -290,7 +298,8 @@ const handleAddInvestment = async (e) => {
           </div>
         </div>
 
-        {/* Rebalance Button */}
+        {/* Rebalance Button */
+        /*
         <div className="button-container">
           <button onClick={rebalance} className="rebalance-btn">
             Rebalance Portfolio
@@ -298,106 +307,186 @@ const handleAddInvestment = async (e) => {
         </div>
       </div>
 
-      {/* Styles */}
-      <style jsx>{`
-        .investments-container {
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        h1, h2, h3 {
-            color: #333;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .content {
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            background-color: rgba(255, 255, 255, 1);
-        }
-        .two-column-layout {
-            display: flex;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        .left-column, .right-column {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;  
-        }
-        input {
-            border-radius: 5px;
-            border: 1px solid black;
-            padding: 5px 10px;
-            width: 100%;
-        }
-        .investment-form .form-row, .expense-form .form-row {
-            margin-bottom: 10px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        .investment-form, .expense-form {
-            width: 100%;
-            align-items: center;  
-            max-width: 400px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            text-align: left;
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-        .button-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        button {
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-        }
-        .add-btn {
-            background-color: #2B5887;
-        }
-        .add-btn:hover {
-            background-color: #366EAB;
-        }
-        .delete-btn {
-            background-color: #dc3545;
-        }
-        .delete-btn:hover {
-            background-color: #c82333;
-        }
-        .rebalance-btn {
-            background-color: #1C732F;
-        }
-    
-        .rebalance-btn:hover {
-            background-color: #24943C;
-        }
-        `}</style>
+      
       </div>
     );
   };
-          
+  */  
+ 
+  import React, { useState, useEffect } from 'react';
+  import {
+    fetchInvestments,
+    addInvestment,
+    deleteInvestment as deleteInvestmentService,
+    fetchAssetAllocations,
+  } from '../services/investmentService';
+  
+  const InvestmentsLanding = () => {
+    const [assets, setAssets] = useState([]);
+    const [investments, setInvestments] = useState([]);
+    const [newInvestment, setNewInvestment] = useState({ type: '', principalInitial: 0, currentValue: 0 });
+    const [expenses, setExpenses] = useState([]);
+    const [newExpense, setNewExpense] = useState({ description: '', amount: '' });
+  
+    useEffect(() => {
+      const loadAssetsAndInvestments = async () => {
+        try {
+          const fetchedAssets = await fetchAssetAllocations();
+          const fetchedInvestments = await fetchInvestments();
+          setAssets(fetchedAssets);
+          setInvestments(fetchedInvestments);
+        } catch (error) {
+          console.error("Failed to fetch assets or investments:", error);
+        }
+      };
+  
+      loadAssetsAndInvestments();
+    }, []);
+  
+    const rebalance = () => {
+      const totalValue = assets.reduce((sum, asset) => sum + (asset.currentValue || 0), 0);
+      const newAssets = assets.map(asset => ({
+        ...asset,
+        currentValue: (asset.allocation / 100) * totalValue,
+      }));
+      setAssets(newAssets);
+    };
+  
+    const handleAddInvestment = async (e) => {
+      e.preventDefault();
+      const { type, principalInitial, currentValue } = newInvestment;
+      console.log('initial value is: ', principalInitial);
+      console.log('current value is: ', currentValue);
+  
+      if (!type || principalInitial <= 0 || currentValue <= 0) {
+        console.error('Please fill in all fields with valid numbers.');
+        return;
+      }
+  
+      try {
+        // Calculate returns directly in the frontend
+        const calculatedReturns = currentValue - principalInitial;
+        console.log('calculate return value is', calculatedReturns);
+  
+        // Add investment with the calculated returns
+        const response = await addInvestment({ ...newInvestment, returns: calculatedReturns });
+        setInvestments([...investments, { ...response, id: investments.length + 1 }]);
+        setNewInvestment({ type: '', principalInitial: 0, currentValue: 0 }); // Reset fields
+      } catch (error) {
+        console.error('Failed to add investment:', error);
+      }
+    };
+  
+    const deleteInvestment = async (id) => {
+      const isDeleted = await deleteInvestmentService(id);
+      if (isDeleted) {
+        setInvestments(investments.filter(investment => investment.id !== id));
+      } else {
+        console.error('Failed to delete investment.');
+      }
+    };
+  
+    const addExpense = (e) => {
+      e.preventDefault();
+      setExpenses([...expenses, { ...newExpense, id: expenses.length + 1, amount: Number(newExpense.amount) }]);
+      setNewExpense({ description: '', amount: '' });
+    };
+  
+    const deleteExpense = (id) => {
+      setExpenses(expenses.filter(expense => expense.id !== id));
+    };
+  
+    const totalValue = assets.reduce((sum, asset) => sum + (asset.currentValue || 0), 0);
+    const totalIncome = investments.reduce((sum, investment) => sum + (investment.returns || 0), 0);
+    const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0);
+  
+    return (
+      <div className="investments-container">
+        <h1>Investments Management</h1>
+        <div className="content">
+          {/* Asset Allocation */}
+          <div className="left-column">
+            <h2>Asset Allocation</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Asset Type</th>
+                  <th>Allocation (%)</th>
+                  <th>Current Value ($)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {assets.map(asset => (
+                  <tr key={asset.id}>
+                    <td>{asset.type}</td>
+                    <td>{asset.allocation}%</td>
+                    <td>${(asset.currentValue || 0).toFixed(2)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <h3>Total Value: ${totalValue.toFixed(2)}</h3>
+          </div>
+  
+          {/* Add Investments and Expenses */}
+          <div className="right-column">
+            <h2>Investments</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Principal Initial ($)</th>
+                  <th>Returns ($)</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {investments.map(investment => (
+                  <tr key={investment.id}>
+                    <td>{investment.type}</td>
+                    <td>${(investment.principalInitial || 0).toFixed(2)}</td>
+                    <td>${(investment.calculatedReturns || 0).toFixed(2)}</td>
+                    <td>
+                      <button onClick={() => deleteInvestment(investment.id)}>Delete</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <form onSubmit={handleAddInvestment}>
+              <input
+                type="text"
+                placeholder="Type"
+                value={newInvestment.type}
+                onChange={(e) => setNewInvestment({ ...newInvestment, type: e.target.value })}
+              />
+              <input
+                type="number"
+                placeholder="Initial Principal"
+                value={newInvestment.principalInitial}
+                onChange={(e) => setNewInvestment({ ...newInvestment, principalInitial: Number(e.target.value) })}
+              />
+              <input
+                type="number"
+                placeholder="Current Value"
+                value={newInvestment.currentValue}
+                onChange={(e) => setNewInvestment({ ...newInvestment, currentValue: Number(e.target.value) })}
+              />
+              <button type="submit">Add Investment</button>
+            </form>
+          </div>
+  
+          {/* Rebalance Button */}
+          <div className="button-container">
+            <button onClick={rebalance} className="rebalance-btn">
+              Rebalance Portfolio
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+  
   export default InvestmentsLanding;
-
-
-
-
-
-
-
-
-
+  
+  

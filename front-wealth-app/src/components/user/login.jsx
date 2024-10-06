@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { login } from "../../services/user-service";
+import { login } from '../../services/authService';
 import FormCards from './FormCard';
 import Cards from './cards';
 import investmentPlanningImage from './images/investment-planning.jpg';

@@ -6,6 +6,7 @@ import com.wealth_management_system.BackWealthApp.domain.Renter;
 import com.wealth_management_system.BackWealthApp.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class PropertyController {
 
     // Add a property
     @PostMapping("/add")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Property> addProperty(@RequestBody Property property) {
         Property createdProperty = propertyService.addProperty(property);
         return ResponseEntity.ok(createdProperty);
@@ -26,6 +28,7 @@ public class PropertyController {
 
     // Get a property by Id
     @GetMapping("/{id}")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Property> getPropertyById(@PathVariable int id) {
         Property property = propertyService.getPropertyById(id);
         if (property != null) {
@@ -36,6 +39,7 @@ public class PropertyController {
 
     // List all properties
     @GetMapping("/list")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<Property>> listAllProperties() {
         List<Property> properties = propertyService.listAllProperties();
         return ResponseEntity.ok(properties);
@@ -43,6 +47,7 @@ public class PropertyController {
 
     // Update a property
     @PutMapping("/update")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Property> updateProperty(@RequestBody Property property) {
         Property updatedProperty = propertyService.updateProperty(property);
         return ResponseEntity.ok(updatedProperty);
@@ -50,6 +55,7 @@ public class PropertyController {
 
     // Delete a property by Id
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Void> deleteProperty(@PathVariable int id) {
         propertyService.deleteProperty(id);
         return ResponseEntity.noContent().build();
@@ -57,6 +63,7 @@ public class PropertyController {
 
     // Link a renter to a property
     @PostMapping("/linkRenter/{propertyId}/{renterId}")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Void> linkRenterToProperty(@PathVariable int propertyId, @PathVariable int renterId) {
         propertyService.linkRenterToProperty(propertyId, renterId);
         return ResponseEntity.ok().build();
@@ -64,6 +71,7 @@ public class PropertyController {
 
     // Link a lease to a property
     @PostMapping("/linkLease/{propertyId}/{leaseId}")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Void> linkLeaseToProperty(@PathVariable int propertyId, @PathVariable int leaseId) {
         propertyService.linkLeaseToProperty(propertyId, leaseId);
         return ResponseEntity.ok().build();
@@ -71,6 +79,7 @@ public class PropertyController {
 
     // Get renters by property Id
     @GetMapping("/{propertyId}/renters")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<Renter>> getRentersByProperty(@PathVariable int propertyId) {
         List<Renter> renters = propertyService.getRentersByProperty(propertyId);
         return ResponseEntity.ok(renters);
@@ -78,6 +87,7 @@ public class PropertyController {
 
     // Get maintenance by property Id
     @GetMapping("/{propertyId}/maintenance")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<Maintenance>> getMaintenanceByProperty(@PathVariable int propertyId) {
         List<Maintenance> maintenanceList = propertyService.getMaintenanceByProperty(propertyId);
         return ResponseEntity.ok(maintenanceList);
@@ -85,6 +95,7 @@ public class PropertyController {
 
     // Calculate revenue for a property
     @GetMapping("/{propertyId}/revenue")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Double> calculateRevenue(@PathVariable int propertyId) {
         double revenue = propertyService.calculateRevenue(propertyId);
         return ResponseEntity.ok(revenue);

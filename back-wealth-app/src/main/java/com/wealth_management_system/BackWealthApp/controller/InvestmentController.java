@@ -25,9 +25,15 @@ public class InvestmentController {
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Investment> addInvestment(@RequestBody Investment investment) {
     	System.out.println("Received investment: " + investment);
+    	System.out.println("investment amount is: " + investment.getPrincipalInitial());
+    	System.out.println("current amount is: " + investment.getCurrentValue());
+    	System.out.println("investmemt type is: " + investment.getType());
+    	//System.out.println("investment amount is: " + investment.getPrincipalInitial());
         Investment newInvestment = investmentService.addInvestment(investment);
         return new ResponseEntity<>(newInvestment, HttpStatus.CREATED);
     }
+    
+
 
     // Get investment by ID
     @GetMapping("/{id}")

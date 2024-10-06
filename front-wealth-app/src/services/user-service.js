@@ -1,3 +1,4 @@
+/*
 import axios from 'axios';
 
 export const BASE_URL = 'http://localhost:8080';
@@ -84,4 +85,29 @@ export const deleteInvestment = async (id) => {
     }
 };
 
+*/
+
+// src/services/userService.js
+
+import apiClient from './apiClient';
+
+export const getUserProfile = async () => {
+    try {
+        const response = await apiClient.get('/user/profile');
+        return response.data;  // Returns user profile data
+    } catch (error) {
+        console.error('Error fetching user profile:', error);
+        throw error;
+    }
+};
+
+export const updateUserProfile = async (userData) => {
+    try {
+        const response = await apiClient.put('/user/profile/update', userData);
+        return response.data;  // Returns updated user profile data
+    } catch (error) {
+        console.error('Error updating user profile:', error);
+        throw error;
+    }
+};
 

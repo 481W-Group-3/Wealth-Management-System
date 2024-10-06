@@ -1,6 +1,6 @@
 import "./account-creation.css";
 import React, {useState} from 'react';
-import {createAccount} from "../../services/user-service";
+import { createAccount } from "../../services/authService";
 
 const UserCreate = () => {
 

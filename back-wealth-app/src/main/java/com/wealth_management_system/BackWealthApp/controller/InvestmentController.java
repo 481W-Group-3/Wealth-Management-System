@@ -14,7 +14,7 @@ import com.wealth_management_system.BackWealthApp.service.InvestmentService;
 import java.util.List;
 
 @RestController
-//@RequestMapping("/api/investments")
+@RequestMapping("/api/investments")
 public class InvestmentController {
 
     @Autowired

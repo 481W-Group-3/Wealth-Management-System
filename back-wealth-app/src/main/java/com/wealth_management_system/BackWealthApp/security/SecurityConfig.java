@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -32,7 +33,21 @@ public class SecurityConfig {
     public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
+    
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http
+            .csrf(AbstractHttpConfigurer::disable)
+            .authorizeHttpRequests(registry -> {
+                registry.requestMatchers("/home", "/register/**", "/loginUser").permitAll();
+                registry.anyRequest().authenticated();
+            })
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // Register JWT filter
+            .cors(corsCustomizer -> corsCustomizer.configurationSource(corsConfigurationSource()))
+            .build();
+    }
 
+/*
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http
@@ -43,7 +58,7 @@ public class SecurityConfig {
 				// .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
 				.cors(corsCustomizer -> corsCustomizer.configurationSource(corsConfigurationSource())).build();
 	}
-
+*/
 	@Bean
 	public UserDetailsService userDetailsService() {
 		return userService;

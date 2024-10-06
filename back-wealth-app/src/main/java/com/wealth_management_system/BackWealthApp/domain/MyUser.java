@@ -23,12 +23,13 @@ public class MyUser implements UserDetails {
     private String email;
 
     public MyUser() {
+        this.role = "USER";
     }
 
-    public MyUser(String username, String password, String role, String email) {
+    public MyUser(String username, String password, String email) {
         this.username = username;
         this.password = password;
-        this.role = role;
+        this.role = "USER";
         this.email = email;
     }
 
@@ -97,6 +98,9 @@ public class MyUser implements UserDetails {
         this.email = email;
     }
 
+    public String toString(){
+        return id + " " + username + " " + email;
+    }
 
 }
 

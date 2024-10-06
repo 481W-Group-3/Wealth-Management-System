@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { addProperty, listAllProperties } from '../services/propertyauth';
+import { addProperty, listAllProperties, deleteProperty } from '../services/propertyauth';
 
 const RealEstatePage = () => {
   const [properties, setProperties] = useState([]);
@@ -39,14 +39,14 @@ const RealEstatePage = () => {
     }
   };
 
-  // const addProperty = (e) => {
-  //   e.preventDefault();
-  //   setProperties([...properties, { ...newProperty, id: properties.length + 1, rent: Number(newProperty.rent), leases: [] }]);
-  //   setNewProperty({ address: '', rent: '', occupied: false });
-  // };
 
-  const deleteProperty = (id) => {
-    setProperties(properties.filter(property => property.id !== id));
+  const handleDeleteProperty = async (id) => {
+    try {
+      await deleteProperty(id);
+      setProperties(properties.filter(property => property.id !== id));
+    } catch (error) {
+      console.error('Error deleting property:', error);
+    }
   };
 
   const addExpense = (e) => {
@@ -189,7 +189,7 @@ const RealEstatePage = () => {
             </button>
           </td>
           <td>
-            <button onClick={() => deleteProperty(property.id)} className="delete-btn">
+            <button onClick={() => handleDeleteProperty(property.id)} className="delete-btn">
               Delete
             </button>
           </td>

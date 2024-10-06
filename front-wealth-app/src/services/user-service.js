@@ -29,8 +29,12 @@ export const login = async (credentials) => {
 
 
 export const createAccount = async (credentials) => {
-    console.log('Creating account:', credentials);
-    await axios.post(`${BASE_URL}/register/user`, credentials);
+    try {
+        await axios.post(`${BASE_URL}/register/user`, credentials);
+    }catch(error) {
+        console.log("Error Occured: " + error);
+        return error;
+    }
 }
 
 export const testConnection = async (data) => {

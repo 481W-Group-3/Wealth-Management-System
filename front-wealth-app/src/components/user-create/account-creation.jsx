@@ -6,16 +6,13 @@ const UserCreate = () => {
 
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
-    const role = "USER"
     const [password, setPassword] = useState('');
     const [repassword, setRePassword] = useState('');
+    const [error, setErrorMessage] = useState('');
 
-    /*
-    Disables button if all forms are not filled, if 
-    password does not match re-entered password.
-    */
+
         function SubmitButton(){
-            if (username && email && password && repassword && password == repassword){
+            if (username && email && password && repassword && password === repassword){
               return <button type="submit" id="checkout-submit-button">Submit</button>
             } else {
               return <button type="submit" id="checkout-submit-button" disabled>Submit</button>
@@ -25,21 +22,23 @@ const UserCreate = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        //if (/*email in use*/) {
-        //TODO Check if Email is in use when Database is implemented
-        await createAccount({
-            'username': username, 
-            'password': password, 
-            'role': role,
-            'email': email
-        });
-        console.log('User Name:', username);
-        console.log('Email:', email);
-        console.log('Password:', password);
-        //}
-        //else {
-        //display Error Text somewhere.
-        //}
+        if(!username || !email || !password){
+            setErrorMessage("Please fill in the information");
+            return;
+        }
+        try {
+            await createAccount({
+                'username': username,
+                'password': password,
+                'email': email
+            });
+
+            window.location.href = '/dashboard';
+        }catch(error){
+            setErrorMessage("Username or Email already Exists")
+            console.log(error);
+        }
+        
     };
     return (
         <div className="page-container">
@@ -47,6 +46,7 @@ const UserCreate = () => {
                 <form onSubmit={handleSubmit} id="submitform" name="submitform">
                     <div className={"in-form-container"}>
                         <h2 id="create-account-h2">Create Account</h2>
+                        {error && <h3 className={"error-message"} role={"alert"}>{error}</h3>}
                         <div className={"form-component"}>
                             <label htmlFor="username">Username:</label>
                             <input

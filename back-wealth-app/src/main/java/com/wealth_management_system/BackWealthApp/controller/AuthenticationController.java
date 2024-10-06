@@ -39,12 +39,14 @@ public class AuthenticationController {
 
     @PostMapping("/register/user")
     public ResponseEntity<String> createUser(@RequestBody MyUser user) {
-        System.out.println("Creating Account: ");
-        System.out.println(user.getUsername() + " " + user.getPassword() + " " + user.getRole() + " " + user.getEmail());
+        System.out.println("Creating Account: " + user.getUsername() + " " + user.getPassword() + " " + user.getRole() + " " + user.getEmail());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        if(userService.createUser(user) == null)
+        try{
+            userService.createUser(user);
+            return ResponseEntity.ok("User Created");
+        }catch(Exception e){
             return new ResponseEntity<>("User Already Exists", HttpStatus.CONFLICT);
-        return new ResponseEntity<>("User Created Successfully", HttpStatus.CREATED);
+        }
     }
 
     public String postMethodName(@RequestBody String entity) {

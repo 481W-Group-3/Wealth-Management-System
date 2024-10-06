@@ -38,7 +38,7 @@
 }
 
 #submitform {
-    height: 400px;
+    height: 100%;
     width: 300px;
  background-color: #f2f2f2;
  border-radius: 0.5em;
@@ -67,3 +67,12 @@
     color: #555;
     cursor: not-allowed;
   }
+
+.error-message{
+    color: red;
+    background: lightcoral;
+    border: 1px solid red;
+    border-radius: 0.5em;
+    padding: 5px;
+    margin: 10px;
+}

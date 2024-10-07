@@ -15,7 +15,7 @@ const Footer = () => {
                     </nav>
                     <div className="footer-content">
                         <h3>Contact Us</h3>
-                        <p>Email: info@example.com</p>
+                        <p>Email: support@money-mentor.com</p>
                         <p>Phone: (123) 456-7890</p>
                         <p>Address: 123 Main St, Anytown, USA 12345</p>
                     </div>
@@ -24,7 +24,7 @@ const Footer = () => {
 
                 </div>
                 <div className="footer-bottom">
-                    <p>&copy; 2024 Your Company Name. All rights reserved.</p>
+                    <p>&copy; 2024 Money Mentor. All rights reserved.</p>
                 </div>
             </div>
         </footer>

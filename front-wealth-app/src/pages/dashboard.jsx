@@ -40,7 +40,7 @@ const HomePage = () => {
     return (
         <div className="home-container">
             <div className={"page-container"}>
-                <div className="content-rectangle">
+                <div className="content-rectangle" style={{ backgroundColor: '#c3e8c7' }}>
                     <h1 className="dashboard-title">Dashboard</h1>
                     <div className="card-grid">
                         {cardData.map((card, index) => (

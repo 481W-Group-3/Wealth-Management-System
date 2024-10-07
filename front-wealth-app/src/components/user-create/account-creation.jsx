@@ -1,31 +1,29 @@
-import "./account-creation.css";
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { createAccount } from "../../services/authService";
+import FormCards from '../user/FormsForDashboard.jsx'; 
+import welcomeImage from '../user/images/gradient.jpg'; 
 
 const UserCreate = () => {
-
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [repassword, setRePassword] = useState('');
     const [error, setErrorMessage] = useState('');
-
-
-        function SubmitButton(){
-            if (username && email && password && repassword && password === repassword){
-              return <button type="submit" id="checkout-submit-button">Submit</button>
-            } else {
-              return <button type="submit" id="checkout-submit-button" disabled>Submit</button>
-            };
-          };
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if(!username || !email || !password){
-            setErrorMessage("Please fill in the information");
+        if (!username || !email || !password) {
+            setErrorMessage("Please fill in all the information");
             return;
         }
+
+        if (password !== repassword) {
+            setErrorMessage("Passwords do not match");
+            return;
+        }
+
         try {
             await createAccount({
                 'username': username,
@@ -34,67 +32,55 @@ const UserCreate = () => {
             });
 
             window.location.href = '/dashboard';
-        }catch(error){
-            setErrorMessage("Username or Email already Exists")
+        } catch (error) {
+            setErrorMessage("Username or Email already exists");
             console.log(error);
         }
-        
     };
+
+    const formFields = [
+        {
+            name: "username",
+            label: "Username",
+            type: "text",
+            value: username,
+            onChange: (e) => setUsername(e.target.value)
+        },
+        {
+            name: "email",
+            label: "Email",
+            type: "email",
+            value: email,
+            onChange: (e) => setEmail(e.target.value)
+        },
+        {
+            name: "password",
+            label: "Password",
+            type: "password",
+            value: password,
+            onChange: (e) => setPassword(e.target.value)
+        },
+        {
+            name: "repassword",
+            label: "Re-enter Password",
+            type: "password",
+            value: repassword,
+            onChange: (e) => setRePassword(e.target.value)
+        }
+    ];
+
     return (
-        <div className="page-container">
-            <div className={"create-account-container"}>
-                <form onSubmit={handleSubmit} id="submitform" name="submitform">
-                    <div className={"in-form-container"}>
-                        <h2 id="create-account-h2">Create Account</h2>
-                        {error && <h3 className={"error-message"} role={"alert"}>{error}</h3>}
-                        <div className={"form-component"}>
-                            <label htmlFor="username">Username:</label>
-                            <input
-                                type="text"
-                                name="username"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}>
-                            </input>
-                        </div>
-
-                        <div className={"form-component"}>
-                            <label htmlFor="email">Email:</label>
-                            <input
-                                type="text"
-                                name="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}>
-                            </input>
-                        </div>
-
-                        <div className={"form-component"}>
-                            <label htmlFor="password">Password:</label>
-                            <input
-                                type="password"
-                                name="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}>
-                            </input>
-                        </div>
-
-                        <div className={"form-component"}>
-                            <label htmlFor="repassword">Re-enter Password:</label>
-                            <input
-                                type="password"
-                                name="repassword"
-                                value={repassword}
-                                onChange={(e) => setRePassword(e.target.value)}>
-                            </input>
-                        </div>
-                        <SubmitButton/>
-                    </div>
-                </form>
-            </div>
-        </div>
-
+        <FormCards
+            handleText="Sign up and be one click away from managing your wealth!"
+            welcomeImage={welcomeImage}
+            handleSubmit={handleSubmit}
+            formFields={formFields}
+            showPassword={showPassword}
+            handleShowPassword={() => setShowPassword(!showPassword)}
+            errorMessage={error}
+            submitButtonText={username && email && password && repassword && password === repassword ? "Let's go!" : "Missing Fields or Password Mismatch"}
+        />
     );
-
-
 };
 
 export default UserCreate;

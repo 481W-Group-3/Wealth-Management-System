@@ -1,8 +1,17 @@
 package com.wealth_management_system.BackWealthApp.domain;
 
-import jakarta.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jdk.jfr.DataAmount;
-import java.util.*;
 
 @Entity
 @Table(name = "property")
@@ -13,6 +22,7 @@ public class Property {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
 	private String address;
+	private double incomeMonthly;
 	private String city;
 	private String state;
 	private int zipCode;
@@ -20,7 +30,7 @@ public class Property {
 	private double insuranceMonthly;
 	private double mortgageMonthly;
 	private String type;
-	
+	private boolean occupied;
 	
 
 	public Property() {
@@ -28,14 +38,11 @@ public class Property {
 		// TODO Auto-generated constructor stub
 	}
 
-
-
 	@OneToMany(mappedBy = "property")
 	private Set<Renter> renter;
 	
 	@OneToMany(mappedBy = "property")
     private Set<Lease> leases;
-	private double incomeMonthly;
 	private double revenue = incomeMonthly-taxMonthly-insuranceMonthly-mortgageMonthly;
 	@OneToMany(mappedBy = "property")
     private Set<Maintenance> maintenanceRecords;
@@ -45,14 +52,15 @@ public class Property {
 	private Investment investment;
 	
 	//Constructor
-	public Property(String address, String city, String state, int zipCode) {
+	public Property(String address, String city, String state, int zipCode, boolean occupied, double incomeMonthly) {
 		this.address = address;
+		this.occupied = occupied;
+		this.incomeMonthly = incomeMonthly;
 		this.city = city;
 		this.state = state;
 		this.zipCode = zipCode;
 		this.maintenanceRecords = new HashSet<>();
 	}
-
 
 
 	//Get id
@@ -158,6 +166,25 @@ public class Property {
 		
 	}
 
+	//Get income
+	public double getIncomeMonthly() {
+		return incomeMonthly;
+	}
+	
+	//Set income
+	public void setIncomeMonthly(double incomeMonthly) {
+		this.incomeMonthly = incomeMonthly;
+	}
+
+	//Get occupied
+	public boolean getOccupied() {
+		return occupied;
+	}
+	
+	//Set income
+	public void setOccupied(boolean occupied) {
+		this.occupied = occupied;
+	}
 
 	/*
 	//Get renter
@@ -188,17 +215,6 @@ public class Property {
 
 	public void setLeases(Set<Lease> leases) {
 		this.leases = leases;
-	}
-
-
-	//Get income
-	public double getIncome() {
-		return incomeMonthly;
-	}
-	
-	//Set income
-	public void setIncome(double incomeMonthly) {
-		this.incomeMonthly = incomeMonthly;
 	}
 	
 	//Get revenue

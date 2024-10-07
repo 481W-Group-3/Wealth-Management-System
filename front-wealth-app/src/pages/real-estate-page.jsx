@@ -124,7 +124,7 @@ const RealEstatePage = () => {
     return '';
   };
 
-  const totalIncome = properties.reduce((sum, property) => sum + property.rent, 0);
+  const totalIncome = properties.reduce((sum, property) => sum + property.incomeMonthly, 0);
   const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0);
   return (
     <div className="real-estate-container">

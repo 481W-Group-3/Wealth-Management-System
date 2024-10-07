@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Entity
 @Table(name = "user")
@@ -52,6 +54,9 @@ public class MyUser implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role));
+//        return Stream.of(role.split(","))
+//                .map(SimpleGrantedAuthority::new)
+//                .collect(Collectors.toList());
     }
 
     public String getPassword() {
@@ -68,6 +73,10 @@ public class MyUser implements UserDetails {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public void addRole(String role){
+        this.role = this.role + "," + role;
     }
 
     @Override

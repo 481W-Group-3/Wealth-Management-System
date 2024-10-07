@@ -16,6 +16,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.wealth_management_system.BackWealthApp.domain.MyUser;
 import com.wealth_management_system.BackWealthApp.service.UserService;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 //@RequestMapping(path="/user")
 public class UserController {
@@ -32,18 +35,17 @@ public class UserController {
 	    }
 		
 		@GetMapping("/details")
-		public String getUserDetails(Model model, Authentication authentication) {
+		public Map<String, String> getUserDetails(Model model, Authentication authentication) {
 			String username = authentication.getName();
 			MyUser user = userService.getUserByUsername(username);
-			/*
-			if(user == null) {
-				return "error/404";
-			}
-			*/
+			HashMap<String, String> map = new HashMap<>();
+			map.put("username", user.getUsername());
+			map.put("email", user.getEmail());
+			map.put("role", user.getRole());
 			
 			model.addAttribute("user", user);
 			
-			return "user-details";
+			return map;
 		}
 		 
 		 @GetMapping("/update-profile")

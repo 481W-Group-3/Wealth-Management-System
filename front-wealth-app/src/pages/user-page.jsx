@@ -1,9 +1,9 @@
-import User from "../components/user/login.jsx";
+import ProfileSettings from "../components/account/profile-settings.jsx";
 
 const UserPage = () => {
     return(
         <div>
-            <User/>
+            <ProfileSettings/>
         </div>
     )
 }

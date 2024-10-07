@@ -94,11 +94,11 @@ export const deleteInvestment = async (id) => {
 // src/services/userService.js
 
 import apiClient from './apiClient';
-
 export const getUserProfile = async () => {
     try {
-        const response = await apiClient.get('/user/profile');
-        return response.data;  // Returns user profile data
+        const response = (await apiClient.get('/user/details'));
+        console.log(response);
+        return JSON.parse(response.data);  
     } catch (error) {
         console.error('Error fetching user profile:', error);
         throw error;

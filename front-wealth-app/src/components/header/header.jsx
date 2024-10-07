@@ -59,7 +59,7 @@ const Header = ({ isLandingPage = false }) => {
                                     <Link to="/settings" className="dropdown-item block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                         Settings
                                     </Link>
-                                    <Link to="/edit-profile" className="dropdown-item block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <Link to="/profile-settings" className="dropdown-item block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                         Edit Profile
                                     </Link>
                                     <button

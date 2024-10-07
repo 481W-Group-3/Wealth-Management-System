@@ -98,8 +98,24 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Override
 	public void updateUser(MyUser user) {
-		// TODO Auto-generated method stub
-		
+
+	}
+
+//	@Override
+//	public void updateUser(MyUser user, MyUser updatedUser) {
+//		user.setUsername(updatedUser.getUsername());
+//		user.setEmail(updatedUser.getEmail());
+//		user.setPassword(updatedUser.getPassword());
+//	}
+
+	public void setAdmin(MyUser user) {
+		user.addRole("ADMIN");
+	}
+
+	public String[] getRoles(MyUser user) {
+		if(user.getRole().isEmpty())
+			return new String[] {"USER"};
+		return user.getRole().split(",");
 	}
 
 	

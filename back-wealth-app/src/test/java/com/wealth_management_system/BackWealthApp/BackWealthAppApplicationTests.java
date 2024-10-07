@@ -16,9 +16,12 @@ class BackWealthAppApplicationTests {
 
 	@Test
 	void contextLoads() {
-		userService.deleteUser(18);
 		List<MyUser> list = userService.listAllUsers();
 		for (MyUser user : list) {
+//			if(user.getId() > 10) {
+//				userService.deleteUser(user.getId());
+//				continue;
+//			}
 			System.out.println(user.toString());
 		}
 	}

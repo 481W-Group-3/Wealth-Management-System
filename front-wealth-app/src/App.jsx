@@ -10,6 +10,7 @@ import TestComponent from './components/user/test.jsx';
 import LogoutPage from './components/user/logout.jsx';
 import AccountCreationPage from "./pages/account-creation-page.jsx";
 import InvestmentsLanding from './pages/investments-landing.jsx';
+import RetirementPage from './pages/retirement-page.jsx';
 import ProtectedRoute from './components/ProtectedRoute'; 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
                         <Route path="/investments" element={<ProtectedRoute><InvestmentsLanding /></ProtectedRoute>} />
                         <Route path="/test" element={<ProtectedRoute><TestComponent /></ProtectedRoute>} />
                         <Route path="/logout" element={<ProtectedRoute><LogoutPage /></ProtectedRoute>} />
+                        <Route path="/retirement" element={<ProtectedRoute><RetirementPage /></ProtectedRoute>} />
                     </Routes>
                 </div>
                 <Footer/>

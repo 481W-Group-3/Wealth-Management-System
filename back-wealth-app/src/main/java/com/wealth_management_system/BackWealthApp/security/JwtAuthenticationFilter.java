@@ -14,6 +14,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.wealth_management_system.BackWealthApp.serviceImpl.UserServiceImpl;
+
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import jakarta.servlet.FilterChain;
@@ -26,7 +28,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 	
 	@Autowired
 	@Lazy
-	private UserDetailsService userDetailsService;
+	private UserServiceImpl userServiceImpl;
 	
 	@Autowired
 	private JwtTokenHelper jwtTokenHelper;
@@ -66,7 +68,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 		}
 		
 		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-		    UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+		    UserDetails userDetails = this.userServiceImpl.loadUserByUsername(username);
 
 		    // Log userDetails for debugging
 		    System.out.println("UserDetails: " + userDetails);

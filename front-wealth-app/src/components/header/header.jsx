@@ -40,7 +40,7 @@ const Header = ({ isLandingPage = false }) => {
     };
     
     return (
-        <div className="header-container bg-white shadow-md">
+        <div className="header-container shadow-md" style={{ backgroundColor: '#a7d6ac' }}>
             <div className="container mx-auto px-4 py-3 flex justify-between items-center">
                 <Link to="/dashboard" className="focus:outline-none">
                     <img src={logo} alt="logo" className="h-10 w-auto" />
@@ -50,7 +50,7 @@ const Header = ({ isLandingPage = false }) => {
                         <div className="relative" ref={dropdownRef}>
                             <button
                                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                                className="username-button text-gray-700 hover:text-gray-900 font-medium focus:outline-none"
+                                className="username-button text-gray-700 hover:text-gray-900 font-medium focus:outline-none px-3 py-1 rounded-full"
                             >
                                 {user.username}
                             </button>
@@ -59,7 +59,7 @@ const Header = ({ isLandingPage = false }) => {
                                     <Link to="/settings" className="dropdown-item block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                         Settings
                                     </Link>
-                                    <Link to="/edit-profile" className="dropdown-item block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <Link to="/profile-settings" className="dropdown-item block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                         Edit Profile
                                     </Link>
                                     <button
@@ -96,7 +96,11 @@ const Header = ({ isLandingPage = false }) => {
                     box-shadow: none;
                 }
                 .username-button:hover,
-                .username-button:focus,
+                .username-button:focus {
+                    background-color: rgba(0, 0, 0, 0.05);
+                    color: #4a5568;
+                    border-radius: 9999px;
+                }
                 .dropdown-item:hover,
                 .dropdown-item:focus {
                     background-color: rgba(0, 0, 0, 0.05);

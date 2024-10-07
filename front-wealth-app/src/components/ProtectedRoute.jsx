@@ -9,7 +9,7 @@ const ProtectedRoute = ({ children }) => {
 
   React.useEffect(() => {
     const checkAuth = async () => {
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Small delay to ensure auth state is updated
+      await new Promise(resolve => setTimeout(resolve, 200)); // Small delay to ensure auth state is updated
       setIsLoading(false);
     };
     checkAuth();

@@ -33,14 +33,13 @@ const HomePage = () => {
             link: '/retirement',
             icon: '🕰️'
         },
-        {title: 'User Accounts', description: 'Manage user profiles and settings', link: '/users', icon: '👤'},
         {title: 'Tax Software', description: 'Simplify your tax preparation process', link: '/taxes', icon: '💼'}
     ];
 
     return (
         <div className="home-container">
             <div className={"page-container"}>
-                <div className="content-rectangle">
+                <div className="content-rectangle" style={{ backgroundColor: '#c3e8c7' }}>
                     <h1 className="dashboard-title">Dashboard</h1>
                     <div className="card-grid">
                         {cardData.map((card, index) => (
@@ -82,6 +81,8 @@ const HomePage = () => {
                 .card {
                     background-color: #f8f8f8;
                     border-radius: 4px;
+                    display: flex;
+                    flex-direction: column;
                     padding: 20px;
                     text-align: center;
                     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -114,7 +115,7 @@ const HomePage = () => {
 
                 .card-grid p {
                     margin: 0;
-                    color: #000;
+                    //color: #000;
                     font-size: 0.9em;
                     font-family: 'Montserrat', sans-serif;
                     font-weight: 100; /* Thin weight */

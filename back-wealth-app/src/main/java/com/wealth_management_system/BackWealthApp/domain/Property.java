@@ -47,8 +47,6 @@ public class Property {
 	@OneToMany(mappedBy = "property")
     private Set<Maintenance> maintenanceRecords;
 	
-	
-
 	@ManyToOne
 	@JoinColumn(name = "investment_id")
 	private Investment investment;

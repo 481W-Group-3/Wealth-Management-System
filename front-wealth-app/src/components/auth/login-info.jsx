@@ -1,5 +1,7 @@
+
 export const isLoggedin=()=>{
     let data=localStorage.getItem('user');
+    const token = localStorage.getItem('token');
     if(data==null){
         return false;
     }else{
@@ -7,15 +9,25 @@ export const isLoggedin=()=>{
     }
 };
 
+
 export const doLogin = (userData, callback) => {
-    // Save user data in localStorage or handle login logic
+    // Save user data and token in localStorage
     localStorage.setItem('user', JSON.stringify(userData));
+    // Optionally store the token if it is part of userData
+    if (userData.token) {
+        localStorage.setItem('token', userData.token);
+        console.log(userData.token);
+    }
     callback();
 };
-export const doLogout=(next)=>{
+
+export const doLogout = (next) => {
     localStorage.removeItem('user');
+    localStorage.removeItem('token'); // Remove the token upon logout
     next();
 };
+
+
 
 export const getCurrentUserDetail=()=>{
     if (isLoggedin()) { 
@@ -24,3 +36,4 @@ export const getCurrentUserDetail=()=>{
         return false;
     }
 };
+

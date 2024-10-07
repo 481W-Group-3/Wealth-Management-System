@@ -30,7 +30,7 @@ public interface InvestmentService {
 	List<Property> getPropertiesByInvestment(int investmentId);
 	
 	//get asset by investment
-	Asset getAssetByInvestment(int investmentId);
+	List<Asset> getAssetByInvestment(int investmentId);
 	
 	// rebalance portfolio
 	void rebalancePortfolio(int investmentId);

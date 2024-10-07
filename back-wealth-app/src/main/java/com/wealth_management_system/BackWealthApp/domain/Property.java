@@ -23,6 +23,13 @@ public class Property {
 	
 	
 
+	public Property() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	@OneToMany(mappedBy = "property")
 	private Set<Renter> renter;
 	
@@ -139,6 +146,19 @@ public class Property {
 	public void setType(String type) {
 		this.type = type;
 	}
+	
+	// Method to add a renter
+    public void addRenter(Renter renter2) {
+        renter.add(renter2);
+        ((Renter) renter).setProperty(this); // Set property reference in renter
+    }
+
+
+
+	public void addLease(Lease lease) {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 	/*
@@ -212,6 +232,26 @@ public class Property {
 	public void setMaintenanceRecords(Set<Maintenance> maintenanceRecords) {
 		this.maintenanceRecords = maintenanceRecords;
 	}
+
+
+
+	public void addLease(Lease lease) {
+		if (leases == null) {
+	        leases = new HashSet<>();
+	    }
+	    leases.add(lease);
+	    lease.setProperty(this);
+	}
+
+
+
+	public double calculateRevenue() {
+		return incomeMonthly - (taxMonthly + insuranceMonthly + mortgageMonthly);
+	}
+
+
+
+	
 	
 	//The revenue is set when the mortgage, insurance, tax, and income are set
 

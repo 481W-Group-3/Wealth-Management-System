@@ -1,88 +1,156 @@
+
 .investments-container {
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
-}
-h1, h2, h3 {
+    background-color: #f8f9fa; /* Subtle light background */
+    font-family: 'Roboto', sans-serif; /* Modern font */
     color: #333;
-    margin-bottom: 20px;
-    text-align: center;
-}
-.content {
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    background-color: rgba(255, 255, 255, 1);
-}
-.two-column-layout {
-    display: flex;
-    gap: 30px;
-    margin-bottom: 30px;
-}
-.left-column, .right-column {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;  
-}
-input {
-    border-radius: 5px;
-    border: 1px solid black;
-    padding: 5px 10px;
-    width: 100%;
-}
-.investment-form .form-row, .expense-form .form-row {
-    margin-bottom: 10px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-.investment-form, .expense-form {
-    width: 100%;
-    align-items: center;  
-    max-width: 400px;
-}
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-th, td {
-    text-align: left;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
-.button-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-button {
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-.add-btn {
-    background-color: #2B5887;
-}
-.add-btn:hover {
-    background-color: #366EAB;
-}
-.delete-btn {
-    background-color: #dc3545;
-}
-.delete-btn:hover {
-    background-color: #c82333;
-}
-.rebalance-btn {
-    background-color: #1C732F;
 }
 
-.rebalance-btn:hover {
-    background-color: #24943C;
+/* Headings for investment sections */
+.investments-container h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #2b5887;
+    margin-bottom: 30px;
+}
+
+.investments-container h2, .investments-container h3 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #495057;
+}
+
+/* Content container for card-like appearance */
+.investments-container .content {
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Elevated shadow for a card effect */
+    background-color: #ffffff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.investments-container .content:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Two-column responsive layout */
+.investments-container .two-column-layout {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+/* Responsive columns */
+.investments-container .left-column, 
+.investments-container .right-column {
+    flex: 1;
+    min-width: 300px; /* Ensures columns don’t shrink too small */
+}
+
+/* Tables: modern style */
+.investments-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.investments-container th, .investments-container td {
+    text-align: left;
+    padding: 15px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.investments-container th {
+    background-color: #2b5887;
+    color: white;
+    font-weight: 600;
+}
+
+.investments-container td {
+    color: #495057;
+}
+
+/* Form styling: clean and modern */
+.investments-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.investments-container input {
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    width: 100%;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.investments-container input:focus {
+    border-color: #2b5887;
+    outline: none;
+}
+
+/* Buttons: modern style */
+.investments-container button {
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Add button */
+.investments-container .add-btn {
+    background-color: #2b5887;
+    color: white;
+}
+
+.investments-container .add-btn:hover {
+    background-color: #1f4566;
+    transform: translateY(-2px);
+}
+
+/* Delete button */
+.investments-container .delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.investments-container .delete-btn:hover {
+    background-color: #b52a38;
+    transform: translateY(-2px);
+}
+
+/* Rebalance button */
+.investments-container .rebalance-btn {
+    background-color: #1C732F;
+    color: white;
+}
+
+.investments-container .rebalance-btn:hover {
+    background-color: #156125;
+    transform: translateY(-2px);
+}
+
+/* Button container centered */
+.investments-container .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
 }
 
 

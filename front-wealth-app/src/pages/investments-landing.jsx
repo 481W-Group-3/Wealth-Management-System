@@ -312,7 +312,6 @@ const handleAddInvestment = async (e) => {
     );
   };
   */  
- 
   import React, { useState, useEffect } from 'react';
   import {
     fetchInvestments,
@@ -328,6 +327,7 @@ const handleAddInvestment = async (e) => {
     const [expenses, setExpenses] = useState([]);
     const [newExpense, setNewExpense] = useState({ description: '', amount: '' });
   
+    // Fetch assets and investments from the backend
     useEffect(() => {
       const loadAssetsAndInvestments = async () => {
         try {
@@ -343,6 +343,7 @@ const handleAddInvestment = async (e) => {
       loadAssetsAndInvestments();
     }, []);
   
+    // Rebalance the asset allocation
     const rebalance = () => {
       const totalValue = assets.reduce((sum, asset) => sum + (asset.currentValue || 0), 0);
       const newAssets = assets.map(asset => ({
@@ -352,11 +353,10 @@ const handleAddInvestment = async (e) => {
       setAssets(newAssets);
     };
   
+    // Handle adding a new investment via the backend
     const handleAddInvestment = async (e) => {
       e.preventDefault();
       const { type, principalInitial, currentValue } = newInvestment;
-      console.log('initial value is: ', principalInitial);
-      console.log('current value is: ', currentValue);
   
       if (!type || principalInitial <= 0 || currentValue <= 0) {
         console.error('Please fill in all fields with valid numbers.');
@@ -364,40 +364,43 @@ const handleAddInvestment = async (e) => {
       }
   
       try {
-        // Calculate returns directly in the frontend
-        const calculatedReturns = currentValue - principalInitial;
-        console.log('calculate return value is', calculatedReturns);
-  
-        // Add investment with the calculated returns
-        const response = await addInvestment({ ...newInvestment, returns: calculatedReturns });
-        setInvestments([...investments, { ...response, id: investments.length + 1 }]);
-        setNewInvestment({ type: '', principalInitial: 0, currentValue: 0 }); // Reset fields
+        // Send new investment to backend for calculation
+        const response = await addInvestment(newInvestment);
+        setInvestments([...investments, response]);
+        setNewInvestment({ type: '', principalInitial: 0, currentValue: 0 });
       } catch (error) {
         console.error('Failed to add investment:', error);
       }
     };
   
+    // Handle deleting an investment
     const deleteInvestment = async (id) => {
-      const isDeleted = await deleteInvestmentService(id);
-      if (isDeleted) {
-        setInvestments(investments.filter(investment => investment.id !== id));
-      } else {
-        console.error('Failed to delete investment.');
+      try {
+        const isDeleted = await deleteInvestmentService(id);
+        if (isDeleted) {
+          setInvestments(investments.filter(investment => investment.id !== id));
+        } else {
+          console.error('Failed to delete investment.');
+        }
+      } catch (error) {
+        console.error('Failed to delete investment:', error);
       }
     };
   
+    // Handle adding an expense
     const addExpense = (e) => {
       e.preventDefault();
       setExpenses([...expenses, { ...newExpense, id: expenses.length + 1, amount: Number(newExpense.amount) }]);
       setNewExpense({ description: '', amount: '' });
     };
   
+    // Handle deleting an expense
     const deleteExpense = (id) => {
       setExpenses(expenses.filter(expense => expense.id !== id));
     };
   
     const totalValue = assets.reduce((sum, asset) => sum + (asset.currentValue || 0), 0);
-    const totalIncome = investments.reduce((sum, investment) => sum + (investment.returns || 0), 0);
+    const totalIncome = investments.reduce((sum, investment) => sum + (investment.returns || 0), 0);  // returns from backend
     const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0);
   
     return (
@@ -428,7 +431,7 @@ const handleAddInvestment = async (e) => {
             <h3>Total Value: ${totalValue.toFixed(2)}</h3>
           </div>
   
-          {/* Add Investments and Expenses */}
+          {/* Investments and Expenses */}
           <div className="right-column">
             <h2>Investments</h2>
             <table>
@@ -445,7 +448,7 @@ const handleAddInvestment = async (e) => {
                   <tr key={investment.id}>
                     <td>{investment.type}</td>
                     <td>${(investment.principalInitial || 0).toFixed(2)}</td>
-                    <td>${(investment.calculatedReturns || 0).toFixed(2)}</td>
+                    <td>${(investment.returns || 0).toFixed(2)}</td> {/* Backend returns field */}
                     <td>
                       <button onClick={() => deleteInvestment(investment.id)}>Delete</button>
                     </td>
@@ -488,5 +491,4 @@ const handleAddInvestment = async (e) => {
   };
   
   export default InvestmentsLanding;
-  
   

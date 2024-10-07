@@ -18,6 +18,7 @@ public class Investment {
 	private double principalYearly;
 	private double principalInitial;
 	private double currentValue;
+	private double returns;
 	
 
 	//private Date currentDate;
@@ -26,8 +27,9 @@ public class Investment {
 	@OneToMany(mappedBy = "investment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Property> property;
 	
-	@OneToMany(mappedBy = "investment")
+	@OneToMany(mappedBy = "investment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Asset> asset;
+
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private MyUser user;
@@ -42,7 +44,16 @@ public class Investment {
 	public Investment() {
 
 	}
+	
 
+
+	public double getReturns() {
+		return returns;
+	}
+
+	public void setReturns(double returns) {
+		this.returns = returns;
+	}
 
 	//Get id
 	public int getId() {

@@ -21,8 +21,13 @@ public class InvestmentServiceImpl implements InvestmentService {
 	
 	@Override
 	public Investment addInvestment(Investment investment) {
-		return investmentRepository.save(investment);
-	}
+        // Calculate the returns
+        double returns = investment.getCurrentValue() - investment.getPrincipalInitial();
+        investment.setReturns(returns);
+
+        // Save investment with calculated returns
+        return investmentRepository.save(investment);
+    }
 
 	@Override
 	public Investment getInvestmentById(int id) {

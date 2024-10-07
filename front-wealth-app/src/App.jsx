@@ -11,7 +11,8 @@ import LogoutPage from './components/user/logout.jsx';
 import AccountCreationPage from "./pages/account-creation-page.jsx";
 import InvestmentsLanding from './pages/investments-landing.jsx';
 import RetirementPage from './pages/retirement-page.jsx';
-import ProtectedRoute from './components/ProtectedRoute'; 
+import ProtectedRoute from './components/ProtectedRoute';
+import UserPage from "./pages/user-page.jsx"; 
 
 function App() {
     return (
@@ -21,7 +22,7 @@ function App() {
                 <div className={"app-container"}>
                     <Routes>
                         {/* Unprotected Routes */}
-                        <Route path="/" element={<Login />} />
+                        <Route path="/" element={<User />} />
                         <Route path="/account-creation" element={<AccountCreationPage />} />
                         <Route path="/user" element={<User />} />
 
@@ -30,6 +31,7 @@ function App() {
                         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
                         <Route path="/real-estate" element={<ProtectedRoute><RealEstatePage /></ProtectedRoute>} />
                         <Route path="/investments" element={<ProtectedRoute><InvestmentsLanding /></ProtectedRoute>} />
+                        <Route path="/profile-settings" element={<ProtectedRoute><UserPage/></ProtectedRoute>} />
                         <Route path="/test" element={<ProtectedRoute><TestComponent /></ProtectedRoute>} />
                         <Route path="/logout" element={<ProtectedRoute><LogoutPage /></ProtectedRoute>} />
                         <Route path="/retirement" element={<ProtectedRoute><RetirementPage /></ProtectedRoute>} />

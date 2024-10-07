@@ -18,17 +18,18 @@ public class Investment {
 	private double principalYearly;
 	private double principalInitial;
 	private double currentValue;
+	private double returns;
 	
 
 	//private Date currentDate;
 	//private Date previousEditDate;
 	
-	@OneToMany(mappedBy = "investment")
-	private ArrayList<Property> property;
+	@OneToMany(mappedBy = "investment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Property> property;
 	
-	
-	@OneToMany(mappedBy = "investment")
+	@OneToMany(mappedBy = "investment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Asset> asset;
+
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private MyUser user;
@@ -43,7 +44,16 @@ public class Investment {
 	public Investment() {
 
 	}
+	
 
+
+	public double getReturns() {
+		return returns;
+	}
+
+	public void setReturns(double returns) {
+		this.returns = returns;
+	}
 
 	//Get id
 	public int getId() {
@@ -104,6 +114,7 @@ public class Investment {
 	public void setCurrentValue(double currentValue) {
 		this.currentValue = currentValue;
 	}
+	
 	/*
 	//Get current date
 	public Date getCurrentDate() {
@@ -137,11 +148,13 @@ public class Investment {
 		this.user = user;
 	}
 
-	public ArrayList<Property> getProperty() {
+	
+
+	public List<Property> getProperty() {
 		return property;
 	}
 
-	public void setProperty(ArrayList<Property> property) {
+	public void setProperty(List<Property> property) {
 		this.property = property;
 	}
 

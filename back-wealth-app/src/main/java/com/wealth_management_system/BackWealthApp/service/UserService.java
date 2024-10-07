@@ -7,7 +7,7 @@ import com.wealth_management_system.BackWealthApp.domain.MyUser;
 public interface UserService {
 	
 	//save a user
-	MyUser createUser(MyUser user);
+	MyUser createUser(MyUser user) throws Exception;
 	
 	//get a user by user name
 	MyUser getUserByUsername(String user);

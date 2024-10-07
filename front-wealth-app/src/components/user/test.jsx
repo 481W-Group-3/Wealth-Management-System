@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { testConnection } from '../../services/user-service';
+import { testConnection } from '../../services/connectionService';
 
 
 

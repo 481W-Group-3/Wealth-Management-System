@@ -22,10 +22,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	
 	
 	@Override
-	public MyUser createUser(MyUser user) {
-		if(userRepository.findMyUserByUsername(user.getUsername()) != null) {
-			System.out.println("User already exists");
-			return null;
+	public MyUser createUser(MyUser user) throws Exception{
+
+		Optional<MyUser> username = Optional.ofNullable(userRepository.findMyUserByUsername(user.getUsername()));
+		Optional<MyUser> email = Optional.ofNullable(userRepository.findByEmail(user.getEmail()));
+		if(username.isPresent() && email.isPresent()){
+			throw new Exception("User already exists");
 		}
 		return userRepository.save(user);
 	}

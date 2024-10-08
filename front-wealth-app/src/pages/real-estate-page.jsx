@@ -3,19 +3,18 @@ import { addProperty, listAllProperties, deleteProperty } from '../services/prop
 
 const RealEstatePage = () => {
   const [properties, setProperties] = useState([]);
-  const [newProperty, setNewProperty] = useState({ address: '', rent: '', occupied: false });
+  const [newProperty, setNewProperty] = useState({ address: '', incomeMonthly: '', occupied: false });
   const [expenses, setExpenses] = useState([]);
   const [newExpense, setNewExpense] = useState({ description: '', amount: '' });
   const [newLease, setNewLease] = useState({ startDate: '', endDate: '', tenantName: '', rentCollectionDay: '' });
   const [viewingLeaseForProperty, setViewingLeaseForProperty] = useState(null);
   const [editingLease, setEditingLease] = useState(null);
 
-   // Fetch properties when the component mounts
-   useEffect(() => {
+  // Fetch properties when the component mounts
+  useEffect(() => {
     const fetchProperties = async () => {
       try {
         const allProperties = await listAllProperties();
-        console.log('Fetched properties:', allProperties); // Log the response for debugging
         setProperties(allProperties || []); // Set to an empty array if null or undefined
       } catch (error) {
         console.error('Error fetching properties:', error);
@@ -25,15 +24,13 @@ const RealEstatePage = () => {
     fetchProperties(); // Call the function to fetch properties
   }, []); // Empty dependency array means this runs once when the component mounts
 
-// , 
-
   // Adding a new property
   const handleAddProperty = async (e) => {
     e.preventDefault();
     try {
-      const addedProperty = await addProperty({ ...newProperty, rent: Number(newProperty.rent) });
-      setProperties([...properties, { ...addedProperty, leases: [] }]); // Assume the response includes the added property details
-      setNewProperty({ address: '', rent: '', occupied: false });
+      const addedProperty = await addProperty({ ...newProperty });
+      setProperties([...properties, { ...addedProperty, leases: [] }]);
+      setNewProperty({ address: '', incomeMonthly: '', occupied: false });
     } catch (error) {
       console.error('Error adding property:', error);
     }
@@ -79,7 +76,7 @@ const RealEstatePage = () => {
       if (property.id === propertyId) {
         let updatedLeases;
         if (editingLease) {
-          updatedLeases = property.leases.map(lease => 
+          updatedLeases = property.leases.map(lease =>
             lease.id === editingLease.id ? { ...newLease, id: lease.id } : lease
           );
         } else {
@@ -127,13 +124,12 @@ const RealEstatePage = () => {
     return '';
   };
 
-  const totalIncome = properties.reduce((sum, property) => sum + property.rent, 0);
+  const totalIncome = properties.reduce((sum, property) => sum + property.incomeMonthly, 0);
   const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0);
-
   return (
     <div className="real-estate-container">
       <h1>Real Estate Management</h1>
-      
+
       <div className="content">
         <div className="two-column-layout">
           <div className="left-column">
@@ -143,19 +139,19 @@ const RealEstatePage = () => {
                 type="text"
                 placeholder="Address"
                 value={newProperty.address}
-                onChange={(e) => setNewProperty({...newProperty, address: e.target.value})}
+                onChange={(e) => setNewProperty({ ...newProperty, address: e.target.value })}
               />
               <input
                 type="number"
                 placeholder="Rent"
-                value={newProperty.rent}
-                onChange={(e) => setNewProperty({...newProperty, rent: e.target.value})}
+                value={newProperty.incomeMonthly}
+                onChange={(e) => setNewProperty({ ...newProperty, incomeMonthly: parseFloat(e.target.value) })}
               />
               <label>
                 <input
                   type="checkbox"
                   checked={newProperty.occupied}
-                  onChange={(e) => setNewProperty({...newProperty, occupied: e.target.checked})}
+                  onChange={(e) => setNewProperty({ ...newProperty, occupied: e.target.checked })}
                 />
                 Occupied
               </label>
@@ -176,128 +172,128 @@ const RealEstatePage = () => {
                   </tr>
                 </thead>
                 <tbody>
-  {Array.isArray(properties) && properties.length > 0 ? (
-    properties.map(property => (
-      <React.Fragment key={property.id}>
-        <tr style={{ backgroundColor: property.leases && property.leases.length > 0 ? getLeaseExpirationColor(property.leases[property.leases.length - 1].endDate) : '' }}>
-          <td>{property.address}</td>
-          <td>${property.rent}</td>
-          <td>{property.occupied ? 'Occupied' : 'Vacant'}</td>
-          <td>
-            <button onClick={() => toggleLeaseView(property.id)}>
-              {viewingLeaseForProperty === property.id ? 'Hide Leases' : 'View Leases'}
-            </button>
-          </td>
-          <td>
-            <button onClick={() => handleDeleteProperty(property.id)} className="delete-btn">
-              Delete
-            </button>
-          </td>
-        </tr>
-        {viewingLeaseForProperty === property.id && (
-          <tr>
-            <td colSpan="5" className="lease-details-cell">
-              <h3 className="lease-header-highlight">Leases for {property.address}</h3>
-              <div className="lease-list">
-                {Array.isArray(property.leases) && property.leases.length > 0 ? (
-                  property.leases.map(lease => (
-                    <div key={lease.id} className="lease-info">
-                      {editingLease && editingLease.id === lease.id ? (
-                        <form onSubmit={(e) => { e.preventDefault(); addOrUpdateLease(property.id); }} className="edit-lease-form">
-                          <input
-                            type="text"
-                            placeholder="Tenant Name"
-                            value={newLease.tenantName}
-                            onChange={(e) => setNewLease({...newLease, tenantName: e.target.value})}
-                          />
-                          <input
-                            type="date"
-                            placeholder="Start Date"
-                            value={newLease.startDate}
-                            onChange={(e) => setNewLease({...newLease, startDate: e.target.value})}
-                          />
-                          <input
-                            type="date"
-                            placeholder="End Date"
-                            value={newLease.endDate}
-                            onChange={(e) => setNewLease({...newLease, endDate: e.target.value})}
-                          />
-                          <input
-                            type="number"
-                            placeholder="Rent Collection Day"
-                            value={newLease.rentCollectionDay}
-                            onChange={(e) => setNewLease({...newLease, rentCollectionDay: e.target.value})}
-                          />
-                          <div className="form-buttons">
-                            <button type="submit">Update Lease</button>
-                            <button type="button" onClick={cancelEditingLease}>Cancel</button>
-                          </div>
-                        </form>
-                      ) : (
-                        <>
-                          <p>Tenant: {lease.tenantName}</p>
-                          <p>Start Date: {lease.startDate}</p>
-                          <p>End Date: {lease.endDate}</p>
-                          <p>Rent Collection Day: {lease.rentCollectionDay}</p>
-                          <div className="button-group">
-                            <button onClick={() => startEditingLease(property.id, lease)} className="edit-btn">
-                              Edit Lease
+                  {Array.isArray(properties) && properties.length > 0 ? (
+                    properties.map(property => (
+                      <React.Fragment key={property.id}>
+                        <tr style={{ backgroundColor: property.leases && property.leases.length > 0 ? getLeaseExpirationColor(property.leases[property.leases.length - 1].endDate) : '' }}>
+                          <td>{property.address}</td>
+                          <td>${property.incomeMonthly}</td>
+                          <td>{property.occupied ? 'Occupied' : 'Vacant'}</td>
+                          <td>
+                            <button onClick={() => toggleLeaseView(property.id)}>
+                              {viewingLeaseForProperty === property.id ? 'Hide Leases' : 'View Leases'}
                             </button>
-                            <button onClick={() => deleteLease(property.id, lease.id)} className="delete-btn">
-                              Delete Lease
+                          </td>
+                          <td>
+                            <button onClick={() => handleDeleteProperty(property.id)} className="delete-btn">
+                              Delete
                             </button>
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  ))
-                ) : (
-                  <p>No leases available for this property.</p> // Handle no leases case
-                )}
-              </div>
-              {!editingLease && (
-                <div className="add-new-lease">
-                  <h4>Add New Lease</h4>
-                  <form onSubmit={(e) => { e.preventDefault(); addOrUpdateLease(property.id); }} className="add-lease-form">
-                    <input
-                      type="text"
-                      placeholder="Tenant Name"
-                      value={newLease.tenantName}
-                      onChange={(e) => setNewLease({...newLease, tenantName: e.target.value})}
-                    />
-                    <input
-                      type="date"
-                      placeholder="Start Date"
-                      value={newLease.startDate}
-                      onChange={(e) => setNewLease({...newLease, startDate: e.target.value})}
-                    />
-                    <input
-                      type="date"
-                      placeholder="End Date"
-                      value={newLease.endDate}
-                      onChange={(e) => setNewLease({...newLease, endDate: e.target.value})}
-                    />
-                    <input
-                      type="number"
-                      placeholder="Rent Collection Day"
-                      value={newLease.rentCollectionDay}
-                      onChange={(e) => setNewLease({...newLease, rentCollectionDay: e.target.value})}
-                    />
-                    <button type="submit">Add Lease</button>
-                  </form>
-                </div>
-              )}
-            </td>
-          </tr>
-        )}
-      </React.Fragment>
-    ))
-  ) : (
-    <tr>
-      <td colSpan="5">No properties available.</td>
-    </tr>
-  )}
-</tbody>
+                          </td>
+                        </tr>
+                        {viewingLeaseForProperty === property.id && (
+                          <tr>
+                            <td colSpan="5" className="lease-details-cell">
+                              <h3 className="lease-header-highlight">Leases for {property.address}</h3>
+                              <div className="lease-list">
+                                {Array.isArray(property.leases) && property.leases.length > 0 ? (
+                                  property.leases.map(lease => (
+                                    <div key={lease.id} className="lease-info">
+                                      {editingLease && editingLease.id === lease.id ? (
+                                        <form onSubmit={(e) => { e.preventDefault(); addOrUpdateLease(property.id); }} className="edit-lease-form">
+                                          <input
+                                            type="text"
+                                            placeholder="Tenant Name"
+                                            value={newLease.tenantName}
+                                            onChange={(e) => setNewLease({ ...newLease, tenantName: e.target.value })}
+                                          />
+                                          <input
+                                            type="date"
+                                            placeholder="Start Date"
+                                            value={newLease.startDate}
+                                            onChange={(e) => setNewLease({ ...newLease, startDate: e.target.value })}
+                                          />
+                                          <input
+                                            type="date"
+                                            placeholder="End Date"
+                                            value={newLease.endDate}
+                                            onChange={(e) => setNewLease({ ...newLease, endDate: e.target.value })}
+                                          />
+                                          <input
+                                            type="number"
+                                            placeholder="Rent Collection Day"
+                                            value={newLease.rentCollectionDay}
+                                            onChange={(e) => setNewLease({ ...newLease, rentCollectionDay: e.target.value })}
+                                          />
+                                          <div className="form-buttons">
+                                            <button type="submit">Update Lease</button>
+                                            <button type="button" onClick={cancelEditingLease}>Cancel</button>
+                                          </div>
+                                        </form>
+                                      ) : (
+                                        <>
+                                          <p>Tenant: {lease.tenantName}</p>
+                                          <p>Start Date: {lease.startDate}</p>
+                                          <p>End Date: {lease.endDate}</p>
+                                          <p>Rent Collection Day: {lease.rentCollectionDay}</p>
+                                          <div className="button-group">
+                                            <button onClick={() => startEditingLease(property.id, lease)} className="edit-btn">
+                                              Edit Lease
+                                            </button>
+                                            <button onClick={() => deleteLease(property.id, lease.id)} className="delete-btn">
+                                              Delete Lease
+                                            </button>
+                                          </div>
+                                        </>
+                                      )}
+                                    </div>
+                                  ))
+                                ) : (
+                                  <p>No leases available for this property.</p> // Handle no leases case
+                                )}
+                              </div>
+                              {!editingLease && (
+                                <div className="add-new-lease">
+                                  <h4>Add New Lease</h4>
+                                  <form onSubmit={(e) => { e.preventDefault(); addOrUpdateLease(property.id); }} className="add-lease-form">
+                                    <input
+                                      type="text"
+                                      placeholder="Tenant Name"
+                                      value={newLease.tenantName}
+                                      onChange={(e) => setNewLease({ ...newLease, tenantName: e.target.value })}
+                                    />
+                                    <input
+                                      type="date"
+                                      placeholder="Start Date"
+                                      value={newLease.startDate}
+                                      onChange={(e) => setNewLease({ ...newLease, startDate: e.target.value })}
+                                    />
+                                    <input
+                                      type="date"
+                                      placeholder="End Date"
+                                      value={newLease.endDate}
+                                      onChange={(e) => setNewLease({ ...newLease, endDate: e.target.value })}
+                                    />
+                                    <input
+                                      type="number"
+                                      placeholder="Rent Collection Day"
+                                      value={newLease.rentCollectionDay}
+                                      onChange={(e) => setNewLease({ ...newLease, rentCollectionDay: e.target.value })}
+                                    />
+                                    <button type="submit">Add Lease</button>
+                                  </form>
+                                </div>
+                              )}
+                            </td>
+                          </tr>
+                        )}
+                      </React.Fragment>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="5">No properties available.</td>
+                    </tr>
+                  )}
+                </tbody>
 
               </table>
             </div>
@@ -315,13 +311,13 @@ const RealEstatePage = () => {
                 type="text"
                 placeholder="Description"
                 value={newExpense.description}
-                onChange={(e) => setNewExpense({...newExpense, description: e.target.value})}
+                onChange={(e) => setNewExpense({ ...newExpense, description: e.target.value })}
               />
               <input
                 type="number"
                 placeholder="Amount"
                 value={newExpense.amount}
-                onChange={(e) => setNewExpense({...newExpense, amount: e.target.value})}
+                onChange={(e) => setNewExpense({ ...newExpense, amount: e.target.value })}
               />
               <button type="submit">Add Expense</button>
             </form>

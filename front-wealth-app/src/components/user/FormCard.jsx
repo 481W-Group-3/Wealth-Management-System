@@ -88,11 +88,11 @@ const FormCards = ({
           )}
 
           <div className="flex flex-col items-center mb-6">
-            <button className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4" type="submit">
+            <button className="w-full font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4 submit-button" type="submit">
               {submitButtonText}
             </button>
             {forgotPasswordLink && (
-              <a className="font-bold text-sm text-blue-500 hover:text-blue-800" href={forgotPasswordLink.href}>
+              <a className="font-bold text-sm green-link" href={forgotPasswordLink.href}>
                 {forgotPasswordLink.text}
               </a>
             )}
@@ -100,14 +100,34 @@ const FormCards = ({
 
           {createAccountLink && (
             <div className="text-center">
-              <a className="font-bold text-sm text-blue-500 hover:text-blue-800" href={createAccountLink.href}>
+              <a className="font-bold text-sm green-link" href={createAccountLink.href}>
                 {createAccountLink.text}
               </a>
             </div>
           )}
         </form>
       </div>
-    </div>
+      <style jsx>{`
+        .submit-button {
+          background-color: #86c08d;
+          border-color: #86c08d;
+          border-width: 1px;
+          border-style: solid;
+          transition: background-color 0.3s ease;
+          color: white;
+        }
+        .submit-button:hover {
+          background-color: #6da674;
+        }
+        .green-link {
+          color: #86c08d;
+          transition: color 0.3s ease;
+        }
+        .green-link:hover {
+          color: #6da674;
+        }
+      `}</style>
+    </div> 
   );
 };
 

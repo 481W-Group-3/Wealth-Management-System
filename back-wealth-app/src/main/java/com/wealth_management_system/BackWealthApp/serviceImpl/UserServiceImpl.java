@@ -102,8 +102,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	}
 
 	@Override
-	public void updateUser(MyUser user) {
-
+	public MyUser updateUser(MyUser user) {
+		return userRepository.save(user);
 	}
 
 //	@Override

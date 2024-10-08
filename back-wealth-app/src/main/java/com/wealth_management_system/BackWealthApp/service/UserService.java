@@ -3,6 +3,7 @@ package com.wealth_management_system.BackWealthApp.service;
 import java.util.List;
 
 import com.wealth_management_system.BackWealthApp.domain.MyUser;
+import com.wealth_management_system.BackWealthApp.domain.Property;
 
 public interface UserService {
 	
@@ -32,6 +33,9 @@ public interface UserService {
 	
 	//delete user
 	void deleteUser(int id);
+	
+	//Add property to user
+	void addPropertyToUser(int userId, Property property);
 	
 
 }

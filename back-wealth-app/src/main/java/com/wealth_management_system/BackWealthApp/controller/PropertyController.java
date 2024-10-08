@@ -48,12 +48,14 @@ public class PropertyController {
     }
     
     //List properties by user
+    /*
     @GetMapping("/list")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<Property>> listPropertiesByUser(MyUser user){
     	List<Property> properties = propertyService.listPropertiesByUser(user);
     	return ResponseEntity.ok(properties);
     }
+    */
 
     // Update a property
     @PutMapping("/update")

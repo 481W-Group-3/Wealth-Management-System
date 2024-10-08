@@ -49,13 +49,12 @@ public class Property {
 	private MyUser user;
 	
 	//Constructor
-	public Property(MyUser user, String address, String city, String state, int zipCode) {
+	public Property(String address, String city, String state, int zipCode) {
 		this.address = address;
 		this.city = city;
 		this.state = state;
 		this.zipCode = zipCode;
 		this.maintenanceRecords = new HashSet<>();
-		this.user = user;
 	}
 
 

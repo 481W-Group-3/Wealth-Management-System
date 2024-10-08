@@ -13,5 +13,5 @@ public interface PropertyRepositry extends JpaRepository<Property, Integer>{
 	List<Property> findByCity(String city);
     List<Property> findByType(String type);
     List<Property> findByIncomeMonthlyGreaterThan(double amount);
-    List<Property> listByUser(MyUser user);
+    //List<Property> listByUser(MyUser user);
 }

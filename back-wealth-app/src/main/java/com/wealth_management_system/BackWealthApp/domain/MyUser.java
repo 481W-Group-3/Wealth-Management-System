@@ -23,6 +23,9 @@ public class MyUser implements UserDetails {
     private String password;
     private String role;
     private String email;
+    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Property> properties;
 
     public MyUser() {
         this.role = "USER";
@@ -109,6 +112,10 @@ public class MyUser implements UserDetails {
 
     public String toString(){
         return id + " " + username + " " + email;
+    }
+    
+    public List<Property> getProperties(){
+    	return properties;
     }
 
 }

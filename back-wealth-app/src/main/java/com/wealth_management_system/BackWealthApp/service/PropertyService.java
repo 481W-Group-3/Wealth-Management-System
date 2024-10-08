@@ -19,7 +19,7 @@ public interface PropertyService {
 	List<Property> listAllProperties();
 	
 	//List properties by user id
-	List<Property> listPropertiesByUser(MyUser user);
+	//List<Property> listPropertiesByUser(MyUser user);
 	
 	//update Property
 	Property updateProperty(Property property);

@@ -110,10 +110,12 @@ public class PropertyServiceImpl implements PropertyService {
 	     //return property.calculateRevenue();
 	}
 
+	/*
 	@Override
 	public List<Property> listPropertiesByUser(MyUser user) {
 		// TODO Auto-generated method stub
 		return propertyRepository.listByUser(user);
 	}
+	*/
 
 }

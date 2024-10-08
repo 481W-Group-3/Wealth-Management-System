@@ -10,8 +10,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.wealth_management_system.BackWealthApp.repositry.PropertyRepositry;
 import com.wealth_management_system.BackWealthApp.repositry.UserRepositry;
 import com.wealth_management_system.BackWealthApp.domain.MyUser;
+import com.wealth_management_system.BackWealthApp.domain.Property;
 import com.wealth_management_system.BackWealthApp.service.UserService;
 
 @Service
@@ -19,6 +21,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Autowired
 	private UserRepositry userRepository;
+	
+	@Autowired
+	private PropertyRepositry propertyRepository;
 	
 	
 	@Override
@@ -116,6 +121,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		if(user.getRole().isEmpty())
 			return new String[] {"USER"};
 		return user.getRole().split(",");
+	}
+
+
+	@Override
+	public void addPropertyToUser(int userId, Property property) {
+		MyUser user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+		property.setUser(user);
+		propertyRepository.save(property);
+		
 	}
 
 	

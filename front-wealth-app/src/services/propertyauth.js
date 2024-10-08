@@ -32,6 +32,16 @@ export const listAllProperties = async () => {
     }
 };
 
+//List all properties by userAgent
+export const listPropertiesByUser = async () => {
+	try {
+		const response = await apiClient.get('/api/properties/list');
+		return response.data;
+	} catch (error) {
+		throw error;
+	}
+};
+
 // Update a property
 export const updateProperty = async (propertyData) => {
     try {

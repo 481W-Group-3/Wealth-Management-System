@@ -3,7 +3,7 @@ import { addProperty, listAllProperties, deleteProperty } from '../services/prop
 
 const RealEstatePage = () => {
   const [properties, setProperties] = useState([]);
-  const [newProperty, setNewProperty] = useState({ address: '', incomeMonthly: 0.0, occupied: true });
+  const [newProperty, setNewProperty] = useState({ address: '', incomeMonthly: '', occupied: false });
   const [expenses, setExpenses] = useState([]);
   const [newExpense, setNewExpense] = useState({ description: '', amount: '' });
   const [newLease, setNewLease] = useState({ startDate: '', endDate: '', tenantName: '', rentCollectionDay: '' });
@@ -30,7 +30,7 @@ const RealEstatePage = () => {
     try {
       const addedProperty = await addProperty({ ...newProperty });
       setProperties([...properties, { ...addedProperty, leases: [] }]);
-      setNewProperty({ address: '', incomeMonthly: 0.0, occupied: true });
+      setNewProperty({ address: '', incomeMonthly: '', occupied: false });
     } catch (error) {
       console.error('Error adding property:', error);
     }

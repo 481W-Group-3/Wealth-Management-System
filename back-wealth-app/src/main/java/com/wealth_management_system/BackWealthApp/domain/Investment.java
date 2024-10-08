@@ -35,10 +35,11 @@ public class Investment {
 	private MyUser user;
 	
 	//Constructor for monthly principal
-	public Investment(String type, double principalInitial) {
+	public Investment(MyUser user, String type, double principalInitial) {
 		this.type = type;
 		this.principalInitial = principalInitial;
 		this.property = new ArrayList<Property>();
+		this.user = user;
 	}
 
 	public Investment() {
@@ -148,7 +149,10 @@ public class Investment {
 		this.user = user;
 	}
 
-	
+	//Get user id
+	public int getUserId() {
+		return user.getId();
+	}
 
 	public List<Property> getProperty() {
 		return property;

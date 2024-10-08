@@ -44,13 +44,18 @@ public class Property {
 	@JoinColumn(name = "investment_id")
 	private Investment investment;
 	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private MyUser user;
+	
 	//Constructor
-	public Property(String address, String city, String state, int zipCode) {
+	public Property(MyUser user, String address, String city, String state, int zipCode) {
 		this.address = address;
 		this.city = city;
 		this.state = state;
 		this.zipCode = zipCode;
 		this.maintenanceRecords = new HashSet<>();
+		this.user = user;
 	}
 
 
@@ -150,12 +155,25 @@ public class Property {
         renter.add(renter2);
         ((Renter) renter).setProperty(this); // Set property reference in renter
     }
+    
+    //Get user id
+    public int getUserId() {
+    	return user.getId();
+    }
 
-
+    //Get user
+    public MyUser getUser() {
+    	return user;
+    }
+    
+    //Set user
+    public void setUser(MyUser user) {
+    	this.user = user;
+    }
 
 	public void addLease(Lease lease) {
 		// TODO Auto-generated method stub
-		
+		leases.add(lease);	
 	}
 
 

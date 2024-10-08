@@ -25,13 +25,18 @@ public class Asset {
     @JoinColumn(name = "investment_id") // Foreign key column
     private Investment investment;
 	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private MyUser user;
+	
 	
 	
 	//Constructor
-	public Asset(String type, String descr, double origValue) {
+	public Asset(MyUser user, String type, String descr, double origValue) {
 		this.type = type;
 		this.descr = descr;
 		this.origValue = origValue;
+		this.user = user;
 	}
 
 	
@@ -93,6 +98,21 @@ public class Asset {
 	//Set investment
 	public void setInvestment(Investment investment) {
 		this.investment = investment;
+	}
+	
+	//Get user id
+	public int getUserId() {
+		return user.getId();
+	}
+	
+	//Get user 
+	public MyUser getUser() {
+		return user;
+	}
+	
+	//Set user
+	public void setUser(MyUser user) {
+		this.user = user;
 	}
 	
 	/*

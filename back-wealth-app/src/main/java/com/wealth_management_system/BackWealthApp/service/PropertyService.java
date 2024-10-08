@@ -3,6 +3,7 @@ package com.wealth_management_system.BackWealthApp.service;
 import java.util.*;
 
 import com.wealth_management_system.BackWealthApp.domain.Maintenance;
+import com.wealth_management_system.BackWealthApp.domain.MyUser;
 import com.wealth_management_system.BackWealthApp.domain.Property;
 import com.wealth_management_system.BackWealthApp.domain.Renter;
 
@@ -16,6 +17,9 @@ public interface PropertyService {
 	
 	//list all the properties owned by the user
 	List<Property> listAllProperties();
+	
+	//List properties by user id
+	List<Property> listPropertiesByUser(MyUser user);
 	
 	//update Property
 	Property updateProperty(Property property);

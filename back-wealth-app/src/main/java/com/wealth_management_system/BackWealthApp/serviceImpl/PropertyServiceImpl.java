@@ -9,9 +9,11 @@ import com.wealth_management_system.BackWealthApp.repositry.LeaseRepository;
 import com.wealth_management_system.BackWealthApp.repositry.MaintenanceRepository;
 import com.wealth_management_system.BackWealthApp.repositry.PropertyRepositry;
 import com.wealth_management_system.BackWealthApp.repositry.RenterRepository;
+import com.wealth_management_system.BackWealthApp.repositry.UserRepositry;
 import com.wealth_management_system.BackWealthApp.repositry.PropertyRepositry;
 import com.wealth_management_system.BackWealthApp.domain.Lease;
 import com.wealth_management_system.BackWealthApp.domain.Maintenance;
+import com.wealth_management_system.BackWealthApp.domain.MyUser;
 import com.wealth_management_system.BackWealthApp.domain.Property;
 import com.wealth_management_system.BackWealthApp.domain.Renter;
 import com.wealth_management_system.BackWealthApp.service.PropertyService;
@@ -29,6 +31,8 @@ public class PropertyServiceImpl implements PropertyService {
 	private LeaseRepository leaseRepository;
 	@Autowired
 	private MaintenanceRepository maintenanceRepository;
+	@Autowired
+	private UserRepositry userRepository;
 	
 
 	@Override
@@ -102,8 +106,14 @@ public class PropertyServiceImpl implements PropertyService {
 	@Override
 	public double calculateRevenue(int propertyId) {
 		 Property property = getPropertyById(propertyId);
-		 return 0.0;
+		 return property.getRevenue();
 	     //return property.calculateRevenue();
+	}
+
+	@Override
+	public List<Property> listPropertiesByUser(MyUser user) {
+		// TODO Auto-generated method stub
+		return propertyRepository.listByUser(user);
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.wealth_management_system.BackWealthApp.controller;
 
 import com.wealth_management_system.BackWealthApp.domain.Maintenance;
+import com.wealth_management_system.BackWealthApp.domain.MyUser;
 import com.wealth_management_system.BackWealthApp.domain.Property;
 import com.wealth_management_system.BackWealthApp.domain.Renter;
 import com.wealth_management_system.BackWealthApp.service.PropertyService;
@@ -44,6 +45,14 @@ public class PropertyController {
     public ResponseEntity<List<Property>> listAllProperties() {
         List<Property> properties = propertyService.listAllProperties();
         return ResponseEntity.ok(properties);
+    }
+    
+    //List properties by user
+    @GetMapping("/list")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<List<Property>> listPropertiesByUser(MyUser user){
+    	List<Property> properties = propertyService.listPropertiesByUser(user);
+    	return ResponseEntity.ok(properties);
     }
 
     // Update a property

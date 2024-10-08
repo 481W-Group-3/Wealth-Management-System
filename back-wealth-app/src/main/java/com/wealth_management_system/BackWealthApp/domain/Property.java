@@ -176,6 +176,13 @@ public class Property {
 		leases.add(lease);	
 	}
 
+	public double getRevenue() {
+		return revenue;
+	}
+	
+	public void setRevenue(double revenue) {
+		this.revenue = revenue;
+	}
 
 	/*
 	//Get renter

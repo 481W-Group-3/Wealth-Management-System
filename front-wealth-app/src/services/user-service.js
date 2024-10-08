@@ -97,8 +97,7 @@ import apiClient from './apiClient';
 export const getUserProfile = async () => {
     try {
         const response = (await apiClient.get('/user/details'));
-        console.log(response);
-        return JSON.parse(response.data);  
+        return response.data;  
     } catch (error) {
         console.error('Error fetching user profile:', error);
         throw error;
@@ -107,11 +106,34 @@ export const getUserProfile = async () => {
 
 export const updateUserProfile = async (userData) => {
     try {
-        const response = await apiClient.put('/user/profile/update', userData);
-        return response.data;  // Returns updated user profile data
+        const response = await apiClient.put('/user/update-email', userData);
+        console.log(response.data)
+        // return response.data;  
+        // Returns updated user profile data
     } catch (error) {
         console.error('Error updating user profile:', error);
         throw error;
     }
 };
+
+export const getUserProfiles = async () => {
+    try{
+        const response = (await apiClient.get('/user/display-all'));
+        return response.data;
+    }catch(error){
+        console.error('Error fetching user profiles:', error);
+        throw error;
+    }
+    
+}
+
+export const deleteUserProfile = async (userName) => {
+    try{
+        const response = await apiClient.delete(`/user/delete-user`, userName);
+        console.log(response.data);
+    }catch (error) {
+        console.error('Error deleting user profile:', error);
+        throw error;
+    }
+}
 

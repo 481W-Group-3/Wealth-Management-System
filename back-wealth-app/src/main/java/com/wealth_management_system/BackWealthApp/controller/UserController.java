@@ -5,66 +5,64 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.wealth_management_system.BackWealthApp.domain.MyUser;
 import com.wealth_management_system.BackWealthApp.service.UserService;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
-//@RequestMapping(path="/user")
+@RequestMapping(path = "/user")
 public class UserController {
-	
-	
-		@Autowired
-	    private UserService userService;
-		
-		
-		@PostMapping("/test")
-	    public String testConnection() {
-			System.out.println("This is the test connection");
-	        return "Connection Successful!";
-	    }
-		
-		@GetMapping("/details")
-		public Map<String, String> getUserDetails(Model model, Authentication authentication) {
-			String username = authentication.getName();
-			MyUser user = userService.getUserByUsername(username);
-			HashMap<String, String> map = new HashMap<>();
-			map.put("username", user.getUsername());
-			map.put("email", user.getEmail());
-			map.put("role", user.getRole());
-			
-			model.addAttribute("user", user);
-			
-			return map;
-		}
-		 
-		 @GetMapping("/update-profile")
-		    public String showUpdateProfileForm(Model model, Authentication authentication) {
-		        String username = authentication.getName();
-		        MyUser user = userService.getUserByUsername(username);
+
+
+    @Autowired
+    private UserService userService;
+
+
+    @PostMapping("/test")
+    public String testConnection() {
+        System.out.println("This is the test connection");
+        return "Connection Successful!";
+    }
+
+    @GetMapping("/details")
+    public Map<String, String> getUserDetails(Authentication authentication) {
+        String username = authentication.getName();
+        MyUser user = userService.getUserByUsername(username);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("username", user.getUsername());
+        map.put("email", user.getEmail());
+        map.put("role", user.getRole());
+
+        System.out.println("Getting the details: " + user.getUsername() + " " + user.getEmail() + " " + user.getRole());
+
+//			model.addAttribute("user", user);
+
+        return map;
+    }
+
+    @GetMapping("/update-profile")
+    public String showUpdateProfileForm(Model model, Authentication authentication) {
+        String username = authentication.getName();
+        MyUser user = userService.getUserByUsername(username);
 /*
 		        if (user == null) {
 		            return "error/404"; // Ensure you have a 404 error page
 		        }
 */
-		        model.addAttribute("user", user);
-		        return "update-profile";
-		    }
+        model.addAttribute("user", user);
+        return "update-profile";
+    }
 
-		@PostMapping("update-profile")
-		public String updateUserProfile(@ModelAttribute MyUser updatedUser, Authentication authentication, RedirectAttributes redirectAttributes) {
-			String username = authentication.getName();
-			MyUser existingUser = userService.getUserByUsername(username);
+    @PutMapping("/update-profile")
+    public String updateUserProfile(@ModelAttribute MyUser updatedUser, Authentication authentication) {
+        String username = authentication.getName();
+        MyUser existingUser = userService.getUserByUsername(username);
 			/*
 			if(existingUser == null) {
 				return "error/404";
@@ -73,30 +71,54 @@ public class UserController {
 			/*existingUser.setEmail(updatedUser.getEmail());
 	        existingUser.setUsername(updatedUser.getUsername());
 	        userService.createUser(existingUser);*/
-			System.out.println("Outside the if statement");
-	        System.out.println(existingUser.getUsername());
-			 // Update fields conditionally
-		    if (updatedUser.getUsername() != null && !existingUser.getUsername().equals(updatedUser.getUsername())) {
-		    	System.out.println("Inside the if stamenet");
-		    	System.out.println(existingUser.getUsername());
-		    	System.out.println(updatedUser.getUsername());
-		        existingUser.setUsername(updatedUser.getUsername()); // Update only if username has changed
-		        System.out.println("After updating");
-		        System.out.println(existingUser.getUsername());
-		        System.out.println(updatedUser.getUsername());
-		    }
-	        existingUser.setEmail(updatedUser.getEmail()); // Always update email
-	        System.out.println("outside the if");
-	        System.out.println(existingUser.getUsername());
-	        System.out.println(updatedUser.getUsername());
+        System.out.println("Outside the if statement");
+        System.out.println(existingUser.getUsername());
+        // Update fields conditionally
+        if (updatedUser.getUsername() != null && !existingUser.getUsername().equals(updatedUser.getUsername())) {
+            System.out.println("Inside the if stamenet");
+            System.out.println(existingUser.getUsername());
+            System.out.println(updatedUser.getUsername());
+            existingUser.setUsername(updatedUser.getUsername()); // Update only if username has changed
+            System.out.println("After updating");
+            System.out.println(existingUser.getUsername());
+            System.out.println(updatedUser.getUsername());
+        }
+        existingUser.setEmail(updatedUser.getEmail()); // Always update email
+        System.out.println("outside the if");
+        System.out.println(existingUser.getEmail());
+        System.out.println(updatedUser.getEmail());
 
-	        userService.updateUser(existingUser);
+        userService.updateUser(existingUser);
 
-	        redirectAttributes.addFlashAttribute("message", "Profile updated successfully!");
-	        return "redirect:/details"; 
-			
-			
-		}
+        return "Successfully updated";
+
+
+    }
+
+    @GetMapping("/display-all")
+    public List<MyUser> displayAllUsers(Authentication authentication) {
+            System.out.println("Getting the list of users");
+            System.out.println(userService.listAllUsers());
+         return userService.listAllUsers();
+    }
+
+    @PutMapping("/update-email")
+    public String updateUserEmail(@RequestBody MyUser updatedUser, Authentication authentication) {
+        String username = authentication.getName();
+        MyUser existingUser = userService.getUserByUsername(username);
+        existingUser.setEmail(updatedUser.getEmail());
+        System.out.println(existingUser.getEmail());
+        System.out.println(updatedUser.getEmail());
+        userService.updateUser(existingUser);
+        return "Successfully updated";
+    }
+
+    @DeleteMapping("/delete-user")
+    public String deleteUser(String username, Authentication authentication) {
+        MyUser deletedUser = userService.getUserByUsername(username);
+        userService.deleteUser(deletedUser.getId());
+        return "Successfully deleted";
+    }
 /*	
 		@PostMapping("/delete-account")
 		public String deleteUserAccount(Authentication authentication, RedirectAttributes redirectAttributes) {

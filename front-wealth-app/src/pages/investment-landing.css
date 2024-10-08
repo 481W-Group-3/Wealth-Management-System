@@ -4,15 +4,17 @@
     max-width: 1200px;
     margin: 0 auto;
     background-color: #f8f9fa; /* Subtle light background */
-    font-family: 'Roboto', sans-serif; /* Modern font */
+    /*font-family: 'Roboto', sans-serif; !* Modern font *!*/
     color: #333;
 }
 
 /* Headings for investment sections */
 .investments-container h1 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #2b5887;
+    /*font-size: 2.5rem;*/
+    /*font-weight: bold;*/
+    /*color: #2b5887;*/
+    text-align: center;
+    color: black;
     margin-bottom: 30px;
 }
 
@@ -69,7 +71,8 @@
 }
 
 .investments-container th {
-    background-color: #2b5887;
+    /*background-color: #2b5887;*/
+    background-color: #a7d6ac;
     color: white;
     font-weight: 600;
 }
@@ -98,7 +101,8 @@
 }
 
 .investments-container input:focus {
-    border-color: #2b5887;
+    /*border-color: #2b5887;*/
+    border-color: #a7d6ac;
     outline: none;
 }
 

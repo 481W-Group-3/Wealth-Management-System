@@ -56,7 +56,7 @@ public class Property {
 	private MyUser user;
 	
 	//Constructor
-	public Property(String address, String city, String state, int zipCode, boolean occupied, double incomeMonthly) {
+	public Property(MyUser user, String address, String city, String state, int zipCode, boolean occupied, double incomeMonthly) {
 		this.address = address;
 		this.occupied = occupied;
 		this.incomeMonthly = incomeMonthly;
@@ -64,6 +64,7 @@ public class Property {
 		this.state = state;
 		this.zipCode = zipCode;
 		this.maintenanceRecords = new HashSet<>();
+		this.user = user;
 	}
 
 

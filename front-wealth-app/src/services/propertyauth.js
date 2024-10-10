@@ -3,9 +3,9 @@
 import apiClient from './apiClient';
 
 // Add a property
-export const addProperty = async (propertyData) => {
+export const addProperty = async (propertyData, user) => {
     try {
-        const response = await apiClient.post('/api/properties/add', propertyData);
+        const response = await apiClient.post('/api/properties/add', propertyData, user);
         return response.data;
     } catch (error) {
         throw error;

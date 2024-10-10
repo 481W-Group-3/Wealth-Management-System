@@ -5,6 +5,7 @@ import com.wealth_management_system.BackWealthApp.domain.MyUser;
 import com.wealth_management_system.BackWealthApp.domain.Property;
 import com.wealth_management_system.BackWealthApp.domain.Renter;
 import com.wealth_management_system.BackWealthApp.service.PropertyService;
+import com.wealth_management_system.BackWealthApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,18 +19,22 @@ public class PropertyController {
 
     @Autowired
     private PropertyService propertyService;
+    
+    @Autowired
+    private UserService userService;
 
     // Add a property
     @PostMapping("/add")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<Property> addProperty(@RequestBody Property property) {
-    	System.out.println("recieved add property request from: " + property.getAddress());
+    public ResponseEntity<Property> addProperty(@RequestBody Property property, @RequestBody MyUser user) {
+    	System.out.println("recieved add property request from: " + user.getUsername());
         Property createdProperty = propertyService.addProperty(property);
+        userService.addPropertyToUser(user.getId(), property);
         return ResponseEntity.ok(createdProperty);
     }
 
     // Get a property by Id
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/properties")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Property> getPropertyById(@PathVariable int id) {
         Property property = propertyService.getPropertyById(id);
@@ -47,15 +52,14 @@ public class PropertyController {
         return ResponseEntity.ok(properties);
     }
     
-    //List properties by user
-    /*
-    @GetMapping("/list")
+    //Add a property to a user
+    
+    @GetMapping("{userId}/")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<List<Property>> listPropertiesByUser(MyUser user){
-    	List<Property> properties = propertyService.listPropertiesByUser(user);
-    	return ResponseEntity.ok(properties);
+    public ResponseEntity<Property> addPropertyToUser(@RequestBody MyUser user, @RequestBody Property property){
+    	userService.addPropertyToUser(user.getId(), property);
+    	return ResponseEntity.ok(property);
     }
-    */
 
     // Update a property
     @PutMapping("/update")

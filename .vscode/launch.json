@@ -9,8 +9,18 @@
             "request": "launch",
             "name": "Launch Java App",
             "env": {
-                "MYSQL_PASS":"20Flowers!"
+                "MYSQL_PASS": "20Flowers!"
             }
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-BackWealthAppApplication<BackWealthApp>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.wealth_management_system.BackWealthApp.BackWealthAppApplication",
+            "projectName": "BackWealthApp",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }

@@ -1,22 +1,25 @@
-
 .investments-container {
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
-    background-color: #f8f9fa; /* Subtle light background */
-    font-family: 'Roboto', sans-serif; /* Modern font */
+    background-color: #f8f9fa;
+    /* Subtle light background */
+    /*font-family: 'Roboto', sans-serif; !* Modern font *!*/
     color: #333;
 }
 
 /* Headings for investment sections */
 .investments-container h1 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #2b5887;
+    /*font-size: 2.5rem;*/
+    /*font-weight: bold;*/
+    /*color: #2b5887;*/
+    text-align: center;
+    color: black;
     margin-bottom: 30px;
 }
 
-.investments-container h2, .investments-container h3 {
+.investments-container h2,
+.investments-container h3 {
     font-size: 1.75rem;
     font-weight: 600;
     margin-bottom: 20px;
@@ -27,7 +30,8 @@
 .investments-container .content {
     padding: 40px;
     border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Elevated shadow for a card effect */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    /* Elevated shadow for a card effect */
     background-color: #ffffff;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -46,10 +50,11 @@
 }
 
 /* Responsive columns */
-.investments-container .left-column, 
+.investments-container .left-column,
 .investments-container .right-column {
     flex: 1;
-    min-width: 300px; /* Ensures columns don’t shrink too small */
+    min-width: 300px;
+    /* Ensures columns don’t shrink too small */
 }
 
 /* Tables: modern style */
@@ -62,14 +67,16 @@
     overflow: hidden;
 }
 
-.investments-container th, .investments-container td {
+.investments-container th,
+.investments-container td {
     text-align: left;
     padding: 15px;
     border-bottom: 1px solid #dee2e6;
 }
 
 .investments-container th {
-    background-color: #2b5887;
+    /*background-color: #2b5887;*/
+    background-color: #a7d6ac;
     color: white;
     font-weight: 600;
 }
@@ -98,7 +105,8 @@
 }
 
 .investments-container input:focus {
-    border-color: #2b5887;
+    /*border-color: #2b5887;*/
+    border-color: #a7d6ac;
     outline: none;
 }
 
@@ -152,13 +160,3 @@
     justify-content: center;
     margin-top: 30px;
 }
-
-
-
-
-
-
-
-
-
-

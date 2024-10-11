@@ -16,7 +16,7 @@ public interface UserService {
 	MyUser getUserByEmail(String email);
 	
 	//update a user
-	void updateUser(MyUser user);
+	MyUser updateUser(MyUser user);
 	
 	//list all the users
 	List<MyUser> listAllUsers();

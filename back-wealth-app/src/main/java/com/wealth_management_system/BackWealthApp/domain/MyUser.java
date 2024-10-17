@@ -24,6 +24,7 @@ public class MyUser implements UserDetails {
     private String role;
     private String email;
     
+    /*
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Property> properties;
     
@@ -32,6 +33,7 @@ public class MyUser implements UserDetails {
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Investment> investments;
+    */
 
     public MyUser() {
         this.role = "USER";
@@ -120,6 +122,7 @@ public class MyUser implements UserDetails {
         return id + " " + username + " " + email;
     }
     
+    /*
     public List<Property> getProperties(){
     	return properties;
     }
@@ -143,6 +146,7 @@ public class MyUser implements UserDetails {
     public void setAssets(List<Asset> assets) {
     	this.assets = assets;
     }
+    */
 
 }
 

@@ -9,8 +9,10 @@ import com.wealth_management_system.BackWealthApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -26,10 +28,11 @@ public class PropertyController {
     // Add a property
     @PostMapping("/add")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<Property> addProperty(@RequestBody Property property, @RequestBody MyUser user) {
-    	System.out.println("recieved add property request from: " + user.getUsername());
-        Property createdProperty = propertyService.addProperty(property);
-        userService.addPropertyToUser(user.getId(), property);
+    public ResponseEntity<Property> addProperty(@RequestBody Property property, Principal principal) {
+    	
+    	System.out.println("recieved add property request from: " + principal.getName());
+        Property createdProperty = propertyService.addProperty(property, principal.getName());
+        //userService.addPropertyToUser(user.getId(), property);
         return ResponseEntity.ok(createdProperty);
     }
 
@@ -53,13 +56,14 @@ public class PropertyController {
     }
     
     //Add a property to a user
-    
+    /*
     @GetMapping("{userId}/")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Property> addPropertyToUser(@RequestBody MyUser user, @RequestBody Property property){
-    	userService.addPropertyToUser(user.getId(), property);
+    	userService.addPropertyToUser(user.getUsername(), property);
     	return ResponseEntity.ok(property);
     }
+    */
 
     // Update a property
     @PutMapping("/update")

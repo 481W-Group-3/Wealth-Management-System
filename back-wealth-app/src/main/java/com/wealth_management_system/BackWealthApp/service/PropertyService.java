@@ -10,7 +10,7 @@ import com.wealth_management_system.BackWealthApp.domain.Renter;
 public interface PropertyService {
 	
 	//add a property to the list
-	Property addProperty(Property property);
+	Property addProperty(Property property, String username);
 	
 	//get property by Id
 	Property getPropertyById(int id);
@@ -19,7 +19,7 @@ public interface PropertyService {
 	List<Property> listAllProperties();
 	
 	//List properties by user id
-	//List<Property> listPropertiesByUser(MyUser user);
+	List<Property> getUserProperties(int userId);
 	
 	//update Property
 	Property updateProperty(Property property);

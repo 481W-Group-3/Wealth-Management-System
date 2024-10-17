@@ -1,6 +1,7 @@
 package com.wealth_management_system.BackWealthApp.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.wealth_management_system.BackWealthApp.domain.MyUser;
 import com.wealth_management_system.BackWealthApp.domain.Property;
@@ -15,6 +16,9 @@ public interface UserService {
 	
 	//get a user by email
 	MyUser getUserByEmail(String email);
+	
+	//Get user by id
+	MyUser getUserById(int id);
 	
 	//update a user
 	MyUser updateUser(MyUser user);
@@ -35,7 +39,7 @@ public interface UserService {
 	void deleteUser(int id);
 	
 	//Add property to user
-	void addPropertyToUser(int userId, Property property);
+	//void addPropertyToUser(String userId, Property property);
 	
 
 }

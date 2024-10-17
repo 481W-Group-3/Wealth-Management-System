@@ -9,6 +9,7 @@ import com.wealth_management_system.BackWealthApp.domain.MyUser;
 public interface UserRepositry extends JpaRepository<MyUser, Integer> {
 	MyUser findMyUserByUsername(String username);
 	MyUser findByEmail(String email);
+	MyUser findById(int id);
 //	List<User> findByEmail(String email);
 	void deleteMyUserByUsername(String username);
 	void deleteMyUserByEmail(String email);

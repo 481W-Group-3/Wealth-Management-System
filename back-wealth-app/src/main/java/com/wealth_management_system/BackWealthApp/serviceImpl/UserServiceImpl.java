@@ -22,8 +22,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	@Autowired
 	private UserRepositry userRepository;
 	
+	/*
 	@Autowired
 	private PropertyRepositry propertyRepository;
+	*/
 	
 	
 	@Override
@@ -41,6 +43,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	@Override
 	public MyUser getUserByUsername(String user) {
 		return userRepository.findMyUserByUsername(user);
+	}
+	
+	@Override
+	public MyUser getUserById(int id) {
+		return userRepository.findById(id);
 	}
 
 	@Override
@@ -123,7 +130,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		return user.getRole().split(",");
 	}
 
-
+	/*
 	@Override
 	public void addPropertyToUser(int userId, Property property) {
 		MyUser user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
@@ -131,6 +138,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		propertyRepository.save(property);
 		
 	}
+	*/
 
 	
 

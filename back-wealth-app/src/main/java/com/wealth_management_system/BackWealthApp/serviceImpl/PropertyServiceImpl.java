@@ -36,7 +36,9 @@ public class PropertyServiceImpl implements PropertyService {
 	
 
 	@Override
-	public Property addProperty(Property property) {
+	public Property addProperty(Property property, String username) {
+		MyUser user = userRepository.findMyUserByUsername(username);
+		property.setUser(user);
 		return propertyRepository.save(property);
 	}
 
@@ -110,12 +112,13 @@ public class PropertyServiceImpl implements PropertyService {
 	     //return property.calculateRevenue();
 	}
 
-	/*
+	
 	@Override
-	public List<Property> listPropertiesByUser(MyUser user) {
+	public List<Property> getUserProperties(int UserId) {
 		// TODO Auto-generated method stub
-		return propertyRepository.listByUser(user);
+		MyUser user = userRepository.findById(UserId);
+		return propertyRepository.findByUser(user);
 	}
-	*/
+	
 
 }

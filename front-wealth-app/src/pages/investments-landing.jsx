@@ -61,6 +61,7 @@ const InvestmentsLanding = () => {
     try {
       // Send new investment to backend for calculation
       const response = await addInvestment(newInvestment);
+      console.log(response);
       setInvestments([...investments, response]);
       setNewInvestment({ type: '', principalInitial: 0, currentValue: 0 });
     } catch (error) {

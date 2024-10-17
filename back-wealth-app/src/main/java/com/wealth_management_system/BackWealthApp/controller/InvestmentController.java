@@ -10,7 +10,9 @@ import com.wealth_management_system.BackWealthApp.domain.Asset;
 import com.wealth_management_system.BackWealthApp.domain.Investment;
 import com.wealth_management_system.BackWealthApp.domain.Property;
 import com.wealth_management_system.BackWealthApp.service.InvestmentService;
+import com.wealth_management_system.BackWealthApp.service.UserService;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -19,17 +21,21 @@ public class InvestmentController {
 
     @Autowired
     private InvestmentService investmentService;
+    
+    @Autowired
+    private UserService userService;
 
     // Add a new investment
     @PostMapping("/create")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<Investment> addInvestment(@RequestBody Investment investment) {
+    public ResponseEntity<Investment> addInvestment(@RequestBody Investment investment, Principal principal) {
     	System.out.println("Received investment: " + investment);
     	System.out.println("investment amount is: " + investment.getPrincipalInitial());
     	System.out.println("current amount is: " + investment.getCurrentValue());
     	System.out.println("investmemt type is: " + investment.getType());
     	//System.out.println("investment amount is: " + investment.getPrincipalInitial());
-        Investment newInvestment = investmentService.addInvestment(investment);
+    	
+        Investment newInvestment = investmentService.addInvestment(investment, principal.getName());
         return new ResponseEntity<>(newInvestment, HttpStatus.CREATED);
     }
     
@@ -46,8 +52,8 @@ public class InvestmentController {
     // List all investments
     @GetMapping
     @PreAuthorize("isAuthenticated()") 
-    public ResponseEntity<List<Investment>> listAllInvestments() {
-        List<Investment> investments = investmentService.listAllInvestments();
+    public ResponseEntity<List<Investment>> listAllInvestments(Principal principal) {
+        List<Investment> investments = investmentService.listAllInvestments(principal.getName());
         return new ResponseEntity<>(investments, HttpStatus.OK);
     }
 
@@ -68,6 +74,7 @@ public class InvestmentController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    /*
     // Link investment to property
     @PostMapping("/{investmentId}/properties/{propertyId}")
     @PreAuthorize("isAuthenticated()") 
@@ -83,6 +90,7 @@ public class InvestmentController {
         List<Property> properties = investmentService.getPropertiesByInvestment(investmentId);
         return new ResponseEntity<>(properties, HttpStatus.OK);
     }
+    */
 
     // Get asset by investment ID
    /* @GetMapping("/{investmentId}/asset")

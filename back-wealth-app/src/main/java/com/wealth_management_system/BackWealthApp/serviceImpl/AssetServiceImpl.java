@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wealth_management_system.BackWealthApp.repositry.AssetRepository;
+import com.wealth_management_system.BackWealthApp.repositry.UserRepositry;
 import com.wealth_management_system.BackWealthApp.domain.Asset;
 import com.wealth_management_system.BackWealthApp.domain.Investment;
+import com.wealth_management_system.BackWealthApp.domain.MyUser;
 import com.wealth_management_system.BackWealthApp.service.AssetService;
 
 /*
@@ -16,39 +18,39 @@ import com.wealth_management_system.BackWealthApp.service.AssetService;
 
 @Service
 public class AssetServiceImpl implements AssetService {
-	
-	private final AssetRepository assetRepository;
-	private InvestmentServiceImpl investmentService;
-	
 	@Autowired
-	public AssetServiceImpl(AssetRepository assetRepository) {
-		this.assetRepository = assetRepository;
-	}
+	private AssetRepository assetRepository;
+	//private InvestmentServiceImpl investmentService;
+	@Autowired
+	private UserRepositry userRepository;
 
 	//Add an asset
 	@Override
-	public Asset addAsset(Asset asset) {
+	public Asset addAsset(Asset asset, String username) {
+		MyUser user = userRepository.findMyUserByUsername(username);
+		asset.setUser(user);
 		return assetRepository.save(asset);
 	}
 
 	//Find an asset by id
 	@Override
-	public Optional<Asset> getAssetById(int id) {
-		Optional<Asset> assetRep = assetRepository.findById(id);
+	public Asset getAssetById(int id) {
+		Asset assetRep = assetRepository.findById(id);
 		return assetRep;
 	}
 	
 	//List all the assets
 	@Override
-	public List<Asset> listAllAssets() {
-		return assetRepository.findAll();
+	public List<Asset> listAllAssets(String username) {
+		MyUser user = userRepository.findMyUserByUsername(username);
+		return assetRepository.findByUser(user);
 	}
 
 	@Override
 	public Asset updateAsset(Asset asset) {
-		Optional<Asset> existingAsset = assetRepository.findById(asset.id());
-		if(existingAsset.isPresent()) {
-			Asset tempAsset = existingAsset.get();
+		Asset existingAsset = assetRepository.findById(asset.id());
+		if(existingAsset != null) {
+			Asset tempAsset = existingAsset;
 			tempAsset.setCurrentValue(asset.getCurrentValue());
 			tempAsset.setDescr(asset.getDescr());
 			tempAsset.setOrigValue(asset.getOrigValue());
@@ -66,6 +68,7 @@ public class AssetServiceImpl implements AssetService {
 		assetRepository.deleteById(id);
 	}
 
+	/*
 	//Link asset to investment
 	@Override
 	public void linkAssetToInvestment(int assetId, int investmentId) {
@@ -79,5 +82,6 @@ public class AssetServiceImpl implements AssetService {
 		}
 		
 	}
+	*/
 
 }

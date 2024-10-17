@@ -21,9 +21,11 @@ public class Asset {
 	//private Date currentDate;
 	//private Investment investment;
 	
+	/*
 	@ManyToOne
     @JoinColumn(name = "investment_id") // Foreign key column
     private Investment investment;
+    */
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -32,11 +34,10 @@ public class Asset {
 	
 	
 	//Constructor
-	public Asset(MyUser user, String type, String descr, double origValue) {
+	public Asset(String type, String descr, double origValue) {
 		this.type = type;
 		this.descr = descr;
 		this.origValue = origValue;
-		this.user = user;
 	}
 
 	
@@ -89,7 +90,7 @@ public class Asset {
 	public void setCurrentValue(double currentValue) {
 		this.currentValue = currentValue;
 	}
-	
+	/*
 	//Get investment
 	public Investment getInvestment() {
 		return investment;
@@ -99,6 +100,7 @@ public class Asset {
 	public void setInvestment(Investment investment) {
 		this.investment = investment;
 	}
+	*/
 	
 	//Get user id
 	public int getUserId() {

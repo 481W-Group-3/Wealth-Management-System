@@ -8,13 +8,13 @@ import com.wealth_management_system.BackWealthApp.domain.Asset;
 public interface AssetService {
 	
 	//add an asset to the list
-	Asset addAsset(Asset asset);
+	Asset addAsset(Asset asset, String username);
 	
 	//get an asset info by id
-	Optional<Asset> getAssetById(int id);
+	Asset getAssetById(int id);
 	
 	//list all the assets 
-	List<Asset> listAllAssets();
+	List<Asset> listAllAssets(String username);
 	
 	//update an assets
 	Asset updateAsset(Asset asset);
@@ -22,7 +22,9 @@ public interface AssetService {
 	//delete an asset
 	void deleteAsset(int id);
 	
+	/*
 	//link an asset to investment
 	void linkAssetToInvestment(int assetId, int investmentId);
+	*/
 
 }

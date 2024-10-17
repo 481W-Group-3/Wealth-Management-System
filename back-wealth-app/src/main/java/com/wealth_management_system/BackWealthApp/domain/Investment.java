@@ -24,22 +24,24 @@ public class Investment {
 	//private Date currentDate;
 	//private Date previousEditDate;
 	
+	/*
 	@OneToMany(mappedBy = "investment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Property> property;
 	
 	@OneToMany(mappedBy = "investment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Asset> asset;
+	*/
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private MyUser user;
 	
 	//Constructor for monthly principal
-	public Investment(MyUser user, String type, double principalInitial) {
+	public Investment(String type, double principalInitial) {
 		this.type = type;
 		this.principalInitial = principalInitial;
-		this.property = new ArrayList<Property>();
-		this.user = user;
+		//this.property = new ArrayList<Property>();
+		//this.user = user;
 	}
 
 	public Investment() {
@@ -154,6 +156,7 @@ public class Investment {
 		return user.getId();
 	}
 
+	/*
 	public List<Property> getProperty() {
 		return property;
 	}
@@ -170,5 +173,6 @@ public class Investment {
 		this.asset = asset;
 	}
 
+	*/
 	
 }

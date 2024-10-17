@@ -16,10 +16,10 @@ public interface PropertyService {
 	Property getPropertyById(int id);
 	
 	//list all the properties owned by the user
-	List<Property> listAllProperties();
+	List<Property> listAllProperties(String username);
 	
 	//List properties by user id
-	List<Property> getUserProperties(int userId);
+	//List<Property> getUserProperties(int userId);
 	
 	//update Property
 	Property updateProperty(Property property);

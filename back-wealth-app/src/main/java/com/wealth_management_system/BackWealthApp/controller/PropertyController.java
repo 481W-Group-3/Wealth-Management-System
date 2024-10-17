@@ -50,8 +50,8 @@ public class PropertyController {
     // List all properties
     @GetMapping("/list")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<List<Property>> listAllProperties() {
-        List<Property> properties = propertyService.listAllProperties();
+    public ResponseEntity<List<Property>> listAllProperties(Principal principal) {
+        List<Property> properties = propertyService.listAllProperties(principal.getName());
         return ResponseEntity.ok(properties);
     }
     

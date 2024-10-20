@@ -54,3 +54,24 @@ export const deleteInvestment = async (id) => {
         return false;  // Return false or handle the error as needed
     }
 };
+
+export const addAsset = async (asset) => {
+    try {
+        const response = await apiClient.post('/api/assets/create', asset);
+        return response.data;  // Returns the created investment data
+    } catch (error) {
+        console.error('Error adding asset:', error.response || error);
+        throw error;  // Let the calling function handle the error
+    }
+};
+
+export const deleteAsset = async (id) => {
+    try {
+        await apiClient.delete(`/api/assets/${id}`);
+        return true;  // Return true on successful delete
+    } catch (error) {
+        console.error('Error deleting asset:', error);
+        return false;  // Return false or handle the error as needed
+    }
+};
+

@@ -52,7 +52,7 @@ public class AssetServiceImpl implements AssetService {
 		if(existingAsset != null) {
 			Asset tempAsset = existingAsset;
 			tempAsset.setCurrentValue(asset.getCurrentValue());
-			tempAsset.setDescr(asset.getDescr());
+			tempAsset.setAllocation(asset.getAllocation());
 			tempAsset.setOrigValue(asset.getOrigValue());
 			tempAsset.setType(asset.getType());
 			

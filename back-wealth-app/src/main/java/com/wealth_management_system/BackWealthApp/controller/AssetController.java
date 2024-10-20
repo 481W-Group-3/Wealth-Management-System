@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -17,23 +18,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wealth_management_system.BackWealthApp.domain.Asset;
-import com.wealth_management_system.BackWealthApp.domain.Property;
-import com.wealth_management_system.BackWealthApp.serviceImpl.AssetServiceImpl;
-import com.wealth_management_system.BackWealthApp.serviceImpl.UserServiceImpl;
+import com.wealth_management_system.BackWealthApp.service.AssetService;
+import com.wealth_management_system.BackWealthApp.service.UserService;
 
 @RestController
 @RequestMapping("/api/assets")
 public class AssetController {
 	@Autowired
-	private AssetServiceImpl assetService;
+	private AssetService assetService;
 	
 	@Autowired
-	private UserServiceImpl userService;
+	private UserService userService;
 
-    @PostMapping
+    @PostMapping("/create")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Asset> addAsset(@RequestBody Asset asset, Principal principal){
         Asset newAsset = assetService.addAsset(asset, principal.getName());
+        // return new ResponseEntity<>(newAsset, HttpStatus.CREATED);
+
         return ResponseEntity.ok(newAsset);
     }
 
@@ -51,6 +53,9 @@ public class AssetController {
     @PreAuthorize("isAuthenticated()")
     public List<Asset> getAllAssets(Principal principal){
         return assetService.listAllAssets(principal.getName());
+
+        // List<Asset> assets = assetService.listAllAssets(principal.getName());
+        // return new ResponseEntity<>(assets, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")

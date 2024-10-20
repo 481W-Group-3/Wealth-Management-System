@@ -15,12 +15,15 @@ public class Asset {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
 	private String type;
-	private String descr;
+	// private String descr;
+	private double allocation;
 	private double origValue;
 	private double currentValue;
 	//private Date currentDate;
 	//private Investment investment;
-	
+
+	// commenting out description for now, we aren't using it
+
 	/*
 	@ManyToOne
     @JoinColumn(name = "investment_id") // Foreign key column
@@ -32,11 +35,10 @@ public class Asset {
 	private MyUser user;
 	
 	
-	
 	//Constructor
-	public Asset(String type, String descr, double origValue) {
+	public Asset(String type, double allocation, double origValue) {
 		this.type = type;
-		this.descr = descr;
+		this.allocation = allocation;
 		this.origValue = origValue;
 	}
 
@@ -61,6 +63,7 @@ public class Asset {
 		this.type = type;
 	}
 	
+	/* 
 	//Get desc
 	public String getDescr() {
 		return descr;
@@ -70,7 +73,17 @@ public class Asset {
 	public void setDescr(String desc) {
 		this.descr = desc;
 	}
-	
+	*/
+
+	//Get allocation
+	public double getAllocation() {
+		return allocation;
+	}
+
+	//Set allocation
+	public void setAllocation(double allocation) {
+		this.allocation = allocation;
+	}
 	//Get origValue
 	public double getOrigValue() {
 		return origValue;

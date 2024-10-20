@@ -5,7 +5,9 @@ import {
   addInvestment,
   deleteInvestment as deleteInvestmentService,
   fetchAssetAllocations,
-} from '../services/investmentService'; 
+  addAsset,
+  deleteAsset as deleteAssetService
+} from '../services/investmentService';
 
 const InvestmentsLanding = () => {
   const [assets, setAssets] = useState([]);
@@ -21,6 +23,8 @@ const InvestmentsLanding = () => {
       try {
         const fetchedAssets = await fetchAssetAllocations();
         const fetchedInvestments = await fetchInvestments();
+        console.log(fetchedInvestments);
+        console.log(fetchedAssets);
         setAssets(fetchedAssets);
         setInvestments(fetchedInvestments);
       } catch (error) {
@@ -41,11 +45,35 @@ const InvestmentsLanding = () => {
   };
 
   const handleAddAsset = async (e) => {
-    // handle adding assets here
+    e.preventDefault();
+    const { type, allocation, currentValue } = newAsset;
+
+    if (!type || allocation <= 0 || currentValue <= 0) {
+      console.error('Please fill in all fields with valid numbers.');
+      return;
+    }
+
+    try {
+      const response = await addAsset(newAsset);
+      console.log(response);
+      setAssets([...assets, response]);
+      setNewAsset({ type: '', allocation: 0, currentValue: 0 });
+    } catch (error) {
+      console.error('Failed to add asset:', error);
+    }
   };
 
   const deleteAsset = async (id) => {
-    // handle deleting assets here
+    try {
+      const isDeleted = await deleteAssetService(id);
+      if (isDeleted) {
+        setAssets(assets.filter(asset => asset.id !== id));
+      } else {
+        console.error('Failed to delete asset.');
+      }
+    } catch (error) {
+      console.error('Failed to delete asset:', error);
+    }
   };
 
   // Submit handler for adding a new investment
@@ -95,31 +123,31 @@ const InvestmentsLanding = () => {
         {/* Asset Allocation */}
         <div className="two-column-layout">
           <div className="left-column">
-          <h2>Add New Asset</h2>
+            <h2>Add New Asset</h2>
             <form onSubmit={handleAddAsset} className="asset-form">
-                <input
-                  type="text"
-                  placeholder="Asset Type"
-                  value={newAsset.type}
-                  onChange={(e) => setNewAsset({ ...newAsset, type: e.target.value })}
-                />
-                <input
-                  type="number"
-                  placeholder="Allocation"
-                  value={newAsset.allocation}
-                  onChange={(e) => setNewAsset({ ...newAsset, allocation: Number(e.target.value) })}
-                />
-                <input
-                  type="number"
-                  placeholder="Current Value"
-                  value={newAsset.currentValue}
-                  onChange={(e) => setNewAsset({ ...newAsset, currentValue: Number(e.target.value) })}
-                />
-                <button type="submit" className="add-btn">Add Asset</button>
+              <input
+                type="text"
+                placeholder="Asset Type"
+                value={newAsset.type}
+                onChange={(e) => setNewAsset({ ...newAsset, type: e.target.value })}
+              />
+              <input
+                type="text"
+                placeholder="Allocation"
+                value={newAsset.allocation}
+                onChange={(e) => setNewAsset({ ...newAsset, allocation: Number(e.target.value) })}
+              />
+              <input
+                type="number"
+                placeholder="Current Value"
+                value={newAsset.currentValue}
+                onChange={(e) => setNewAsset({ ...newAsset, currentValue: Number(e.target.value) })}
+              />
+              <button type="submit" className="add-btn">Add Asset</button>
             </form>
           </div>
           <div className="right-column">
-          <h2>Asset Allocation</h2>
+            <h2>Asset Allocation</h2>
             <table>
               <thead>
                 <tr>
@@ -153,25 +181,25 @@ const InvestmentsLanding = () => {
           <div className="left-column">
             <h2>Add New Investment</h2>
             <form onSubmit={handleAddInvestment} className="investment-form">
-                <input
-                  type="text"
-                  placeholder="Investment Type"
-                  value={newInvestment.type}
-                  onChange={(e) => setNewInvestment({ ...newInvestment, type: e.target.value })}
-                />
-                <input
-                  type="number"
-                  placeholder="Initial Principal"
-                  value={newInvestment.principalInitial}
-                  onChange={(e) => setNewInvestment({ ...newInvestment, principalInitial: Number(e.target.value) })}
-                />
-                <input
-                  type="number"
-                  placeholder="Current Value"
-                  value={newInvestment.currentValue}
-                  onChange={(e) => setNewInvestment({ ...newInvestment, currentValue: Number(e.target.value) })}
-                />
-                <button type="submit" className="add-btn">Add Investment</button>
+              <input
+                type="text"
+                placeholder="Investment Type"
+                value={newInvestment.type}
+                onChange={(e) => setNewInvestment({ ...newInvestment, type: e.target.value })}
+              />
+              <input
+                type="number"
+                placeholder="Initial Principal"
+                value={newInvestment.principalInitial}
+                onChange={(e) => setNewInvestment({ ...newInvestment, principalInitial: Number(e.target.value) })}
+              />
+              <input
+                type="number"
+                placeholder="Current Value"
+                value={newInvestment.currentValue}
+                onChange={(e) => setNewInvestment({ ...newInvestment, currentValue: Number(e.target.value) })}
+              />
+              <button type="submit" className="add-btn">Add Investment</button>
             </form>
           </div>
 
@@ -211,22 +239,22 @@ const InvestmentsLanding = () => {
         </div>
 
         <h2>Market Predictions</h2>
-            {/* Fetch market predictions */}
-            <table>
-              <thead>
-                <tr>
-                  <th>Asset Type</th>
-                  <th>Prediction</th>
-                </tr>
-              </thead>
-              <tbody>
-                {/* Insert market prediction data here*/}
-                <tr>
-                  <td>Property</td>
-                  <td>The future is bleak</td>
-                </tr>
-              </tbody>
-            </table>
+        {/* Fetch market predictions */}
+        <table>
+          <thead>
+            <tr>
+              <th>Asset Type</th>
+              <th>Prediction</th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* Insert market prediction data here*/}
+            <tr>
+              <td>Property</td>
+              <td>The future is bleak</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   );

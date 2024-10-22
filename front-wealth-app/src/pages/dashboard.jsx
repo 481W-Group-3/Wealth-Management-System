@@ -1,5 +1,6 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import homeBackground from '../home_background.jpg'; // Make sure this path is correct
 
 const Card = ({title, description, link, icon}) => (
     <Link to={link}>
@@ -38,8 +39,8 @@ const HomePage = () => {
 
     return (
         <div className="home-container">
-            <div className={"page-container"}>
-                <div className="content-rectangle" style={{ backgroundColor: '#c3e8c7' }}>
+            <div className="page-container">
+                <div className="content-rectangle" style={{ backgroundColor: '#f0f0f0' }}>
                     <h1 className="dashboard-title">Dashboard</h1>
                     <div className="card-grid">
                         {cardData.map((card, index) => (
@@ -51,15 +52,26 @@ const HomePage = () => {
             </div>
             <style jsx>{`
                 .home-container {
-                    //min-height: calc(100vh - 60px);
+                    min-height: 100vh;
                     display: flex;
                     justify-content: center;
                     align-items: flex-start;
                     padding: 20px 0;
+                    background-image: url(${homeBackground});
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                }
+
+                .page-container {
+                    width: 100%;
+                    max-width: 1200px;
+                    padding: 0 20px;
                 }
 
                 .content-rectangle {
-                    background-color: white;
+                    margin-top: 10em;
+                    background-color: rgba(255, 255, 255, 0.9);
                     border-radius: 8px;
                     padding: 40px;
                     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -67,9 +79,9 @@ const HomePage = () => {
 
                 .dashboard-title {
                     margin-bottom: 30px;
-                    color: #333;
+                    color: #69a289;
                     font-family: 'Montserrat', sans-serif;
-                    font-weight: 300;
+                    font-weight: 500;
                 }
 
                 .card-grid {
@@ -79,7 +91,7 @@ const HomePage = () => {
                 }
 
                 .card {
-                    background-color: #f8f8f8;
+                    background-color: #69a289;
                     border-radius: 4px;
                     display: flex;
                     flex-direction: column;
@@ -108,17 +120,17 @@ const HomePage = () => {
 
                 .card-grid h3 {
                     margin: 0;
-                    color: #444;
+                    color: #fff;
                     font-family: 'Montserrat', sans-serif;
                     font-weight: 600; /* Bold weight */
                 }
 
                 .card-grid p {
                     margin: 0;
-                    //color: #000;
+                    color: #f0f0f0;
                     font-size: 0.9em;
                     font-family: 'Montserrat', sans-serif;
-                    font-weight: 100; /* Thin weight */
+                    font-weight: 300; /* Light weight */
                 }
             `}</style>
         </div>

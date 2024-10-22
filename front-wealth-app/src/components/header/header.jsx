@@ -40,7 +40,7 @@ const Header = ({ isLandingPage = false }) => {
     };
     
     return (
-        <div className="header-container shadow-md" style={{ backgroundColor: '#a7d6ac' }}>
+        <div className="header-container shadow-md" style={{ backgroundColor: '#69a289' }}>
             <div className="container mx-auto px-4 py-3 flex justify-between items-center">
                 <Link to="/dashboard" className="focus:outline-none">
                     <img src={logo} alt="logo" className="h-10 w-auto" />
@@ -50,21 +50,19 @@ const Header = ({ isLandingPage = false }) => {
                         <div className="relative" ref={dropdownRef}>
                             <button
                                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                                className="username-button text-gray-700 hover:text-gray-900 font-medium focus:outline-none px-3 py-1 rounded-full"
+                                className="username-button font-medium focus:outline-none px-3 py-1 rounded-full text-[#000000] hover:text-white hover:bg-[#964734]/10"
                             >
                                 {user.username}
                             </button>
                             {isDropdownOpen && (
                                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
-                                    <Link to="/settings" className="dropdown-item block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                        Settings
-                                    </Link>
-                                    <Link to="/profile-settings" className="dropdown-item block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    
+                                    <Link to="/profile-settings" className="dropdown-item block px-4 py-2 text-sm text-gray-700">
                                         Edit Profile
                                     </Link>
                                     <button
                                         onClick={handleLogout}
-                                        className="dropdown-item block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none"
+                                        className="dropdown-item block w-full text-left px-4 py-2 text-sm text-gray-700 focus:outline-none"
                                     >
                                         Logout
                                     </button>
@@ -97,14 +95,19 @@ const Header = ({ isLandingPage = false }) => {
                 }
                 .username-button:hover,
                 .username-button:focus {
-                    background-color: rgba(0, 0, 0, 0.05);
-                    color: #4a5568;
+                    background-color: rgba(150, 71, 52, 0.1);
+                    color: white !important;
                     border-radius: 9999px;
+                }
+                .dropdown-item {
+                    display: block;
+                    width: 100%;
+                    text-align: left;
                 }
                 .dropdown-item:hover,
                 .dropdown-item:focus {
-                    background-color: rgba(0, 0, 0, 0.05);
-                    color: #4a5568;
+                    background-color: rgba(0, 0, 0, 0.1);
+                    color: #2d3748;
                 }
                 /* Override default focus styles */
                 *:focus {

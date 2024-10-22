@@ -5,7 +5,7 @@
 }
 
 .footer-background {
-    background-color: white;
+    background-color: #69a289;
     font-family: 'Montserrat', sans-serif;
     border-top: 1px solid #ccc;
 }
@@ -22,6 +22,7 @@
     justify-content: space-between;
     text-align: left;
     min-width: 200px;
+    color: black;
 }
 
 .footer-content h3, .footer-content p{
@@ -34,7 +35,7 @@
 }
 
 .footer-content a:hover {
-    color: #007bff;
+    color: white;
 }
 
 .footer-content h3 {

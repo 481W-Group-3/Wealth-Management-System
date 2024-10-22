@@ -109,22 +109,22 @@ const FormCards = ({
       </div>
       <style jsx>{`
         .submit-button {
-          background-color: #86c08d;
-          border-color: #86c08d;
+          background-color: #69a289;
+          border-color: #69a289;
           border-width: 1px;
           border-style: solid;
           transition: background-color 0.3s ease;
           color: white;
         }
         .submit-button:hover {
-          background-color: #6da674;
+          background-color: #5a8b74;
         }
         .green-link {
-          color: #86c08d;
+          color: #69a289;
           transition: color 0.3s ease;
         }
         .green-link:hover {
-          color: #6da674;
+          color: #5a8b74;
         }
       `}</style>
     </div> 

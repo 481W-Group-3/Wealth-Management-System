@@ -17,19 +17,23 @@ const RetirementPage = () => {
         
         let preparationTime = retirementAge - currentAge;
         let retirementDuration = lifeExpectancy - retirementAge;
+        let percentincomeIncrease = (1+ (incomeIncrease / 100));
+        let percentMoneySaved = ((moneySaved/100));
+        let percentInflation = (1+(expectedInflationRate/100));
 
-        let savings = retirementSavings;
-        let income = pretaxIncome * incomeIncrease;
-        let inflation = expectedInflationRate;
-        for(let i=1; i<preparationTime;i++){
-            savings = savings + (income * (1 + (moneySaved /100))); 
-            income = income * incomeIncrease;
-            inflation = inflation * expectedInflationRate;
+        let savings = Number(retirementSavings);
+        let income = pretaxIncome * percentincomeIncrease;
+        let inflation = percentInflation;
+
+        for(let i=0; i<preparationTime;i++){
+            savings = savings + (income * percentMoneySaved);
+            income = income * percentincomeIncrease;
+            inflation = inflation * percentInflation;  
         }
         let adjustedAnnualExpenses = yearlyRetirementExpenses * inflation;;
-        for(let i=1; i<retirementDuration; i++){
-            inflation = inflation * expectedInflationRate;
-            adjustedAnnualExpenses = adjustedAnnualExpenses * inflation;
+        for(let i=0; i<retirementDuration; i++){
+            inflation = inflation * percentInflation;
+            adjustedAnnualExpenses = adjustedAnnualExpenses + (adjustedAnnualExpenses * inflation);
         }
         
         calculationTotalAmount(adjustedAnnualExpenses);
@@ -39,19 +43,35 @@ const RetirementPage = () => {
 
     //Set total needed for retirement
     const calculationTotalAmount = (total) => {
-        //document.getElementById('retirementCalcTotalAmount').innerHTML = '$' + total;
+        total = Math.floor(total);
+        document.getElementById('retirementCalcTotalAmount').innerHTML = '$' + total;
     }
 
     //Set money saved for retirement
     const calculationMoneyInvested = (total) => {
-        //document.getElementById('retirementCalcMoneyInvested').innerHTML = '$' + total;
+        total = Math.floor(total);
+        document.getElementById('retirementCalcMoneyInvested').innerHTML = '$' + total;
     }
 
-    //Set percentage still needed for retirement
+    //Set percentage still needed for retirement (monthly)
     const calculationPercentageNeeded = (expenses, savings, time) => {
-        let percentage = (savings / expenses) * 100; 
-        let total = (expenses - savings) / time;
-        //document.getElementById('retirementCalcPercentageNeeded').innerHTML = '$' + total + ' (' + percentage + ')' ;
+        let percentage = Math.floor((savings / expenses) * 100); 
+        let totalYearly;
+        if(percentage > 100){
+            percentage = 100;
+        }
+        if(time > 0){
+            totalYearly = Math.floor((expenses - savings) / time);
+        }
+        else{
+            totalYearly = Math.floor((expenses - savings));
+        }
+        if(totalYearly < 0){
+            totalYearly = 0;
+        }
+        let totalMonthly = Math.round(totalYearly/12);
+        document.getElementById('retirementCalcPercentageNeededYearly').innerHTML = '$' + totalYearly + ' (' + percentage + '%)' ;
+        document.getElementById('retirementCalcPercentageNeededMonthly').innerHTML = '$' + totalMonthly + ' (' + percentage + '%)' ;
     }
 
     return (
@@ -61,7 +81,7 @@ const RetirementPage = () => {
                 <div className="retirementTwoColumns">
                     <div className="retirementLeftColumn">
                         <h2>Calculate Money Needed for Retirement</h2>
-                        <form onClick={retirementCalculator}>
+                        <form /*retirementCalculator onSubmit="returnFalse;"*/>
                             <h3>Current Age</h3>
                             <input
                                 type="number"
@@ -74,8 +94,8 @@ const RetirementPage = () => {
                                 type="number"
                                 name="retirementAge"
                                 value={retirementAge}
-                                onChange={(e) => setRetirementAge(e.target.value)}
-                            />
+                                onChange={(e) => setRetirementAge(e.target.value)}>
+                            </input>
                             <h3>Assumed Life Expectancy</h3>
                             <input 
                                 type="number"
@@ -96,6 +116,13 @@ const RetirementPage = () => {
                                 name="incomeIncrease"
                                 value={incomeIncrease}
                                 onChange={(e) => setIncomeIncrease(e.target.value)}
+                            />
+                            <h3>Percentage of Income put into Savings "%"</h3>
+                            <input 
+                                type="number"
+                                name="investmentReturn"
+                                value={moneySaved}
+                                onChange={(e) => setMoneySaved(e.target.value)}
                             />
                             <h3>Current Savings for Retirement</h3>
                             <input 
@@ -119,25 +146,25 @@ const RetirementPage = () => {
                                 value={expectedInflationRate}
                                 onChange={(e) => setExpectedInflationRate(e.target.value)}
                             />
-                            <h3>Percentage of Income put into Savings "%"</h3>
-                            <input 
-                                type="number"
-                                name="investmentReturn"
-                                value={moneySaved}
-                                onChange={(e) => setMoneySaved(e.target.value)}
-                            />
                             <br />
-                            
+                            <button type="button" onClick={retirementCalculator}>Calculate Results</button>
                         </form>
                     </div>
                     <div className ="retirementRightColumn">
+                        
                         <h3>Total Money Needed for Retirement</h3>
                         <label id="retirementCalcTotalAmount">$0</label>
-                        <br />
+                        
                         <h3>Money Saved by retirement</h3>
                         <label id="retirementCalcMoneyInvested">$0</label>
-                        <h3>Yearly Savings Still Needed for Retirement</h3>
-                        <label id="retirementCalcPercentageNeeded">$0</label>
+                        
+                        <h3>Savings Still Needed for Retirement</h3>
+                        <div className="retirementResultsBox">
+                            <h3>Yearly</h3>
+                            <label id="retirementCalcPercentageNeededYearly">$0</label>
+                            <h3>Monthly</h3>
+                            <label id="retirementCalcPercentageNeededMonthly">$0</label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -151,7 +178,8 @@ const RetirementPage = () => {
 
                 h1, h2, h3, h4 {
                     color: #333;
-                    margin-bottom: 20px;
+                    margin-bottom: 5px;
+                    margin-top: 10px;
                     text-align: center;
                 }
 
@@ -167,29 +195,41 @@ const RetirementPage = () => {
 
                 .retirementLeftColumn, .retirementRightColumn {
                     flex: 1;
+                    align-items: center;
                 }
 
                 .retirementRightColumn{
-                    margin-top: 300px;
+                    margin-top: 200px;
+                }
+
+                .retirementResultsBox{
+                    flex:2;
+                }
+                
+                input, button, label{
+                border-radius: 4px;
+                    padding-left: 70px;
+                    padding-right: 70px;
+                    padding-top: 7.5px;
+                    padding-bottom: 7.5px;
                 }
 
                 input {
                     border-style: solid;
-                    border-radius: 2px;
                     border-color: gray;
-                    text-align: center;
                     background-color: lightblue;
-                    margin-bottom: 10px;
                 }
 
                 label {
                     text-align: center;
                     background-color: lightblue;
                     margin-bottom: 20px;
-                    padding-left: 80px;
-                    padding-right: 80px;
-                    padding-top: 5px;
-                    padding-bottom: 5px;
+                }
+                
+                button {
+                background-color: #2b5887;
+                color: white;
+                margin-top: 10px;
                 }
 
             `}</style>

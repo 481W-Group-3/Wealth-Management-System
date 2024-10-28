@@ -22,6 +22,25 @@ public interface InvestmentService {
 	
 	//delete any investment
 	void deleteInvestment(int id);
+	
+	double calculateStockReturns(double purchasePrice, double sellingPrice, int shares, double annualDividend);
+	
+	double calculateBondReturns(double faceValue, double couponRate, double pricePaid, int yearsToMaturity);
+	
+	double calculateMutualFundReturns(double startingNAV, double endingNAV, double dividends);
+	
+	double calculateRealEstateReturns(double initialInvestment, double netRentalIncome, double newPropertyValue, double originalPurchasePrice);
+	
+	double calculateCryptoReturns(double purchasePrice, double sellingPrice);
+	
+	double calculateRetirementAccountReturns(double principal, double rate, int years, int compoundingPeriods);
+	
+	double calculateCDReturns(double principal, double rate, int years, int compoundingPeriods);
+	
+	double calculateSavingsReturns(double principal, double rate, int years, int compoundingPeriods);
+	
+	
+	
 	/*
 	//link an investment to property
 	void linkInvestmentToProperty(int investmentId, int propertyId);

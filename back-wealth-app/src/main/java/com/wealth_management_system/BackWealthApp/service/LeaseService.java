@@ -5,6 +5,7 @@ package com.wealth_management_system.BackWealthApp.service;
 import java.util.List;
 
 import com.wealth_management_system.BackWealthApp.domain.Lease;
+import com.wealth_management_system.BackWealthApp.domain.Property;
 import com.wealth_management_system.BackWealthApp.domain.Renter;
 
 public interface LeaseService {
@@ -17,6 +18,9 @@ public interface LeaseService {
 	
 	//list all the leases
 	List<Lease> listAllLeases();
+	
+	//List all leases for the given property
+	List<Lease> listByProperty(int propertyId);
 	
 	//update any lease
 	Lease updateLease(Lease lease);

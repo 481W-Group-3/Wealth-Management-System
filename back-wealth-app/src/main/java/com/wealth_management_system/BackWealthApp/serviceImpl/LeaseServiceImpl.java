@@ -50,15 +50,17 @@ public class LeaseServiceImpl implements LeaseService {
 	}
 
 	@Override
-	public Lease updateLease(Lease lease) {
-		// TODO Auto-generated method stub
-		return null;
+	public Lease updateLease(int id, Lease newLease) {
+		Optional<Lease> originalLease = leaseRepository.findById(id);
+		Lease ogLease = originalLease.get();
+		ogLease.setLeaseType(newLease.getLeaseType());
+		ogLease.setPaymentMonthly(newLease.getPaymentMonthly());
+		return ogLease;
 	}
 
 	@Override
 	public void deleteLease(int id) {
-		// TODO Auto-generated method stub
-		
+		leaseRepository.deleteById(id);
 	}
 
 	@Override

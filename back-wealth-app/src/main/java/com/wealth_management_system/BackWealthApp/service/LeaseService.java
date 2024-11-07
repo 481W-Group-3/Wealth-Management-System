@@ -23,7 +23,7 @@ public interface LeaseService {
 	List<Lease> listByProperty(int propertyId);
 	
 	//update any lease
-	Lease updateLease(Lease lease);
+	Lease updateLease(int id, Lease newLease);
 	
 	//delete a lease
 	void deleteLease(int id);

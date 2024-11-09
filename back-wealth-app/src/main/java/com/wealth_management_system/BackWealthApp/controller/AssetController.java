@@ -51,11 +51,11 @@ public class AssetController {
 
     @GetMapping
     @PreAuthorize("isAuthenticated()")
-    public List<Asset> getAllAssets(Principal principal){
-        return assetService.listAllAssets(principal.getName());
+    public ResponseEntity<List<Asset>> getAllAssets(Principal principal){
+        //return assetService.listAllAssets(principal.getName());
 
-        // List<Asset> assets = assetService.listAllAssets(principal.getName());
-        // return new ResponseEntity<>(assets, HttpStatus.OK);
+         List<Asset> assets = assetService.listAllAssets(principal.getName());
+        return new ResponseEntity<>(assets, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")

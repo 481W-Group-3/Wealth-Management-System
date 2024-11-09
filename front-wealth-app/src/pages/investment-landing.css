@@ -26,6 +26,8 @@
     color: #495057;
 }
 
+
+
 /* Content container for card-like appearance */
 .investments-container .content {
     padding: 40px;
@@ -89,16 +91,24 @@
 .investments-container form {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
+    text-align: left;
     gap: 15px;
     max-width: 400px;
     margin: 0 auto;
 }
 
+.investments-container select {
+    border: 2px solid #1f4566;
+    border-radius: 8px;
+    font-size: 1rem;
+    padding: 12px 15px;
+}
+
 .investments-container input {
     padding: 12px 15px;
     border-radius: 8px;
-    border: 1px solid #ced4da;
+    border: 2px solid #ced4da;
     width: 100%;
     font-size: 1rem;
     transition: border-color 0.3s ease;

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.wealth_management_system.BackWealthApp.domain.Lease;
 import com.wealth_management_system.BackWealthApp.domain.Property;
@@ -13,6 +14,7 @@ import com.wealth_management_system.BackWealthApp.repositry.PropertyRepositry;
 import com.wealth_management_system.BackWealthApp.repositry.RenterRepository;
 import com.wealth_management_system.BackWealthApp.service.LeaseService;
 
+@Service
 public class LeaseServiceImpl implements LeaseService {
 
 	@Autowired

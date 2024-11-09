@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.wealth_management_system.BackWealthApp.domain.Lease;
 import com.wealth_management_system.BackWealthApp.domain.Property;
@@ -30,7 +31,7 @@ public class LeaseController {
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<Lease> createLease(@RequestBody Lease lease){
 		Lease newLease = leaseService.createLease(lease);
-		return ResponseEntity.ok(lease);
+		return ResponseEntity.ok(newLease);
 	}
 	
 	// Get a lease by Id

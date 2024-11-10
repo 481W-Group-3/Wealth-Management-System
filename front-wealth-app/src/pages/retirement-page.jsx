@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import FormsForDashboard from '../components/user/FormsForDashboard';
 
 const RetirementPage = () => {
 
@@ -56,9 +57,13 @@ const RetirementPage = () => {
     //Set percentage still needed for retirement (monthly)
     const calculationPercentageNeeded = (expenses, savings, time) => {
         let percentage = Math.floor((savings / expenses) * 100); 
+        
         let totalYearly;
         if(percentage > 100){
             percentage = 100;
+        }
+        if(percentage == null){
+            percentage = 0;
         }
         if(time > 0){
             totalYearly = Math.floor((expenses - savings) / time);
@@ -80,8 +85,9 @@ const RetirementPage = () => {
              <div className="retirementContent">
                 <div className="retirementTwoColumns">
                     <div className="retirementLeftColumn">
-                        <h2>Calculate Money Needed for Retirement</h2>
-                        <form /*retirementCalculator onSubmit="returnFalse;"*/>
+                    <h2>Calculate Money Needed for Retirement</h2>
+                        <form id="retirementCalculator">
+                        <div className="moneyForRetirementLeftColumn">
                             <h3>Current Age</h3>
                             <input
                                 type="number"
@@ -119,11 +125,16 @@ const RetirementPage = () => {
                             />
                             <h3>Percentage of Income put into Savings "%"</h3>
                             <input 
+                                id="bottomInput"
                                 type="number"
                                 name="investmentReturn"
                                 value={moneySaved}
                                 onChange={(e) => setMoneySaved(e.target.value)}
                             />
+                        </div>
+                        <div className="moneyForRetirementRightColumn">
+                            <h3>Income for Real Estates</h3>
+                            <realEstateInput />
                             <h3>Current Savings for Retirement</h3>
                             <input 
                                 type="number"
@@ -148,10 +159,10 @@ const RetirementPage = () => {
                             />
                             <br />
                             <button type="button" onClick={retirementCalculator}>Calculate Results</button>
+                        </div>
                         </form>
                     </div>
                     <div className ="retirementRightColumn">
-                        
                         <h3>Total Money Needed for Retirement</h3>
                         <label id="retirementCalcTotalAmount">$0</label>
                         
@@ -164,6 +175,7 @@ const RetirementPage = () => {
                             <label id="retirementCalcPercentageNeededYearly">$0</label>
                             <h3>Monthly</h3>
                             <label id="retirementCalcPercentageNeededMonthly">$0</label>
+
                         </div>
                     </div>
                 </div>
@@ -191,15 +203,40 @@ const RetirementPage = () => {
                      display: flex;
                      gap: 30px;
                      margin-bottom: 30px;
+                    margin-left: 50px;
+                    margin-right: 50px;
                 }
 
                 .retirementLeftColumn, .retirementRightColumn {
                     flex: 1;
                     align-items: center;
+                    border-style: solid;
+                    border-radius: 5px;
+                    border-width: 3px;
+                    height: 550px;
+                    box-shadow: rgba(0, 0, 0, 0.15) 0px 10px 20px;
+                }
+
+                #retirementCalculator{
+                    display:flex;
+                    gap: 30px;
+                    padding-bottom: 25px;
+                }
+                .retirmentLeftColumn form div {
+                    flex: 1;
+                    align-items: center;
                 }
 
                 .retirementRightColumn{
-                    margin-top: 200px;
+                    padding-top: 150px;
+                }
+
+                .moneyForRetirementLeftColumn{
+                padding-left: 10px;
+                }
+                .moneyForRetirementRightColumn {
+                    margin-top: 50px;              
+                    padding-right: 10px;
                 }
 
                 .retirementResultsBox{
@@ -218,6 +255,10 @@ const RetirementPage = () => {
                     border-style: solid;
                     border-color: gray;
                     background-color: lightblue;
+                }
+
+                #bottonInput {
+                    margin-bottom:5px;
                 }
 
                 label {

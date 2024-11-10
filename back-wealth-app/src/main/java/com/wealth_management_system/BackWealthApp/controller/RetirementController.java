@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +33,7 @@ public class RetirementController {
 
     // Create a new retirement record
     @PostMapping
+    @PreAuthorize("isAuthenticated()") 
     public ResponseEntity<Retirement> createRetirement(@RequestBody Retirement retirement) {
         Retirement savedRetirement = retirementService.saveRetirement(retirement);
         return new ResponseEntity<>(savedRetirement, HttpStatus.CREATED);
@@ -39,6 +41,7 @@ public class RetirementController {
 
     // Get a retirement record by ID
     @GetMapping("/{id}")
+    @PreAuthorize("isAuthenticated()") 
     public ResponseEntity<Retirement> getRetirementById(@PathVariable int id) {
         Optional<Retirement> retirement = retirementService.getRetirementById(id);
         return retirement.map(ResponseEntity::ok)
@@ -47,6 +50,7 @@ public class RetirementController {
 
     // Get all retirement records
     @GetMapping
+    @PreAuthorize("isAuthenticated()") 
     public ResponseEntity<List<Retirement>> getAllRetirements() {
         List<Retirement> retirements = retirementService.getAllRetirements();
         return new ResponseEntity<>(retirements, HttpStatus.OK);
@@ -54,6 +58,7 @@ public class RetirementController {
 
     // Update a retirement record
     @PutMapping("/{id}")
+    @PreAuthorize("isAuthenticated()") 
     public ResponseEntity<Retirement> updateRetirement(@PathVariable int id, @RequestBody Retirement retirement) {
         try {
             Retirement updatedRetirement = retirementService.updateRetirement(id, retirement);
@@ -65,6 +70,7 @@ public class RetirementController {
 
     // Delete a retirement record by ID
     @DeleteMapping("/{id}")
+    @PreAuthorize("isAuthenticated()") 
     public ResponseEntity<Void> deleteRetirement(@PathVariable int id) {
         retirementService.deleteRetirement(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -72,6 +78,7 @@ public class RetirementController {
 
     // Calculate years left until retirement
     @GetMapping("/years-to-retirement")
+    @PreAuthorize("isAuthenticated()") 
     public ResponseEntity<Integer> calculateYearsToRetirement(@RequestParam int age, @RequestParam int retirementAge) {
         int yearsToRetirement = retirementService.calculateYearsToRetirement(age, retirementAge);
         return new ResponseEntity<>(yearsToRetirement, HttpStatus.OK);
@@ -79,6 +86,7 @@ public class RetirementController {
 
     // Estimate savings at retirement
     @GetMapping("/estimate-savings")
+    @PreAuthorize("isAuthenticated()") 
     public ResponseEntity<Double> estimateRetirementSavings(@RequestParam int currentSavings,
                                                             @RequestParam int income,
                                                             @RequestParam int retirementAge,

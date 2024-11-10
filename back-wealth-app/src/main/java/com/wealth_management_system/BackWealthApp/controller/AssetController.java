@@ -54,7 +54,7 @@ public class AssetController {
     public ResponseEntity<List<Asset>> getAllAssets(Principal principal){
         //return assetService.listAllAssets(principal.getName());
 
-        List<Asset> assets = assetService.listAllAssets(principal.getName());
+         List<Asset> assets = assetService.listAllAssets(principal.getName());
         return new ResponseEntity<>(assets, HttpStatus.OK);
     }
 

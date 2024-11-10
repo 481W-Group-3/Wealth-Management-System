@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate} from 'react-router-dom';
+
 import FormsForDashboard from '../components/user/FormsForDashboard';
 import { addProperty, listAllProperties, deleteProperty } from '../services/propertyauth';
 
@@ -110,6 +112,11 @@ const RealEstatePage = () => {
     });
     setProperties(updatedProperties);
   };
+
+  const navigate = useNavigate();
+  function handleRedirect() {
+    navigate('/taxes');
+  }
 
   const totalIncome = properties.reduce((sum, property) => sum + property.incomeMonthly, 0);
   const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0);
@@ -271,7 +278,7 @@ const RealEstatePage = () => {
       </div>
 
       <div className="flex justify-center mt-8">
-        <button onClick={() => alert('Navigate to Tax Software page')} className="bg-green-500 hover:bg-green-700 text-white font-normal py-2 px-4 rounded">
+        <button onClick={() => handleRedirect()} className="bg-green-500 hover:bg-green-700 text-white font-normal py-2 px-4 rounded">
           Go to Tax Software
         </button>
       </div>

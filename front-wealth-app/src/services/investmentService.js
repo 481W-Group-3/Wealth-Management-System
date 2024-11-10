@@ -45,6 +45,16 @@ export const addInvestment = async (investment) => {
     }
 };
 
+export const fetchInvestmentById = async (id) => {
+    try {
+        const response = await apiClient.get(`/api/investments/${id}`);
+        return response.data;  // Returns the specified investment
+    } catch (error) {
+        console.error('Error fetching investments:', error);
+        return [];  // Return an empty array if there's an error
+    }
+};
+
 export const deleteInvestment = async (id) => {
     try {
         await apiClient.delete(`/api/investments/${id}`);

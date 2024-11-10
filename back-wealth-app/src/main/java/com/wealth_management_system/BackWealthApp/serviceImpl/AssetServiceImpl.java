@@ -26,7 +26,7 @@ public class AssetServiceImpl implements AssetService {
 
 	//Add an asset
 	@Override
-	
+	// @isAuthenticated
 	public Asset addAsset(Asset asset, String username) {
 		MyUser user = userRepository.findMyUserByUsername(username);
 		asset.setUser(user);

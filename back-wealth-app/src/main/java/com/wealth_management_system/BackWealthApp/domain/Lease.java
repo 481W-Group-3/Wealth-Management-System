@@ -21,7 +21,7 @@ public class Lease {
 	
 	
 	 @OneToMany(mappedBy = "lease")
-	private Set<Renter> renters;
+	private ArrayList<Renter> renters;
 	
 	private int rentDueDay;
 	private double securityDeposit;
@@ -31,8 +31,11 @@ public class Lease {
 	//private File document;
 	
 	//Constructor
-	public Lease() {
-		//this.property = property;
+	public Lease(Property property, String leaseType, double paymentMonthly, int rentDueDay) {
+		this.property = property;
+		this.leaseType = leaseType;
+		this.paymentMonthly = paymentMonthly;
+		this.rentDueDay = rentDueDay;
 		//this.startDate = startDate;
 		//this.endDate = endDate;
 		//this.renter = new ArrayList<Renter>();
@@ -94,6 +97,11 @@ public class Lease {
 		renters.add(renter);
 		renter.setLease(this);
 		
+	}
+	
+	//Remove renter
+	public void removeRenter(Renter renter) {
+		renters.remove(renter);
 	}
 	
 

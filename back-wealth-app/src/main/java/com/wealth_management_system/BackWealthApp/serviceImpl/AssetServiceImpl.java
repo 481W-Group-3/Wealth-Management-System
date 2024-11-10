@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.wealth_management_system.BackWealthApp.repositry.AssetRepository;
 import com.wealth_management_system.BackWealthApp.repositry.UserRepositry;
 import com.wealth_management_system.BackWealthApp.domain.Asset;
-import com.wealth_management_system.BackWealthApp.domain.Investment;
 import com.wealth_management_system.BackWealthApp.domain.MyUser;
 import com.wealth_management_system.BackWealthApp.service.AssetService;
 
@@ -26,6 +25,7 @@ public class AssetServiceImpl implements AssetService {
 
 	//Add an asset
 	@Override
+	// @isAuthenticated
 	public Asset addAsset(Asset asset, String username) {
 		MyUser user = userRepository.findMyUserByUsername(username);
 		asset.setUser(user);

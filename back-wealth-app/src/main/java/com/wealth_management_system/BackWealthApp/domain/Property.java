@@ -1,6 +1,7 @@
 package com.wealth_management_system.BackWealthApp.domain;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
@@ -42,7 +43,7 @@ public class Property {
 	private Set<Renter> renter;
 	
 	@OneToMany(mappedBy = "property")
-    private Set<Lease> leases;
+    private List<Lease> leases;
 	private double revenue = incomeMonthly-taxMonthly-insuranceMonthly-mortgageMonthly;
 	@OneToMany(mappedBy = "property")
     private Set<Maintenance> maintenanceRecords;
@@ -183,6 +184,10 @@ public class Property {
 	public void addLease(Lease lease) {
 		// TODO Auto-generated method stub
 		leases.add(lease);	
+	}
+	
+	public List<Lease> getLeases(){
+		return leases;
 	}
 
 	public double getRevenue() {

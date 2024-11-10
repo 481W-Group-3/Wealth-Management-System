@@ -35,6 +35,12 @@ public class Asset {
 	private MyUser user;
 	
 	
+	public Asset() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
 	//Constructor
 	public Asset(String type, double allocation, double origValue) {
 		this.type = type;

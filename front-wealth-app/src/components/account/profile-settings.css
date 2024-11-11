@@ -11,7 +11,7 @@
 
 .profile-title {
     border-radius: 20px 20px 0 0;
-    background-color: #a7d6ac;
+    background-color: #68a188;
     padding: 10px 30px;
 }
 
@@ -30,12 +30,12 @@
 
 .account-container button {
     margin: 20px auto;
-    background: #a7d6ac;
+    background: #68a188;
 }
 
 .account-container button:hover {
     cursor: pointer;
-    background: #89bd8f;
+    background: #436a59;
 }
 
 .profile-component {
@@ -60,7 +60,7 @@
 
 .edit-profile-form {
     background: white;
-    border: 3px solid #a7d6ac;
+    border: 3px solid #67a087;
     border-radius: 5px;
     max-height: 600px;
     min-width: 600px;
@@ -84,7 +84,7 @@
     margin: 10px auto;
     border-radius: 5px;
     padding: 5px;
-    background-color: #a7d6ac;
+    background-color: #67a087;
 }
 
 .admin-features {
@@ -94,4 +94,58 @@
     border-radius: 8px;
     height: 100%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.admin-feature{
+    display: flex;
+    flex-direction: row;
+    margin: 10px 0;
+}
+
+.admin-feature tr{
+    display: flex;
+}
+
+.admin-feature td, .admin-feature th{
+    text-align: left;
+    margin: auto 0;
+    width: 22%;
+    overflow: hidden;
+    padding: 0 10px;
+}
+
+.admin-feature td:hover, .admin-feature th:hover{
+    overflow: auto;
+}
+
+.admin-feature td:first-child, .admin-feature th:first-child{
+    width:5%;
+    min-width: 20px;
+}
+
+.admin-feature-details p{
+    width: 100%;
+}
+
+.admin-feature button{
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    margin: auto;
+}
+
+.admin-button{
+    background: #6aa289;
+}
+
+.admin-button:hover{
+    background: #598873;
+}
+
+.delete-button{
+    background: #b56868;
+}
+
+.delete-button:hover{
+    background: #8f5151;
 }

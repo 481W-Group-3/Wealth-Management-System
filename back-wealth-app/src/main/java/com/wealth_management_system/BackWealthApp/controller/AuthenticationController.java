@@ -1,7 +1,6 @@
 package com.wealth_management_system.BackWealthApp.controller;
 
 import com.wealth_management_system.BackWealthApp.domain.MyUser;
-import com.wealth_management_system.BackWealthApp.repositry.UserRepositry;
 import com.wealth_management_system.BackWealthApp.security.JwtTokenHelper;
 import com.wealth_management_system.BackWealthApp.serviceImpl.UserServiceImpl;
 
@@ -17,7 +16,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.PostMapping;

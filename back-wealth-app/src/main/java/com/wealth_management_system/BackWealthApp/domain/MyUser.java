@@ -64,10 +64,10 @@ public class MyUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role));
-//        return Stream.of(role.split(","))
-//                .map(SimpleGrantedAuthority::new)
-//                .collect(Collectors.toList());
+//        return List.of(new SimpleGrantedAuthority(role));
+        return Stream.of(role.split(","))
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
     }
 
     public String getPassword() {
@@ -82,8 +82,19 @@ public class MyUser implements UserDetails {
         return role;
     }
 
+    public List<String> getRoles() {
+        return Stream.of(role.split(",")).collect(Collectors.toList());
+    }
+
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public boolean isAdmin() {
+        List<String> roles = getRoles();
+        if(roles.contains("ADMIN"))
+            return true;
+        return false;
     }
 
     public void addRole(String role){

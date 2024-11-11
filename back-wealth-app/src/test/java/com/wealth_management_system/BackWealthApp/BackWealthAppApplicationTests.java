@@ -15,14 +15,18 @@ class BackWealthAppApplicationTests {
 	private UserServiceImpl userService;
 
 	@Test
-	void contextLoads() {
+	void contextLoads() throws Exception {
+
+//		userService.setAdmin(userService.getUserById(1));
+//		userService.deleteUser(12);
+
 		List<MyUser> list = userService.listAllUsers();
 		for (MyUser user : list) {
 //			if(user.getId() > 10) {
 //				userService.deleteUser(user.getId());
 //				continue;
 //			}
-			System.out.println(user.toString());
+			System.out.println(user.getId() + " " + user.getEmail() + " " + user.getPassword());
 		}
 	}
 

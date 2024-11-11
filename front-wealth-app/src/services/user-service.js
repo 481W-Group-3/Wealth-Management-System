@@ -127,9 +127,19 @@ export const getUserProfiles = async () => {
     
 }
 
-export const deleteUserProfile = async (userName) => {
+export const setUserAdmin = async (userId) => {
     try{
-        const response = await apiClient.delete(`/user/delete-user`, userName);
+        const response = await apiClient.put(`/user/set-admin`, userId);
+        return response.data;
+    }catch(error){
+        console.log("Error setting user: " + error)
+        throw error;
+    }
+}
+
+export const deleteUserProfile = async (userId) => {
+    try{
+        const response = await apiClient.delete(`/user/delete-user`, userId);
         console.log(response.data);
     }catch (error) {
         console.error('Error deleting user profile:', error);

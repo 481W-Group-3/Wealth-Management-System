@@ -1,6 +1,7 @@
 package com.wealth_management_system.BackWealthApp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -97,9 +98,10 @@ public class UserController {
 
     @GetMapping("/display-all")
     public List<MyUser> displayAllUsers(Authentication authentication) {
-            System.out.println("Getting the list of users");
-            System.out.println(userService.listAllUsers());
-         return userService.listAllUsers();
+        if(!authentication.getAuthorities().toString().contains("ADMIN"))
+            return null;
+        System.out.println("Getting the list of users " + authentication.getAuthorities() + " " + authentication.getName());
+        return userService.listAllUsers();
     }
 
     @PutMapping("/update-email")
@@ -113,11 +115,31 @@ public class UserController {
         return "Successfully updated";
     }
 
+    @PutMapping("/set-admin")
+    public ResponseEntity<String> setAdmin(@RequestBody Integer id, Authentication authentication) {
+        if(id == 0)
+            return new ResponseEntity<>("id could not be sent", HttpStatus.BAD_REQUEST);
+        MyUser user = userService.getUserById(id);
+        System.out.println(authentication.getName() + " tried to set admin for " + userService.getUserById(id).getUsername());
+        try{
+            userService.setAdmin(user);
+			return ResponseEntity.ok("Roles Updated");
+		}catch(Exception e){
+			return new ResponseEntity<>("User Already Admin", HttpStatus.CONFLICT);
+		}
+    }
+
+    @CrossOrigin
     @DeleteMapping("/delete-user")
-    public String deleteUser(String username, Authentication authentication) {
-        MyUser deletedUser = userService.getUserByUsername(username);
-        userService.deleteUser(deletedUser.getId());
-        return "Successfully deleted";
+    public ResponseEntity<String> deleteUser(@RequestBody Integer id, Authentication authentication) {
+        System.out.println(authentication.getName() + " tried to delete user " + userService.getUserById(id).getUsername());
+        MyUser deletedUser = userService.getUserById(id);
+        try {
+            userService.deleteUser(deletedUser.getId());
+            return ResponseEntity.ok("User Deleted");
+        }catch (Exception e) {
+            return new ResponseEntity<>("User Not Deleted or Does Not Exist", HttpStatus.CONFLICT);
+        }
     }
 /*	
 		@PostMapping("/delete-account")

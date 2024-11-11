@@ -10,17 +10,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.wealth_management_system.BackWealthApp.repositry.PropertyRepositry;
-import com.wealth_management_system.BackWealthApp.repositry.UserRepositry;
+import com.wealth_management_system.BackWealthApp.repositry.UserRepository;
 import com.wealth_management_system.BackWealthApp.domain.MyUser;
-import com.wealth_management_system.BackWealthApp.domain.Property;
 import com.wealth_management_system.BackWealthApp.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Autowired
-	private UserRepositry userRepository;
+	private UserRepository userRepository;
 	
 	/*
 	@Autowired
@@ -120,14 +118,25 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 //		user.setPassword(updatedUser.getPassword());
 //	}
 
-	public void setAdmin(MyUser user) {
-		user.addRole("ADMIN");
+	@Override
+	public MyUser setRole(MyUser user, String role){
+		user.setRole(role);
+		return userRepository.save(user);
+	}
+
+	@Override
+	public MyUser setAdmin(MyUser user) throws Exception{
+		if(user.isAdmin())
+			throw new Exception("User is already an Admin");
+		else
+			user.addRole("ADMIN");
+		return userRepository.save(user);
 	}
 
 	public String[] getRoles(MyUser user) {
-		if(user.getRole().isEmpty())
+		if(user.getRoles().isEmpty())
 			return new String[] {"USER"};
-		return user.getRole().split(",");
+		return user.getRoles().toArray(new String[] {});
 	}
 
 	/*

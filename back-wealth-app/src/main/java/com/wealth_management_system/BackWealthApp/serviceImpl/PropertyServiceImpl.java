@@ -9,8 +9,7 @@ import com.wealth_management_system.BackWealthApp.repositry.LeaseRepository;
 import com.wealth_management_system.BackWealthApp.repositry.MaintenanceRepository;
 import com.wealth_management_system.BackWealthApp.repositry.PropertyRepositry;
 import com.wealth_management_system.BackWealthApp.repositry.RenterRepository;
-import com.wealth_management_system.BackWealthApp.repositry.UserRepositry;
-import com.wealth_management_system.BackWealthApp.repositry.PropertyRepositry;
+import com.wealth_management_system.BackWealthApp.repositry.UserRepository;
 import com.wealth_management_system.BackWealthApp.domain.Lease;
 import com.wealth_management_system.BackWealthApp.domain.Maintenance;
 import com.wealth_management_system.BackWealthApp.domain.MyUser;
@@ -32,7 +31,7 @@ public class PropertyServiceImpl implements PropertyService {
 	@Autowired
 	private MaintenanceRepository maintenanceRepository;
 	@Autowired
-	private UserRepositry userRepository;
+	private UserRepository userRepository;
 	
 
 	@Override

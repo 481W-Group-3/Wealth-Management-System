@@ -7,13 +7,14 @@ const RetirementPage = () => {
     const [retirementAge, setRetirementAge] = useState('');
     const [lifeExpectancy, setLifeExpectancy] = useState('');
     const [pretaxIncome, setPretaxIncome] = useState('');
-    const [incomeIncrease, setIncomeIncrease] = useState('');
+    const [incomeIncrease, setIncomeIncrease] = useState('3');
     const [yearlyRetirementExpenses, setYearlyRetirementExpenses] = useState('');
-    const [expectedInflationRate, setExpectedInflationRate] = useState('');
+    const [expectedInflationRate, setExpectedInflationRate] = useState('3');
     const [moneySaved, setMoneySaved] = useState('');
     const [retirementSavings, setRetirementSavings] = useState('');
+    const [realEstateIncome, setRealEstateIncome] = useState('');
 
-
+    //Calculations
     const retirementCalculator = () => {
         
         let preparationTime = retirementAge - currentAge;
@@ -41,6 +42,8 @@ const RetirementPage = () => {
         calculationMoneyInvested(savings);
         calculationPercentageNeeded(adjustedAnnualExpenses, savings, preparationTime);
     }
+
+
 
     //Set total needed for retirement
     const calculationTotalAmount = (total) => {
@@ -79,6 +82,7 @@ const RetirementPage = () => {
         document.getElementById('retirementCalcPercentageNeededMonthly').innerHTML = '$' + totalMonthly + ' (' + percentage + '%)' ;
     }
 
+
     return (
         <div className="retirement-container">
              <h1>Retirement Calculator</h1>
@@ -93,6 +97,7 @@ const RetirementPage = () => {
                                 type="number"
                                 name="currentAge"
                                 value={currentAge}
+                                min="0"
                                 onChange={(e) => setCurrentAge(e.target.value)}
                             />
                             <h3>Expected Retirement Age</h3>
@@ -100,6 +105,7 @@ const RetirementPage = () => {
                                 type="number"
                                 name="retirementAge"
                                 value={retirementAge}
+                                min="0"
                                 onChange={(e) => setRetirementAge(e.target.value)}>
                             </input>
                             <h3>Assumed Life Expectancy</h3>
@@ -107,6 +113,7 @@ const RetirementPage = () => {
                                 type="number"
                                 name="lifeExpectancy"
                                 value={lifeExpectancy}
+                                min="0"
                                 onChange={(e) => setLifeExpectancy(e.target.value)}
                             />
                             <h3>Current Pre-tax Income</h3>
@@ -123,18 +130,24 @@ const RetirementPage = () => {
                                 value={incomeIncrease}
                                 onChange={(e) => setIncomeIncrease(e.target.value)}
                             />
-                            <h3>Percentage of Income put into Savings "%"</h3>
+                            <h3>Percent of Income put into Savings "%"</h3>
                             <input 
                                 id="bottomInput"
                                 type="number"
                                 name="investmentReturn"
                                 value={moneySaved}
+                                min="0"
                                 onChange={(e) => setMoneySaved(e.target.value)}
                             />
                         </div>
                         <div className="moneyForRetirementRightColumn">
                             <h3>Income for Real Estates</h3>
-                            <realEstateInput />
+                            <input 
+                                type="number"
+                                name="realEstateIncome"
+                                value={realEstateIncome}
+                                onChange={(e) => setRealEstateIncome(e.target.value)}
+                            />
                             <h3>Current Savings for Retirement</h3>
                             <input 
                                 type="number"

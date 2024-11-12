@@ -1,7 +1,6 @@
 package com.wealth_management_system.BackWealthApp.controller;
 
-import java.security.Principal;
-import java.util.*;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,28 +13,37 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.*;
 
 import com.wealth_management_system.BackWealthApp.domain.Lease;
 import com.wealth_management_system.BackWealthApp.domain.Property;
 import com.wealth_management_system.BackWealthApp.service.LeaseService;
+import com.wealth_management_system.BackWealthApp.service.PropertyService;
 
 @RestController
 @RequestMapping("/api/leases")
 public class LeaseController {
-	
-	@Autowired
-	private LeaseService leaseService;
-	
-	@PostMapping("/create")
-	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity<Lease> createLease(@RequestBody Lease lease){
-		Lease newLease = leaseService.createLease(lease);
-		return ResponseEntity.ok(newLease);
-	}
-	
-	// Get a lease by Id
-    @GetMapping("/{id}/leases")
+    
+    @Autowired
+    private LeaseService leaseService;
+
+    @Autowired
+    private PropertyService propertyService;
+
+    // Create a new lease
+    @PostMapping("/create")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<Lease> createLease(@RequestBody Lease lease) {
+        Integer propertyId = lease.getProperty().getId();
+        Property property = propertyService.getPropertyById(propertyId);
+
+        lease.setProperty(property);
+        
+        Lease newLease = leaseService.createLease(lease);
+        return ResponseEntity.ok(newLease);
+    }
+
+    // Get a lease by ID
+    @GetMapping("/{id}")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Lease> getLeaseById(@PathVariable int id) {
         Lease lease = leaseService.getLeaseById(id);
@@ -44,32 +52,28 @@ public class LeaseController {
         }
         return ResponseEntity.notFound().build();
     }
-    
-    // List all leases for the given property
-    @GetMapping("/list")
+
+    // List all leases for a given property
+    @GetMapping("/property/{propertyId}")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<List<Lease>> listAllLeases(@PathVariable int propertyId) {
+    public ResponseEntity<List<Lease>> listLeasesByProperty(@PathVariable int propertyId) {
         List<Lease> leases = leaseService.listByProperty(propertyId);
         return ResponseEntity.ok(leases);
     }
-    
-    
- // Update a property
-    @PutMapping("/update")
+
+    // Update a lease by ID
+    @PutMapping("/update/{id}")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Lease> updateLease(@PathVariable int id, @RequestBody Lease newLease) {
         Lease updatedLease = leaseService.updateLease(id, newLease);
         return ResponseEntity.ok(updatedLease);
     }
 
-    // Delete a property by Id
+    // Delete a lease by ID
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<Void> deleteProperty(@PathVariable int id) {
+    public ResponseEntity<Void> deleteLease(@PathVariable int id) {
         leaseService.deleteLease(id);
         return ResponseEntity.noContent().build();
     }
-    
-    
-	
 }

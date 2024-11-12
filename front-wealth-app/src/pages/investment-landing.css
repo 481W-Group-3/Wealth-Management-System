@@ -3,6 +3,7 @@
     max-width: 1200px;
     margin: 0 auto;
     background-color: #f8f9fa;
+    border-radius: 0.5rem;
     /* Subtle light background */
     /*font-family: 'Roboto', sans-serif; !* Modern font *!*/
     color: #333;
@@ -13,6 +14,8 @@
     /*font-size: 2.5rem;*/
     /*font-weight: bold;*/
     /*color: #2b5887;*/
+    font-size: 1.875rem;
+    font-weight: 300;
     text-align: center;
     color: black;
     margin-bottom: 30px;
@@ -38,10 +41,10 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.investments-container .content:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-}
+/*.investments-container .content:hover {*/
+/*    transform: translateY(-5px);*/
+/*    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);*/
+/*}*/
 
 /* Two-column responsive layout */
 .investments-container .two-column-layout {

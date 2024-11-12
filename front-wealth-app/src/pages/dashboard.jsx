@@ -33,8 +33,8 @@ const HomePage = () => {
             description: 'Plan for your future with retirement account management',
             link: '/retirement',
             icon: '🕰️'
-        },
-        {title: 'Tax Software', description: 'Simplify your tax preparation process', link: '/taxes', icon: '💼'}
+        }
+        // {title: 'Tax Software', description: 'Simplify your tax preparation process', link: '/taxes', icon: '💼'}
     ];
 
     return (
@@ -93,8 +93,10 @@ const HomePage = () => {
                 .card {
                     background-color: #69a289;
                     border-radius: 4px;
+                    min-height: 200px;
                     display: flex;
                     flex-direction: column;
+                    justify-content: center;
                     padding: 20px;
                     text-align: center;
                     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);

@@ -5,13 +5,14 @@ import {
     deleteUserProfile,
     getUserProfile,
     getUserProfiles,
-    setUserAdmin,
+    setUserAdmin, setUserImage,
     updateUserProfile
 } from "../../services/user-service.js";
 import Profile from "../../assets/profile-pics/profile0.jpg";
 import FormCards from '../user/FormsForDashboard.jsx';
 import welcomeImage from "../user/images/gradient.jpg";
-// import {useDropzone} from "react-dropzone";
+import UploadSVG from "../../assets/upload.svg?react";
+import {useDropzone} from "react-dropzone";
 
 
 const ProfileSettings = () => {
@@ -20,16 +21,9 @@ const ProfileSettings = () => {
     const [role, setRole] = useState("");
     const [error, setError] = useState(false);
     const [userList, setUserList] = useState([]);
-
-    const [profilePhoto, setProfilePhoto] = useState(1);
     // const [newUsername, setNewUsername] = useState("");
     const [newEmail, setNewEmail] = useState("");
-    
-    // const {
-    //     getRootProps,
-    //     getInputProps,
-    //     isDragActive
-    // } = userDropzone({onDrop});
+    const [imageSrc, setImageSrc] = useState(null);
 
     console.log(error);
 
@@ -46,7 +40,7 @@ const ProfileSettings = () => {
             console.log(err);
         }
     }
-    
+
     // const onDrop = useCallback((acceptedFiles) => {
     //    
     // },[])
@@ -87,12 +81,9 @@ const ProfileSettings = () => {
     useEffect(() => {
         loadProfile();
         loadUserList();
+        setImageSrc("");
     }, []);
 
-    const setPhoto = () => {
-        const num = (profilePhoto + 1) % 3;
-        setProfilePhoto(num);
-    }
     const formFields = [
         // {
         //     name: "username",
@@ -112,6 +103,10 @@ const ProfileSettings = () => {
 
     const toggleProfileEdit = () => {
         document.getElementById("edit-profile").classList.toggle("display");
+    }
+
+    const toggleImageUpload = () => {
+        document.getElementById("image-upload").classList.toggle("display");
     }
 
     const handleSubmit = async (e) => {
@@ -134,6 +129,40 @@ const ProfileSettings = () => {
         toggleProfileEdit();
         loadProfile();
     }
+    
+    // const byteToBase64 = (buffer) => {
+    //     let binary ='';
+    //     let bytes = new Uint8Array(buffer);
+    //     for(let i = 0; i < bytes.byteLength; i++) {
+    //         binary += String.fromCharCode(bytes[i]);
+    //     }
+    //     return window.btoa(binary);
+    // }
+    
+    // const onDrop = useCallback((acceptedFiles) => {
+    //     acceptedFiles.forEach((file) => {
+    //         const reader = new FileReader()
+    //
+    //         reader.onabort = () => console.log('file reading was aborted')
+    //         reader.onerror = () => console.log('file reading has failed')
+    //         reader.onload = async () => {
+    //             const byteArr = new Uint8Array(reader.result);
+    //             // const byteArr = new Uint8Array(Profile);
+    //             const response = await setUserImage(byteArr);
+    //             const blob = new Blob([byteArr], {type: "image/jpeg"});
+    //             const urlCreator = window.URL || window.webkitURL;
+    //             const url = urlCreator.createObjectURL(blob);
+    //             setImageSrc(url);
+    //             document.getElementById("#profile-image").src = url;
+    //             console.log(url);
+    //             console.log(imageSrc);
+    //         }
+    //         reader.readAsArrayBuffer(file)
+    //     })
+    //
+    // }, [])
+    
+    // const {getRootProps, getInputProps} = useDropzone({onDrop})
 
     return (
         <div className={"page-container"}>
@@ -144,7 +173,12 @@ const ProfileSettings = () => {
                 <div className={"profile-container"}>
                     <div className={"profile-text"}>
                         <img className={"profile-photo"} src={Profile} alt="profile photo"/>
-                        <button onClick={setPhoto}>Change Photo</button>
+                        {/*{imageSrc ?*/}
+                        {/*    <img className={"profile-photo"} src={Profile} alt="profile photo"/>*/}
+                        {/*    :*/}
+                        {/*    <img className={"profile-photo"} src={imageSrc} alt="profile photo"/>*/}
+                        {/*}*/}
+                        <button onClick={toggleImageUpload}>Change Photo</button>
                     </div>
                     <div className={"profile-text"}>
                         <div className={"profile-component"}>
@@ -174,6 +208,16 @@ const ProfileSettings = () => {
                     <button onClick={toggleProfileEdit}> Exit</button>
                 </div>
             </div>
+            <div id={"image-upload"} className={"edit-profile-form display"}>
+                <div>
+                    <h2>Upload Image</h2>
+                    {/*<div {...getRootProps()} className={"image-upload"}>*/}
+                    {/*    <input {...getInputProps()} />*/}
+                        <img src={UploadSVG} alt="upload"/>
+                    {/*</div>*/}
+                    <button onClick={toggleImageUpload}> Exit</button>
+                </div>
+            </div>
             <div className={"profile-title"}>
                 <h1>User List</h1>
                 <p>Admin Feature</p>
@@ -181,40 +225,40 @@ const ProfileSettings = () => {
             <div className={"admin-features"}>
                 {userList ?
                     (
-                    <table>
-                        <thead>
-                        <tr className={"admin-feature"}>
-                            <th><p>ID</p></th>
-                            <th><p>Username</p></th>
-                            <th><p>Email</p></th>
-                            <th><p>Permissions</p></th>
-                            <th><p>Give Permission</p></th>
-                            <th><p>Delete User</p></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {userList.map((user) => (
-                            <tr key={user.id} className={"admin-feature"}>
-                                <td><p> {user.id}</p></td>
-                                <td><p> {user.username}</p></td>
-                                <td><p> {user.email}</p></td>
-                                <td><p> {user.role}</p></td>
-                                <td>
-                                    <button onClick={() => giveUserAdmin(user.id)} className={"admin-button"}>
-                                        Set Admin
-                                    </button>
-                                </td>
-                                <td>
-                                    <button onClick={() => deleteUser(user.id)} className={"delete-button"}>
-                                        Delete
-                                    </button>
-                                </td>
+                        <table>
+                            <thead>
+                            <tr className={"admin-feature"}>
+                                <th><p>ID</p></th>
+                                <th><p>Username</p></th>
+                                <th><p>Email</p></th>
+                                <th><p>Permissions</p></th>
+                                <th><p>Give Permission</p></th>
+                                <th><p>Delete User</p></th>
                             </tr>
-                        ))}
-                        </tbody>
-                    </table>
-                    ):(
-                        <p>Request permission for access</p>        
+                            </thead>
+                            <tbody>
+                            {userList.map((user) => (
+                                <tr key={user.id} className={"admin-feature"}>
+                                    <td><p> {user.id}</p></td>
+                                    <td><p> {user.username}</p></td>
+                                    <td><p> {user.email}</p></td>
+                                    <td><p> {user.role}</p></td>
+                                    <td>
+                                        <button onClick={() => giveUserAdmin(user.id)} className={"admin-button"}>
+                                            Set Admin
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button onClick={() => deleteUser(user.id)} className={"delete-button"}>
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    ) : (
+                        <p>Request permission for access</p>
                     )
                 }
             </div>

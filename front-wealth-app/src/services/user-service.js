@@ -139,10 +139,30 @@ export const setUserAdmin = async (userId) => {
 
 export const deleteUserProfile = async (userId) => {
     try{
-        const response = await apiClient.delete(`/user/delete-user`, userId);
+        const response = await apiClient.post(`/user/delete-account`, userId);
         console.log(response.data);
     }catch (error) {
         console.error('Error deleting user profile:', error);
+        throw error;
+    }
+}
+
+export const setUserImage = async (imageArr) => {
+    try {
+        const response = await apiClient.post(`/user/set-image`, imageArr);
+        console.log(response.data);
+    }catch(error){
+        console.log(error);
+        throw error;
+    }
+}
+
+export const getUserImage = async () => {
+    try{
+        const response = await apiClient.get('/user/get-image');
+        console.log(response.data);
+    }catch(error){
+        console.log(error);
         throw error;
     }
 }

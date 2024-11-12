@@ -70,6 +70,14 @@
     font-size: 20px;
 }
 
+.edit-profile-form img {
+    display: flex;
+    margin: auto;
+    height: 100%;
+    max-width: 200px;
+    fill: rgba(0, 0, 0, 0.5);
+}
+
 .edit-profile-form div {
     padding: 10px;
     margin: 0 auto;

@@ -70,7 +70,7 @@ const HomePage = () => {
                 }
 
                 .content-rectangle {
-                    margin-top: 10em;
+                    margin-top: 5em;
                     background-color: rgba(255, 255, 255, 0.9);
                     border-radius: 8px;
                     padding: 40px;

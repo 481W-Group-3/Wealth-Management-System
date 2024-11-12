@@ -1,11 +1,11 @@
 import React from 'react';
-import './footer.css'; // We'll create this CSS file next
+import './footer.css'; 
 
 const Footer = () => {
     return (
         <footer className="footer-background">
             <div className={"page-container"}>
-                <div className={"footer-container"}>
+                <div className="footer-container">
                     <nav className="footer-content">
                         <h3>Quick Links</h3>
                         <a href="/"><p>Home</p></a>
@@ -19,12 +19,6 @@ const Footer = () => {
                         <p>Phone: (123) 456-7890</p>
                         <p>Address: 123 Main St, Anytown, USA 12345</p>
                     </div>
-
-                    <div className="footer-content"></div>
-
-                </div>
-                <div className="footer-bottom">
-                    <p>&copy; 2024 Money Mentor. All rights reserved.</p>
                 </div>
             </div>
         </footer>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import homeBackground from '../home_background.jpg'; // Make sure this path is correct
+import homeBackground from '../home_background.jpg'; 
 
 const Card = ({title, description, link, icon}) => (
     <Link to={link}>

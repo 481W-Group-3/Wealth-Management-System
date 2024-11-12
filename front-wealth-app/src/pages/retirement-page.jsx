@@ -31,15 +31,18 @@ const RetirementPage = () => {
             income = income * percentincomeIncrease;
             inflation = inflation * percentInflation;  
         }
-        let adjustedAnnualExpenses = yearlyRetirementExpenses * inflation;;
+
+        let adjustedAnnualExpenses = yearlyRetirementExpenses * inflation;
+        let totalExpenses = adjustedAnnualExpenses;
+
         for(let i=0; i<retirementDuration; i++){
-            inflation = inflation * percentInflation;
-            adjustedAnnualExpenses =+ (adjustedAnnualExpenses * inflation);
+            adjustedAnnualExpenses = (adjustedAnnualExpenses * percentInflation);
+            totalExpenses += adjustedAnnualExpenses;
         }
         
-        calculationTotalAmount(adjustedAnnualExpenses);
+        calculationTotalAmount(totalExpenses);
         calculationMoneyInvested(savings);
-        calculationPercentageNeeded(adjustedAnnualExpenses, savings, preparationTime);
+        calculationPercentageNeeded(totalExpenses, savings, preparationTime);
     }
 
 
@@ -211,7 +214,7 @@ const RetirementPage = () => {
                      margin-bottom: 30px;
                     margin-left: 50px;
                     margin-right: 50px;
-                    background-color: white;
+                    
                 }
 
                 .retirementLeftColumn, .retirementRightColumn {
@@ -219,8 +222,9 @@ const RetirementPage = () => {
                     align-items: center;
                     border-style: solid;
                     border-radius: 5px;
-                    border-width: 3px;
+                    border-width: 0;
                     height: 500px;
+                    background-color: white;
                     box-shadow: rgba(0, 0, 0, 0.15) 0px 10px 20px;
                 }
 
@@ -279,6 +283,15 @@ const RetirementPage = () => {
                 background-color: #2b5887;
                 color: white;
                 margin-top: 30px;
+                }
+
+                h1{
+                background-color: white;
+                border-radius: 5px;
+                border-style: solid;
+                border-width: 0;
+                width: 600px;
+                place-self: center;
                 }
 
             `}</style>

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.wealth_management_system.BackWealthApp.domain.MyUser;
 
 @Repository
-public interface UserRepositry extends JpaRepository<MyUser, Integer> {
+public interface UserRepository extends JpaRepository<MyUser, Integer> {
 	MyUser findMyUserByUsername(String username);
 	MyUser findByEmail(String email);
 	MyUser findById(int id);

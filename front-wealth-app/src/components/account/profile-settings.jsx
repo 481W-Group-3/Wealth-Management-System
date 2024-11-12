@@ -1,7 +1,13 @@
 import React, {useEffect} from "react";
 import {useState} from "react";
 import "./profile-settings.css";
-import {getUserProfile, getUserProfiles, updateUserProfile} from "../../services/user-service.js";
+import {
+    deleteUserProfile,
+    getUserProfile,
+    getUserProfiles,
+    setUserAdmin,
+    updateUserProfile
+} from "../../services/user-service.js";
 import Profile from "./profile/profile0.jpg";
 import FormCards from '../user/FormsForDashboard.jsx';
 import welcomeImage from "../user/images/gradient.jpg";
@@ -17,7 +23,7 @@ const ProfileSettings = () => {
     const [profilePhoto, setProfilePhoto] = useState(1);
     // const [newUsername, setNewUsername] = useState("");
     const [newEmail, setNewEmail] = useState("");
-    
+
     console.log(error);
 
     const loadProfile = async () => {
@@ -33,20 +39,43 @@ const ProfileSettings = () => {
             console.log(err);
         }
     }
-    
+
     const loadUserList = async () => {
-        try{
+        try {
             const list = await getUserProfiles();
             setUserList(list);
-        }catch (error) {
+            console.log(list);
+        } catch (error) {
             setError("Could not load user List");
+            console.log(error);
+        }
+    }
+
+    const giveUserAdmin = async (id) => {
+        try {
+            const response = await setUserAdmin(id)
+                .then(() => loadUserList());
+            console.log(response);
+        } catch (error) {
+            setError("Error setting admin");
+            console.log(error);
+        }
+    }
+
+    const deleteUser = async (id) => {
+        try {
+            const response = await deleteUserProfile(id)
+                .then(() => loadUserList());
+            console.log(response);
+        } catch (error) {
+            setError("Error deleting user");
             console.log(error);
         }
     }
 
     useEffect(() => {
         loadProfile();
-        // loadUserList();
+        loadUserList();
     }, []);
 
     const setPhoto = () => {
@@ -134,12 +163,48 @@ const ProfileSettings = () => {
                     <button onClick={toggleProfileEdit}> Exit</button>
                 </div>
             </div>
+            <div className={"profile-title"}>
+                <h1>User List</h1>
+                <p>Admin Feature</p>
+            </div>
             <div className={"admin-features"}>
-                <h1>Admin Features</h1>
-                {userList &&
-                    <div>
-                        <p>Display list here (Only displays if user is admin)</p>
-                    </div>
+                {userList ?
+                    (
+                    <table>
+                        <thead>
+                        <tr className={"admin-feature"}>
+                            <th><p>ID</p></th>
+                            <th><p>Username</p></th>
+                            <th><p>Email</p></th>
+                            <th><p>Permissions</p></th>
+                            <th><p>Give Permission</p></th>
+                            <th><p>Delete User</p></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {userList.map((user) => (
+                            <tr key={user.id} className={"admin-feature"}>
+                                <td><p> {user.id}</p></td>
+                                <td><p> {user.username}</p></td>
+                                <td><p> {user.email}</p></td>
+                                <td><p> {user.role}</p></td>
+                                <td>
+                                    <button onClick={() => giveUserAdmin(user.id)} className={"admin-button"}>
+                                        Set Admin
+                                    </button>
+                                </td>
+                                <td>
+                                    <button onClick={() => deleteUser(user.id)} className={"delete-button"}>
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                    ):(
+                        <p>Request permission for access</p>        
+                    )
                 }
             </div>
         </div>

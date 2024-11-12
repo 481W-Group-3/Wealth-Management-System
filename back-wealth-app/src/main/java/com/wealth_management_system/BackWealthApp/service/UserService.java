@@ -34,7 +34,13 @@ public interface UserService {
 	
 	//Link the user to property using id
 	void linkUserToProperty(int userId, int propertyId);
-	
+
+	//set role of user
+	MyUser setRole(MyUser user, String role);
+
+	//add admin role to user
+	MyUser setAdmin(MyUser user) throws Exception;
+
 	//delete user
 	void deleteUser(int id);
 	

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wealth_management_system.BackWealthApp.repositry.AssetRepository;
-import com.wealth_management_system.BackWealthApp.repositry.UserRepositry;
+import com.wealth_management_system.BackWealthApp.repositry.UserRepository;
 import com.wealth_management_system.BackWealthApp.domain.Asset;
 import com.wealth_management_system.BackWealthApp.domain.MyUser;
 import com.wealth_management_system.BackWealthApp.service.AssetService;
@@ -21,7 +21,7 @@ public class AssetServiceImpl implements AssetService {
 	private AssetRepository assetRepository;
 	//private InvestmentServiceImpl investmentService;
 	@Autowired
-	private UserRepositry userRepository;
+	private UserRepository userRepository;
 
 	//Add an asset
 	@Override

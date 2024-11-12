@@ -1,6 +1,5 @@
 package com.wealth_management_system.BackWealthApp.serviceImpl;
 
-import java.security.Principal;
 import java.util.*;
 
 //import org.hibernate.mapping.Property;
@@ -8,11 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wealth_management_system.BackWealthApp.repositry.InvestmentRepository;
-import com.wealth_management_system.BackWealthApp.repositry.UserRepositry;
-import com.wealth_management_system.BackWealthApp.domain.Asset;
+import com.wealth_management_system.BackWealthApp.repositry.UserRepository;
 import com.wealth_management_system.BackWealthApp.domain.Investment;
 import com.wealth_management_system.BackWealthApp.domain.MyUser;
-import com.wealth_management_system.BackWealthApp.domain.Property;
 import com.wealth_management_system.BackWealthApp.service.InvestmentService;
 
 @Service
@@ -22,7 +19,7 @@ public class InvestmentServiceImpl implements InvestmentService {
 	private InvestmentRepository investmentRepository;
 	
 	@Autowired
-	private UserRepositry userRepository;
+	private UserRepository userRepository;
 	//private Property property;
 	
 	@Override

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import FormsForDashboard from '../components/user/FormsForDashboard';
-import { addProperty, listAllProperties, deleteProperty, linkLeaseToProperty, createLease } from '../services/propertyauth';
+import { addProperty, listAllProperties, deleteProperty, linkLeaseToProperty, createLease, deleteLease } from '../services/propertyauth';
 
 const EmptyState = ({ message }) => (
   <div className="flex items-center justify-center h-full">
@@ -15,7 +15,7 @@ const RealEstatePage = () => {
   const [newProperty, setNewProperty] = useState({ address: '', incomeMonthly: '', occupied: false });
   const [expenses, setExpenses] = useState([]);
   const [newExpense, setNewExpense] = useState({ description: '', amount: '' });
-  const [newLease, setNewLease] = useState({ startDate: '', endDate: '', tenantName: '', securityDeposit:'', rentDueDay: '' });
+  const [newLease, setNewLease] = useState({ startDate: '', endDate: '', tenantName: '', paymentMonthly: '', rentDueDay: '' });
   const [viewingLeaseForProperty, setViewingLeaseForProperty] = useState(null);
   const [editingLease, setEditingLease] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
@@ -24,10 +24,28 @@ const RealEstatePage = () => {
     const fetchProperties = async () => {
       try {
         const allProperties = await listAllProperties();
-        setProperties(allProperties || []);
+        const propertiesWithIncome = (allProperties || []).map(property => {
+          const monthlyIncome = property.leases
+            ? property.leases.reduce((sum, lease) => sum + (lease.paymentMonthly || 0), 0)
+            : 0;
+          return { ...property, monthlyIncome };
+        });
+        setProperties(propertiesWithIncome || []);
       } catch (error) {
         console.error('Error fetching properties:', error);
-        setErrorMessage('Failed to fetch properties. Please try again.');
+        setErrorMessage('Failed to fetch properties. Please try again.'); useEffect(() => {
+          const fetchProperties = async () => {
+            try {
+              const allProperties = await listAllProperties();
+              setProperties(allProperties || []);
+            } catch (error) {
+              console.error('Error fetching properties:', error);
+              setErrorMessage('Failed to fetch properties. Please try again.');
+            }
+          };
+
+          fetchProperties();
+        }, []);
       }
     };
 
@@ -49,6 +67,12 @@ const RealEstatePage = () => {
 
   const handleDeleteProperty = async (id) => {
     try {
+      const property = properties.find((p) => p.id === id);
+      if (property && property.leases) {
+        for (const lease of property.leases) {
+          await deleteLease(lease.id);
+        }
+      }
       await deleteProperty(id);
       setProperties(properties.filter(property => property.id !== id));
       setErrorMessage('');
@@ -78,33 +102,31 @@ const RealEstatePage = () => {
       const leaseData = {
         tenantName: newLease.tenantName,
         startDate: new Date(newLease.startDate).toISOString(),
-        endDate: new Date(newLease.endDate).toISOString(),  
-        securityDeposit: 1000.0 ,
+        endDate: new Date(newLease.endDate).toISOString(),
+        securityDeposit: 1000.0,
         paymentMonthly: newLease.paymentMonthly,
         rentDueDay: newLease.rentDueDay,
+        property: { id: propertyId }
       };
 
-        console.log(leaseData)
-      // Step 1: Create the lease
       const createdLease = await createLease(leaseData);
-      console.log('createdLease', createdLease)
 
-      // Step 2: Link the created lease to the property
       await linkLeaseToProperty(propertyId, createdLease.id);
 
-      // Step 3: Update the local state with the new lease
       setProperties(properties.map(property => {
         if (property.id === propertyId) {
+          const updatedLeases = [...property.leases, createdLease];
           return {
             ...property,
-            leases: [...(property.leases || []), createdLease]
+            leases: updatedLeases,
+            monthlyIncome: calculateMonthlyIncome(updatedLeases),
           };
         }
         return property;
       }));
 
       // Reset the lease form fields
-      setNewLease({ startDate: '', endDate: '', tenantName: '', rentDueDay: '' });
+      setNewLease({ startDate: '', endDate: '', tenantName: '', rentDueDay: '', paymentMonthly: '' });
       setErrorMessage('');
     } catch (error) {
       console.error('Error adding lease:', error);
@@ -113,19 +135,31 @@ const RealEstatePage = () => {
   };
 
 
-  const handleDeleteLease = (propertyId, leaseId) => {
-    const updatedProperties = properties.map(property => {
-      if (property.id === propertyId) {
-        const updatedLeases = property.leases.filter(lease => lease.id !== leaseId);
-        return {
-          ...property,
-          leases: updatedLeases,
-          occupied: updatedLeases.some(lease => lease.isActive)
-        };
-      }
-      return property;
-    });
-    setProperties(updatedProperties);
+  const handleDeleteLease = async (propertyId, leaseId) => {
+    try {
+      // Call the backend to delete the lease
+      await deleteLease(leaseId);
+
+      // Update local state to remove the lease from the specified property
+      const updatedProperties = properties.map((property) => {
+        if (property.id === propertyId) {
+          const updatedLeases = property.leases.filter((lease) => lease.id !== leaseId);
+          return {
+            ...property,
+            leases: updatedLeases,
+            occupied: updatedLeases.some((lease) => lease.isActive),
+            monthlyIncome: calculateMonthlyIncome(updatedLeases),
+          };
+        }
+        return property;
+      });
+
+      setProperties(updatedProperties);
+      setErrorMessage('');
+    } catch (error) {
+      console.error('Error deleting lease:', error);
+      setErrorMessage('Failed to delete lease. Please try again.');
+    }
   };
 
   const navigate = useNavigate();
@@ -133,7 +167,21 @@ const RealEstatePage = () => {
     navigate('/taxes');
   }
 
-  const totalIncome = properties.reduce((sum, property) => sum + property.incomeMonthly, 0);
+  const calculateMonthlyIncome = (propertyId) => {
+    const property = properties.find((p) => p.id === propertyId);
+    if (!property || !property.leases) return 0;
+
+    return property.leases.reduce((sum, lease) => sum + (lease.paymentMonthly || 0), 0);
+  };
+
+  const calculateTotalMonthlyIncome = () => {
+    let income = 0;
+    properties.forEach(function (property) {
+      income += calculateMonthlyIncome(property.id);
+    });
+    return income;
+  }
+
   const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0);
 
   return (
@@ -149,7 +197,6 @@ const RealEstatePage = () => {
                 handleSubmit={handleAddProperty}
                 formFields={[
                   { name: 'address', label: 'Address', type: 'text', value: newProperty.address, onChange: (e) => setNewProperty({ ...newProperty, address: e.target.value }) },
-                  { name: 'incomeMonthly', label: 'Rent', type: 'number', value: newProperty.incomeMonthly, onChange: (e) => setNewProperty({ ...newProperty, incomeMonthly: parseFloat(e.target.value) }) },
                   { name: 'occupied', label: 'Occupied', type: 'checkbox', value: newProperty.occupied, onChange: (e) => setNewProperty({ ...newProperty, occupied: e.target.checked }) }
                 ]}
                 errorMessage={errorMessage}
@@ -171,7 +218,7 @@ const RealEstatePage = () => {
                     <thead>
                       <tr className="bg-gray-100">
                         <th className="px-4 py-2 text-gray-600 font-medium">Address</th>
-                        <th className="px-4 py-2 text-gray-600 font-medium">Rent</th>
+                        <th className="px-4 py-2 text-gray-600 font-medium">Monthly Income</th>
                         <th className="px-4 py-2 text-gray-600 font-medium">Status</th>
                         <th className="px-4 py-2 text-gray-600 font-medium">Lease Info</th>
                         <th className="px-4 py-2 text-gray-600 font-medium">Action</th>
@@ -182,7 +229,7 @@ const RealEstatePage = () => {
                         <React.Fragment key={property.id}>
                           <tr className="hover:bg-gray-50">
                             <td className="border-b px-4 py-2">{property.address}</td>
-                            <td className="border-b px-4 py-2">${property.incomeMonthly}</td>
+                            <td className="border-b px-4 py-2">${calculateMonthlyIncome(property.id)}</td>
                             <td className="border-b px-4 py-2">{property.occupied ? 'Occupied' : 'Vacant'}</td>
                             <td className="border-b px-4 py-2 text-center">
                               <button onClick={() => toggleLeaseView(property.id)} className="bg-blue-500 hover:bg-blue-700 text-white font-normal py-1 px-2 rounded">
@@ -202,8 +249,9 @@ const RealEstatePage = () => {
                                 {property.leases && property.leases.map(lease => (
                                   <div key={lease.id} className="mb-4 p-4 bg-gray-100 rounded">
                                     <p>Tenant: {lease.tenantName}</p>
-                                    <p>Start Date: {lease.startDate}</p>
-                                    <p>End Date: {lease.endDate}</p>
+                                    <p>Start Date: {lease.startDate.substring(0, 10)}</p>
+                                    <p>End Date: {lease.endDate.substring(0, 10)}</p>
+                                    <p>Monthly Income: ${lease.paymentMonthly}</p>
                                     <p>Rent Collection Day: {lease.rentDueDay}</p>
                                     <div className="text-center mt-2">
                                       <button onClick={() => handleDeleteLease(property.id, lease.id)} className="bg-red-500 hover:bg-red-700 text-white font-normal py-1 px-2 rounded">
@@ -236,11 +284,11 @@ const RealEstatePage = () => {
             </div>
           </div>
           <div className="mt-4 p-4 bg-gray-100 rounded">
-            <h3 className="text-xl font-light">Total Income: ${totalIncome}</h3>
+            <h3 className="text-xl font-light">Total Income: ${calculateTotalMonthlyIncome()}</h3>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col h-[600px]">
+        {/* <div className="bg-white rounded-lg shadow-md p-6 flex flex-col h-[600px]">
           <h2 className="text-2xl font-light mb-4 text-center">Add New Expense</h2>
           <div className="flex-grow">
             <FormsForDashboard
@@ -285,20 +333,20 @@ const RealEstatePage = () => {
                     </tbody>
                   </table>
                 </div>
-              )}
-            </div>
+              )} 
+           </div> 
           </div>
           <div className="mt-4 p-4 bg-gray-100 rounded">
             <h3 className="text-xl font-light">Total Expenses: ${totalExpenses}</h3>
           </div>
-        </div>
+        </div>*/}
       </div>
 
-      <div className="flex justify-center mt-8">
+      {/* <div className="flex justify-center mt-8">
         <button onClick={() => handleRedirect()} className="bg-green-500 hover:bg-green-700 text-white font-normal py-2 px-4 rounded">
           Go to Tax Software
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

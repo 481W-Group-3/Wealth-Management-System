@@ -71,6 +71,14 @@ export const createLease = async (leaseData) => {
     }
 };
 
+export const deleteLease = async (leaseId) => {
+    try{
+        await apiClient.delete(`/api/leases/delete/${leaseId}`);
+    } catch (error) {
+        throw error;
+    }
+}
+
 // Link a lease to a property
 export const linkLeaseToProperty = async (propertyId, leaseId) => {
     try {

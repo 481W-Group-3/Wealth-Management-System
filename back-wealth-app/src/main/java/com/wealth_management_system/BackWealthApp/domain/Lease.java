@@ -1,8 +1,8 @@
 package com.wealth_management_system.BackWealthApp.domain;
 
-import java.util.ArrayList;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
@@ -12,7 +12,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -38,10 +37,7 @@ public class Lease {
     @Column(name = "rent_due_day", nullable = false)
     private int rentDueDay;
     
-
-    @OneToMany(mappedBy = "lease")
-    private ArrayList<Renter> renters;
-    
+	@JsonBackReference
     @ManyToOne
     @JoinColumn(name = "property_id")
     private Property property;
@@ -55,6 +51,10 @@ public class Lease {
 		this.paymentMonthly = paymentMonthly;
         this.rentDueDay = rentDueDay;
     }
+
+	public Lease() {
+
+	}
 
     // Getters and Setters
     public int getId() {
@@ -109,19 +109,11 @@ public class Lease {
         this.property = property;
     }
 
-    public ArrayList<Renter> getRenters() {
-        return renters;
-    }
-
-    public void setRenters(ArrayList<Renter> renters) {
-        this.renters = renters;
-    }
-
 	public double getSecurityDeposit() {
         return securityDeposit;
     }
 
-    public void setRenters(double securityDeposit) {
+    public void setSecurityDeposit(double securityDeposit) {
         this.securityDeposit = securityDeposit;
     }
 }

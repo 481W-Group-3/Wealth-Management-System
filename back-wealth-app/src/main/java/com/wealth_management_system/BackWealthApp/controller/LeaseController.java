@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wealth_management_system.BackWealthApp.domain.Lease;
+import com.wealth_management_system.BackWealthApp.domain.Property;
 import com.wealth_management_system.BackWealthApp.service.LeaseService;
+import com.wealth_management_system.BackWealthApp.service.PropertyService;
 
 @RestController
 @RequestMapping("/api/leases")
@@ -24,10 +26,18 @@ public class LeaseController {
     @Autowired
     private LeaseService leaseService;
 
+    @Autowired
+    private PropertyService propertyService;
+
     // Create a new lease
     @PostMapping("/create")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Lease> createLease(@RequestBody Lease lease) {
+        Integer propertyId = lease.getProperty().getId();
+        Property property = propertyService.getPropertyById(propertyId);
+
+        lease.setProperty(property);
+        
         Lease newLease = leaseService.createLease(lease);
         return ResponseEntity.ok(newLease);
     }

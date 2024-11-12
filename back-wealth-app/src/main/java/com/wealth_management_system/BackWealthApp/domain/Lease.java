@@ -20,7 +20,7 @@ public class Lease {
 	private double paymentMonthly;
 	
 	
-	 @OneToMany(mappedBy = "lease")
+	@OneToMany(mappedBy = "lease")
 	private ArrayList<Renter> renters;
 	
 	private int rentDueDay;

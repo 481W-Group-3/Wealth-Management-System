@@ -38,7 +38,7 @@ public class Lease {
 		this.rentDueDay = rentDueDay;
 		//this.startDate = startDate;
 		//this.endDate = endDate;
-		//this.renter = new ArrayList<Renter>();
+		this.renters = new ArrayList<Renter>();
 	}
 
 	

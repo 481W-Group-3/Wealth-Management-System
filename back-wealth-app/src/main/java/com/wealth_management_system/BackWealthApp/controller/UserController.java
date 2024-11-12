@@ -129,7 +129,6 @@ public class UserController {
 		}
     }
 
-    @CrossOrigin
     @DeleteMapping("/delete-user")
     public ResponseEntity<String> deleteUser(@RequestBody Integer id, Authentication authentication) {
         System.out.println(authentication.getName() + " tried to delete user " + userService.getUserById(id).getUsername());

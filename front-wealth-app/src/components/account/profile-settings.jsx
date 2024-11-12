@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useCallback, useEffect} from "react";
 import {useState} from "react";
 import "./profile-settings.css";
 import {
@@ -8,9 +8,10 @@ import {
     setUserAdmin,
     updateUserProfile
 } from "../../services/user-service.js";
-import Profile from "./profile/profile0.jpg";
+import Profile from "../../assets/profile-pics/profile0.jpg";
 import FormCards from '../user/FormsForDashboard.jsx';
 import welcomeImage from "../user/images/gradient.jpg";
+// import {useDropzone} from "react-dropzone";
 
 
 const ProfileSettings = () => {
@@ -23,6 +24,12 @@ const ProfileSettings = () => {
     const [profilePhoto, setProfilePhoto] = useState(1);
     // const [newUsername, setNewUsername] = useState("");
     const [newEmail, setNewEmail] = useState("");
+    
+    // const {
+    //     getRootProps,
+    //     getInputProps,
+    //     isDragActive
+    // } = userDropzone({onDrop});
 
     console.log(error);
 
@@ -39,6 +46,10 @@ const ProfileSettings = () => {
             console.log(err);
         }
     }
+    
+    // const onDrop = useCallback((acceptedFiles) => {
+    //    
+    // },[])
 
     const loadUserList = async () => {
         try {

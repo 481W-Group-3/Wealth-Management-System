@@ -139,6 +139,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		return user.getRoles().toArray(new String[] {});
 	}
 
+	@Override
+	public MyUser setImage(MyUser user, byte[] img){
+		user.setImage(img);
+		return userRepository.save(user);
+	}
+
 	/*
 	@Override
 	public void addPropertyToUser(int userId, Property property) {

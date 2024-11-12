@@ -147,3 +147,23 @@ export const deleteUserProfile = async (userId) => {
     }
 }
 
+export const setUserImage = async (imageArr) => {
+    try {
+        const response = await apiClient.post(`/user/set-image`, imageArr);
+        console.log(response.data);
+    }catch(error){
+        console.log(error);
+        throw error;
+    }
+}
+
+export const getUserImage = async () => {
+    try{
+        const response = await apiClient.get('/user/get-image');
+        console.log(response.data);
+    }catch(error){
+        console.log(error);
+        throw error;
+    }
+}
+

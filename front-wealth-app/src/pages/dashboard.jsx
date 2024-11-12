@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import homeBackground from '../home_background.jpg'; 
+import homeBackground from '../background.jpg'; 
 
 const Card = ({title, description, link, icon}) => (
     <Link to={link}>
@@ -33,8 +33,8 @@ const HomePage = () => {
             description: 'Plan for your future with retirement account management',
             link: '/retirement',
             icon: '🕰️'
-        },
-        {title: 'Tax Software', description: 'Simplify your tax preparation process', link: '/taxes', icon: '💼'}
+        }
+        // {title: 'Tax Software', description: 'Simplify your tax preparation process', link: '/taxes', icon: '💼'}
     ];
 
     return (
@@ -57,10 +57,10 @@ const HomePage = () => {
                     justify-content: center;
                     align-items: flex-start;
                     padding: 20px 0;
-                    background-image: url(${homeBackground});
-                    background-size: cover;
-                    background-position: center;
-                    background-repeat: no-repeat;
+                    // background-image: url(${homeBackground});
+                    // background-size: cover;
+                    // background-position: center;
+                    // background-repeat: no-repeat;
                 }
 
                 .page-container {
@@ -70,7 +70,7 @@ const HomePage = () => {
                 }
 
                 .content-rectangle {
-                    margin-top: 10em;
+                    margin-top: 5em;
                     background-color: rgba(255, 255, 255, 0.9);
                     border-radius: 8px;
                     padding: 40px;
@@ -93,8 +93,10 @@ const HomePage = () => {
                 .card {
                     background-color: #69a289;
                     border-radius: 4px;
+                    min-height: 200px;
                     display: flex;
                     flex-direction: column;
+                    justify-content: center;
                     padding: 20px;
                     text-align: center;
                     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);

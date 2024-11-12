@@ -1,6 +1,7 @@
 package com.wealth_management_system.BackWealthApp.domain;
 
-import java.util.Date;
+import java.sql.Date;
+import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -31,7 +32,6 @@ public class Lease {
 	private Date endDate;     // Added end date
 
 	private double paymentMonthly;
-
 	private double securityDeposit;
 
     @Column(name = "rent_due_day", nullable = false)
@@ -119,6 +119,9 @@ public class Lease {
 
     public void setSecurityDeposit(double securityDeposit) {
         this.securityDeposit = securityDeposit;
+    }
+
+    public void addRenter(Renter renter) {
     }
 	/*
 	public void addRenter(Renter renter) {

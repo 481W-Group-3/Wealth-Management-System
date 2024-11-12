@@ -2,6 +2,8 @@ package com.wealth_management_system.BackWealthApp.domain;
 
 import jakarta.persistence.*;
 import jdk.jfr.DataAmount;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,6 +25,8 @@ public class MyUser implements UserDetails {
     private String password;
     private String role;
     private String email;
+    @Getter @Setter @Lob @Column(columnDefinition = "LONGBLOB")
+    private byte[] image;
     
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
@@ -134,6 +138,13 @@ public class MyUser implements UserDetails {
         return id + " " + username + " " + email;
     }
     
+    public byte[] getImage() {
+    	return image;
+    }
+    
+    public void setImage(byte[] image) {
+    	this.image = image;
+    }
     /*
     public List<Property> getProperties(){
     	return properties;

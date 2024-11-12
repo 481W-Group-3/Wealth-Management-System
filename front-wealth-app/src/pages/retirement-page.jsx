@@ -191,10 +191,17 @@ const RetirementPage = () => {
             </div>
     
             <style jsx>{`
-                .retirement-contained {
+                .retirement-container {
                     padding: 20px;
                     max-width: 1200px;
                     margin: 0 auto;
+                    background: white;
+                    border-radius: 0.5rem;
+                }
+                
+                .retirement-container h1{
+                    font-size: 1.875rem;
+                    font-weight: 300;
                 }
 
                 h1, h2, h3, h4 {

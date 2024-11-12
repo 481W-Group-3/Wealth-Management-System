@@ -34,7 +34,7 @@ const RetirementPage = () => {
         let adjustedAnnualExpenses = yearlyRetirementExpenses * inflation;;
         for(let i=0; i<retirementDuration; i++){
             inflation = inflation * percentInflation;
-            adjustedAnnualExpenses = adjustedAnnualExpenses + (adjustedAnnualExpenses * inflation);
+            adjustedAnnualExpenses =+ (adjustedAnnualExpenses * inflation);
         }
         
         calculationTotalAmount(adjustedAnnualExpenses);
@@ -211,6 +211,7 @@ const RetirementPage = () => {
                      margin-bottom: 30px;
                     margin-left: 50px;
                     margin-right: 50px;
+                    background-color: white;
                 }
 
                 .retirementLeftColumn, .retirementRightColumn {
@@ -224,6 +225,7 @@ const RetirementPage = () => {
                 }
 
                 #retirementCalculator{
+                    
                     display:flex;
                     gap: 30px;
                     padding-bottom: 25px;

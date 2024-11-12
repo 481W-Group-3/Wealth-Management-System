@@ -98,7 +98,7 @@ public class UserController {
 
     @GetMapping("/display-all")
     public List<MyUser> displayAllUsers(Authentication authentication) {
-        if(!authentication.getAuthorities().toString().contains("ADMIN"))
+        if (!authentication.getAuthorities().toString().contains("ADMIN"))
             return null;
         System.out.println("Getting the list of users " + authentication.getAuthorities() + " " + authentication.getName());
         return userService.listAllUsers();
@@ -117,46 +117,46 @@ public class UserController {
 
     @PutMapping("/set-admin")
     public ResponseEntity<String> setAdmin(@RequestBody Integer id, Authentication authentication) {
-        if(id == 0)
+        if (id == 0)
             return new ResponseEntity<>("id could not be sent", HttpStatus.BAD_REQUEST);
         MyUser user = userService.getUserById(id);
         System.out.println(authentication.getName() + " tried to set admin for " + userService.getUserById(id).getUsername());
-        try{
-            userService.setAdmin(user);
-			return ResponseEntity.ok("Roles Updated");
-		}catch(Exception e){
-			return new ResponseEntity<>("User Already Admin", HttpStatus.CONFLICT);
-		}
-    }
-
-    @DeleteMapping("/delete-user")
-    public ResponseEntity<String> deleteUser(@RequestBody Integer id, Authentication authentication) {
-        System.out.println(authentication.getName() + " tried to delete user " + userService.getUserById(id).getUsername());
-        MyUser deletedUser = userService.getUserById(id);
         try {
-            userService.deleteUser(deletedUser.getId());
-            return ResponseEntity.ok("User Deleted");
-        }catch (Exception e) {
-            return new ResponseEntity<>("User Not Deleted or Does Not Exist", HttpStatus.CONFLICT);
+            userService.setAdmin(user);
+            return ResponseEntity.ok("Roles Updated");
+        } catch (Exception e) {
+            return new ResponseEntity<>("User Already Admin", HttpStatus.CONFLICT);
         }
     }
-/*	
-		@PostMapping("/delete-account")
-		public String deleteUserAccount(Authentication authentication, RedirectAttributes redirectAttributes) {
-			String username = authentication.getName();
-	        MyUser user = userService.getUserByUsername(username);
-/*
-	        if (user == null) {
-	            return "error/404"; // Return 404 template if user not found
-	        }
-	    *   
-	        userService.deleteUser(user.getId()); // Use the service method to delete the user
 
-	        redirectAttributes.addFlashAttribute("message", "User account deleted successfully.");
-	        return "redirect:/login";
-		
-		}
-	
-	*/
+//    @DeleteMapping("/delete-user")
+//    public ResponseEntity<String> deleteUser(@RequestBody Integer id, Authentication authentication) {
+//        System.out.println(authentication.getName() + " tried to delete user " + userService.getUserById(id).getUsername());
+//        MyUser deletedUser = userService.getUserById(id);
+//        try {
+//            userService.deleteUser(deletedUser.getId());
+//            return ResponseEntity.ok("User Deleted");
+//        }catch (Exception e) {
+//            return new ResponseEntity<>("User Not Deleted or Does Not Exist", HttpStatus.CONFLICT);
+//        }
+//    }
+
+    @PostMapping("/delete-account")
+    public String deleteUserAccount(@RequestBody Integer id, Authentication authentication, RedirectAttributes redirectAttributes) {
+//        String username = authentication.getName();
+        if (!authentication.getAuthorities().toString().contains("ADMIN"))
+            return null;
+        MyUser user = userService.getUserById(id);
+
+        if (user == null) {
+            return "error/404"; // Return 404 template if user not found
+        }
+        userService.deleteUser(id); // Use the service method to delete the user
+
+        redirectAttributes.addFlashAttribute("message", "User account deleted successfully.");
+        return "redirect:/login";
+
+    }
+
 
 }

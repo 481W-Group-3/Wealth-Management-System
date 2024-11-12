@@ -138,6 +138,13 @@ public class MyUser implements UserDetails {
         return id + " " + username + " " + email;
     }
     
+    public byte[] getImage() {
+    	return image;
+    }
+    
+    public void setImage(byte[] image) {
+    	this.image = image;
+    }
     /*
     public List<Property> getProperties(){
     	return properties;

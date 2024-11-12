@@ -120,6 +120,9 @@ public class Lease {
     public void setSecurityDeposit(double securityDeposit) {
         this.securityDeposit = securityDeposit;
     }
+
+    public void addRenter(Renter renter) {
+    }
 	/*
 	public void addRenter(Renter renter) {
 		renters.add(renter);

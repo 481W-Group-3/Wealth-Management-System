@@ -41,6 +41,9 @@ public interface UserService {
 	//add admin role to user
 	MyUser setAdmin(MyUser user) throws Exception;
 
+	//set image to user
+	MyUser setImage(MyUser user, byte[] image);
+
 	//delete user
 	void deleteUser(int id);
 	

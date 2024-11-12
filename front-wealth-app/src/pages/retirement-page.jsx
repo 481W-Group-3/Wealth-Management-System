@@ -12,7 +12,6 @@ const RetirementPage = () => {
     const [expectedInflationRate, setExpectedInflationRate] = useState('3');
     const [moneySaved, setMoneySaved] = useState('');
     const [retirementSavings, setRetirementSavings] = useState('');
-    const [realEstateIncome, setRealEstateIncome] = useState('');
 
     //Calculations
     const retirementCalculator = () => {
@@ -130,6 +129,9 @@ const RetirementPage = () => {
                                 value={incomeIncrease}
                                 onChange={(e) => setIncomeIncrease(e.target.value)}
                             />
+                            
+                        </div>
+                        <div className="moneyForRetirementRightColumn">
                             <h3>Percent of Income put into Savings "%"</h3>
                             <input 
                                 id="bottomInput"
@@ -138,15 +140,6 @@ const RetirementPage = () => {
                                 value={moneySaved}
                                 min="0"
                                 onChange={(e) => setMoneySaved(e.target.value)}
-                            />
-                        </div>
-                        <div className="moneyForRetirementRightColumn">
-                            <h3>Income for Real Estates</h3>
-                            <input 
-                                type="number"
-                                name="realEstateIncome"
-                                value={realEstateIncome}
-                                onChange={(e) => setRealEstateIncome(e.target.value)}
                             />
                             <h3>Current Savings for Retirement</h3>
                             <input 
@@ -226,7 +219,7 @@ const RetirementPage = () => {
                     border-style: solid;
                     border-radius: 5px;
                     border-width: 3px;
-                    height: 550px;
+                    height: 500px;
                     box-shadow: rgba(0, 0, 0, 0.15) 0px 10px 20px;
                 }
 
@@ -241,14 +234,14 @@ const RetirementPage = () => {
                 }
 
                 .retirementRightColumn{
-                    padding-top: 150px;
+                    padding-top: 100px;
                 }
 
                 .moneyForRetirementLeftColumn{
                 padding-left: 10px;
                 }
                 .moneyForRetirementRightColumn {
-                    margin-top: 50px;              
+                    margin-top: 0;              
                     padding-right: 10px;
                 }
 
@@ -283,7 +276,7 @@ const RetirementPage = () => {
                 button {
                 background-color: #2b5887;
                 color: white;
-                margin-top: 10px;
+                margin-top: 30px;
                 }
 
             `}</style>

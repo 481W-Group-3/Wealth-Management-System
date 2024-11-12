@@ -24,10 +24,11 @@ public class MyUser implements UserDetails {
     private String role;
     private String email;
     
-    /*
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Property> properties;
     
+    /*
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Asset> assets;
     

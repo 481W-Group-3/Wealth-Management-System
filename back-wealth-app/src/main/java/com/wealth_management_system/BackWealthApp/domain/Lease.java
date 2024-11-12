@@ -76,6 +76,18 @@ public class Lease {
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
+	
+	
+	//Get property
+	public Property getProperty() {
+		return property;
+	}
+	
+	//Set property
+	public void setProperty(Property property) {
+		this.property = property;
+	}
+	
 
     public Date getEndDate() {
         return endDate;
@@ -101,14 +113,6 @@ public class Lease {
         this.paymentMonthly = paymentMonthly;
     }
 
-    public Property getProperty() {
-        return property;
-    }
-
-    public void setProperty(Property property) {
-        this.property = property;
-    }
-
 	public double getSecurityDeposit() {
         return securityDeposit;
     }
@@ -116,4 +120,22 @@ public class Lease {
     public void setSecurityDeposit(double securityDeposit) {
         this.securityDeposit = securityDeposit;
     }
+	/*
+	public void addRenter(Renter renter) {
+		renters.add(renter);
+		renter.setLease(this);
+		
+	}
+	
+	/*
+	//Get the lease document
+	public File getDocument() {
+		return document;
+	}
+	
+	//Set the lease document
+	public void setDocument(File document) {
+		this.document = document;
+	}*/
+
 }

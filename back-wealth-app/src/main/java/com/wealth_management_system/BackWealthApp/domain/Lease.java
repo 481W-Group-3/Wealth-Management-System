@@ -138,4 +138,10 @@ public class Lease {
 		this.document = document;
 	}*/
 
+	public void addRenter(Renter renter) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }

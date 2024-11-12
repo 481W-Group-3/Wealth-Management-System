@@ -32,7 +32,7 @@ public class Lease {
 	private Date endDate;     // Added end date
 
 	private double paymentMonthly;
-	private double securityDeposit;
+
 
     @Column(name = "rent_due_day", nullable = false)
     private int rentDueDay;
@@ -43,11 +43,10 @@ public class Lease {
     private Property property;
 
     // Constructor
-    public Lease(String tenantName, Date startDate, Date endDate, double securityDeposit, double paymentMonthly, int rentDueDay) {
+    public Lease(String tenantName, Date startDate, Date endDate, double paymentMonthly, int rentDueDay) {
         this.tenantName = tenantName;
         this.startDate = startDate;
         this.endDate = endDate;
-		this.securityDeposit = securityDeposit;
 		this.paymentMonthly = paymentMonthly;
         this.rentDueDay = rentDueDay;
     }
@@ -111,14 +110,6 @@ public class Lease {
 
     public void setPaymentMonthly(double paymentMonthly) {
         this.paymentMonthly = paymentMonthly;
-    }
-
-	public double getSecurityDeposit() {
-        return securityDeposit;
-    }
-
-    public void setSecurityDeposit(double securityDeposit) {
-        this.securityDeposit = securityDeposit;
     }
 
     public void addRenter(Renter renter) {

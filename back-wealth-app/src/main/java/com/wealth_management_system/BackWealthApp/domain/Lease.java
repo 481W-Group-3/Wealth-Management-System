@@ -105,7 +105,7 @@ public class Lease {
 	}
 	
 
-	/*
+	
 	
 	//Get property
 	public Property getProperty() {
@@ -139,15 +139,7 @@ public class Lease {
 		this.securityDeposit = securityDeposit;
 	}
 
-	public Property getProperty() {
-		return property;
-	}
-
-	public void setProperty(Property property) {
-		this.property = property;
-	}
-
-
+	/*
 	public void addRenter(Renter renter) {
 		renters.add(renter);
 		renter.setLease(this);

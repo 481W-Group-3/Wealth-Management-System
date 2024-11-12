@@ -55,8 +55,6 @@ public class LeaseServiceImpl implements LeaseService {
 	public Lease updateLease(int id, Lease newLease) {
 		Optional<Lease> originalLease = leaseRepository.findById(id);
 		Lease ogLease = originalLease.get();
-		ogLease.setLeaseType(newLease.getLeaseType());
-		ogLease.setPaymentMonthly(newLease.getPaymentMonthly());
 		return ogLease;
 	}
 

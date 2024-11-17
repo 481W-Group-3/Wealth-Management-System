@@ -105,7 +105,6 @@ const RealEstatePage = () => {
         tenantName: newLease.tenantName,
         startDate: new Date(newLease.startDate).toISOString(),
         endDate: new Date(newLease.endDate).toISOString(),
-        securityDeposit: 1000.0,
         paymentMonthly: newLease.paymentMonthly,
         rentDueDay: newLease.rentDueDay,
         property: { id: propertyId }
@@ -341,7 +340,7 @@ const RealEstatePage = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-md p-6 flex flex-col h-[600px]">
+         {/* <div className="bg-white rounded-lg shadow-md p-6 flex flex-col h-[600px]">
             <h2 className="text-2xl font-light mb-4 text-center">Add New Expense</h2>
             <div className="flex-grow">
               <FormsForDashboard
@@ -405,7 +404,7 @@ const RealEstatePage = () => {
             <div className="mt-4 p-4 bg-gray-100 rounded">
               <h3 className="text-xl font-light">Total Expenses: ${totalExpenses}</h3>
             </div>
-          </div>
+          </div> */}
         </div>
 
 

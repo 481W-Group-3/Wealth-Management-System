@@ -8,7 +8,7 @@ import com.wealth_management_system.BackWealthApp.domain.Retirement;
 public interface RetirementService {
 	
 	// Create a new retirement record
-    Retirement saveRetirement(Retirement retirement);
+    Retirement saveRetirement(Retirement retirement, String username);
 
     // Retrieve a retirement record by ID
     Optional<Retirement> getRetirementById(int id);

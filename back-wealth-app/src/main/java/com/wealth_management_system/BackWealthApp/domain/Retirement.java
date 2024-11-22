@@ -1,7 +1,6 @@
 package com.wealth_management_system.BackWealthApp.domain;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Table;
 import jdk.jfr.DataAmount;
 
 @Entity
@@ -18,6 +17,11 @@ public class Retirement {
 	private int income;
 	private int retirement_expenses;
 	private int current_savings;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private MyUser user;
+	
 	public int getId() {
 		return id;
 	}
@@ -59,6 +63,14 @@ public class Retirement {
 	}
 	public void setCurrent_savings(int current_savings) {
 		this.current_savings = current_savings;
+	}
+	
+	public MyUser getUser() {
+		return user;
+	}
+	
+	public void setUser(MyUser user) {
+		this.user = user;
 	}
 	
 	

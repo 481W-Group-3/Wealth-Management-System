@@ -18,7 +18,7 @@ public class Maintenance {
 	private String descr;
 	private double partsCost;
 	private double laborCost;
-	private double costTotal = partsCost+laborCost;
+	private double costTotal;
 
 	//private Date dateStarted;
 	//private Date dateComplete;
@@ -30,7 +30,7 @@ public class Maintenance {
 	 private Property property;
 //	
 	//Constructor
-	public Maintenance(String descr/*, Date dateStarted*/ ,Property property) {
+	public Maintenance(String descr,Property property) {
 		this.descr = descr;
 		//this.dateStarted = dateStarted;
 		//this.property = property;

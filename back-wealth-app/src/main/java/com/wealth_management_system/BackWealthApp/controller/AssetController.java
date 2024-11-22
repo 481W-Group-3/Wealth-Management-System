@@ -33,9 +33,9 @@ public class AssetController {
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Asset> addAsset(@RequestBody Asset asset, Principal principal){
         Asset newAsset = assetService.addAsset(asset, principal.getName());
-        // return new ResponseEntity<>(newAsset, HttpStatus.CREATED);
+        return new ResponseEntity<>(newAsset, HttpStatus.CREATED);
 
-        return ResponseEntity.ok(newAsset);
+        //return ResponseEntity.ok(newAsset);
     }
 
     @GetMapping("/{id}")

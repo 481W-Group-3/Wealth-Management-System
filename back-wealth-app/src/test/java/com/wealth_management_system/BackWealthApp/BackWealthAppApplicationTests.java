@@ -17,7 +17,7 @@ class BackWealthAppApplicationTests {
 	@Test
 	void contextLoads() throws Exception {
 
-//		userService.setAdmin(userService.getUserById(1));
+		userService.setAdmin(userService.getUserById(19));
 //		userService.deleteUser(12);
 
 		List<MyUser> list = userService.listAllUsers();

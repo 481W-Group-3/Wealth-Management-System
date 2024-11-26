@@ -1,111 +1,81 @@
 package com.wealth_management_system.BackWealthApp.domain;
 
-import jakarta.persistence.*;
-import jdk.jfr.DataAmount;
+import java.sql.Date;
 import java.util.*;
-import java.io.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "lease")
-@DataAmount
 public class Lease {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private int id;
-	//private Date startDate;
-	//private Date endDate;
-	private String leaseType;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private int id;
+
+    private String tenantName;  // Added tenant name
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private Date startDate;     // Added start date
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	private Date endDate;     // Added end date
+
 	private double paymentMonthly;
-	
-	
-	 @OneToMany(mappedBy = "lease")
-	private ArrayList<Renter> renters;
-	
-	private int rentDueDay;
-	private double securityDeposit;
-	@ManyToOne
+
+
+    @Column(name = "rent_due_day", nullable = false)
+    private int rentDueDay;
+    
+	@JsonBackReference
+    @ManyToOne
     @JoinColumn(name = "property_id")
     private Property property;
-	//private File document;
-	
-	//Constructor
-	public Lease(Property property, String leaseType, double paymentMonthly, int rentDueDay) {
-		this.property = property;
-		this.leaseType = leaseType;
-		this.paymentMonthly = paymentMonthly;
-		this.rentDueDay = rentDueDay;
-		//this.startDate = startDate;
-		//this.endDate = endDate;
-		//this.renter = new ArrayList<Renter>();
-	}
 
-	
-	//Get id
-	public int getId() {
-		return id;
-	}
-	
-	//Set id
-	public void setId(int id) {
-		this.id = id;
-	}
-	
-	public String getLeaseType() {
-        return leaseType;
+    // Constructor
+    public Lease(String tenantName, Date startDate, Date endDate, double paymentMonthly, int rentDueDay) {
+        this.tenantName = tenantName;
+        this.startDate = startDate;
+        this.endDate = endDate;
+		this.paymentMonthly = paymentMonthly;
+        this.rentDueDay = rentDueDay;
     }
 
-    public void setLeaseType(String leaseType) {
-        this.leaseType = leaseType;
+	public Lease() {
+
+	}
+
+    // Getters and Setters
+    public int getId() {
+        return id;
     }
-    
 
-	
-    /*
-	//Get start date
-	public Date getStartDate() {
-		return startDate;
-	}
-	
-	//Set start date
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-	
-	//Get end date
-	public Date getEndDate() {
-		return endDate;
-	}
-	
-	//Set end date
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-	*/
-	//Get payment monthly
-	public double getPaymentMonthly() {
-		return paymentMonthly;
-	}
-	
-	//Set payment monthly
-	public void setPaymentMonthly(double paymentMonthly) {
-		this.paymentMonthly = paymentMonthly;
-	}
+    public String getTenantName() {
+        return tenantName;
+    }
 
-	public void addRenter(Renter renter) {
-		renters.add(renter);
-		renter.setLease(this);
-		
-	}
-	
-	//Remove renter
-	public void removeRenter(Renter renter) {
-		renters.remove(renter);
-	}
-	
+    public void setTenantName(String tenantName) {
+        this.tenantName = tenantName;
+    }
 
-	/*
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+	
 	
 	//Get property
 	public Property getProperty() {
@@ -117,37 +87,34 @@ public class Lease {
 		this.property = property;
 	}
 	
-	
 
-	//Get rent due day
-	public int getRentDueDay() {
-		return rentDueDay;
-	}
-	
-	//Set rent due day
-	public void setRentDueDay(int rentDueDay) {
-		this.rentDueDay = rentDueDay;
-	}
-	
-	//Get security deposit
-	public double getSecurityDeposit() {
-		return securityDeposit;
-	}
-	
-	//Set security deposit
-	public void setSecurityDeposit(double securityDeposit) {
-		this.securityDeposit = securityDeposit;
-	}
+    public Date getEndDate() {
+        return endDate;
+    }
 
-	public Property getProperty() {
-		return property;
-	}
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
 
-	public void setProperty(Property property) {
-		this.property = property;
-	}
+    public int getrentDueDay() {
+        return rentDueDay;
+    }
 
+    public void setrentDueDay(int rentDueDay) {
+        this.rentDueDay = rentDueDay;
+    }
 
+	public double getPaymentMonthly() {
+        return paymentMonthly;
+    }
+
+    public void setPaymentMonthly(double paymentMonthly) {
+        this.paymentMonthly = paymentMonthly;
+    }
+
+    public void addRenter(Renter renter) {
+    }
+	/*
 	public void addRenter(Renter renter) {
 		renters.add(renter);
 		renter.setLease(this);
@@ -164,5 +131,11 @@ public class Lease {
 	public void setDocument(File document) {
 		this.document = document;
 	}*/
-	
+
+	public void addRenter(Renter renter) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }

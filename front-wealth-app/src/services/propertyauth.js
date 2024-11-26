@@ -60,9 +60,31 @@ export const linkRenterToProperty = async (propertyId, renterId) => {
     }
 };
 
+// Create a new lease
+export const createLease = async (leaseData) => {
+    try {
+        console.log('lease', leaseData);
+        const response = await apiClient.post('/api/leases/create', leaseData);
+        return response.data; // This should include the new lease's ID
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const deleteLease = async (leaseId) => {
+    try{
+        await apiClient.delete(`/api/leases/delete/${leaseId}`);
+    } catch (error) {
+        throw error;
+    }
+}
+
 // Link a lease to a property
 export const linkLeaseToProperty = async (propertyId, leaseId) => {
     try {
+        console.log("propertyId:", typeof propertyId, propertyId);
+console.log("leaseId:", typeof leaseId, leaseId);
+
         await apiClient.post(`/api/properties/linkLease/${propertyId}/${leaseId}`);
     } catch (error) {
         throw error;

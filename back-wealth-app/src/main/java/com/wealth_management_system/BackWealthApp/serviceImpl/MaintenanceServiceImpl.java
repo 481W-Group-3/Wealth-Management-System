@@ -17,13 +17,12 @@ import com.wealth_management_system.BackWealthApp.service.MaintenanceService;
 
 @Service
 public class MaintenanceServiceImpl implements MaintenanceService {
-	private final MaintenanceRepository maintenanceRepository;
-	private PropertyServiceImpl propertyService;
 	
 	@Autowired
-	public MaintenanceServiceImpl(MaintenanceRepository maintenanceRepository) {
-		this.maintenanceRepository = maintenanceRepository;
-	}
+	private MaintenanceRepository maintenanceRepository;
+	
+	@Autowired
+	private PropertyServiceImpl propertyService;
 	
 	//Log the maintenance
 	@Override

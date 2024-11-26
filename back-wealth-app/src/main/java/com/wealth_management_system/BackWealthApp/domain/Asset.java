@@ -50,7 +50,7 @@ public class Asset {
 
 	
 	//Get id
-	public int id() {
+	public int getId() {
 		return id;
 	}
 	

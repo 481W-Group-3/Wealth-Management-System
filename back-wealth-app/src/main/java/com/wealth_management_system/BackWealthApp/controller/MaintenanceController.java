@@ -20,12 +20,8 @@ import com.wealth_management_system.BackWealthApp.serviceImpl.MaintenanceService
 @Controller
 @RequestMapping("/maintenance")
 public class MaintenanceController extends WebMvcAutoConfiguration {
-	private final MaintenanceServiceImpl maintenanceService;
-	
 	@Autowired
-	public MaintenanceController(MaintenanceServiceImpl maintenanceService) {
-		this.maintenanceService = maintenanceService;
-	}
+	private MaintenanceServiceImpl maintenanceService;
 	
 	@PostMapping("/maintenance/log")
 	public ResponseEntity<Maintenance> logMaintenance(@RequestBody Maintenance maintenance) {

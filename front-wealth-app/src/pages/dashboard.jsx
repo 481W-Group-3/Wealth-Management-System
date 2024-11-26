@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import homeBackground from '../home_background.jpg'; 
 
 const Card = ({title, description, link, icon}) => (
     <Link to={link}>
@@ -57,7 +56,6 @@ const HomePage = () => {
                     justify-content: center;
                     align-items: flex-start;
                     padding: 20px 0;
-                    background-image: url(${homeBackground});
                     background-size: cover;
                     background-position: center;
                     background-repeat: no-repeat;

@@ -16,7 +16,7 @@ import com.wealth_management_system.BackWealthApp.domain.StockData;
 @Component
 public class AlphaVantageAPI {
 	
-	private final String API_KEY = "<your-api-key>"; // Replace with your actual API key
+	private final String API_KEY = "NMCQD31Z1404NA4H"; // Replace with your actual API key
     private final String BASE_URL = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY";
 
     private final RestTemplate restTemplate;

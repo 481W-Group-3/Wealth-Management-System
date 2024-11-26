@@ -2,12 +2,13 @@
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
-    background-color: #f8f9fa;
+    background-color: white;
     border-radius: 0.5rem;
     /* Subtle light background */
     /*font-family: 'Roboto', sans-serif; !* Modern font *!*/
     color: #333;
 }
+
 
 /* Headings for investment sections */
 .investments-container h1 {
@@ -29,7 +30,18 @@
     color: #495057;
 }
 
+/* canvas {
+    width: 100%;
+    height: 20px;
+} */
 
+
+
+
+.chart-container {
+    width: 100%;
+    height: 30px;
+  }
 
 /* Content container for card-like appearance */
 .investments-container .content {
@@ -173,3 +185,4 @@
     justify-content: center;
     margin-top: 30px;
 }
+

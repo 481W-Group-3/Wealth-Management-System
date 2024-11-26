@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,7 @@ public class StockDataFetcherServiceImpl implements StockDataFetcherService {
     @Scheduled(fixedRate = 86400000) // Run once every 24 hours
     public void fetchAndStoreStockData() {
         if (isScheduledTaskInitialized) {
-            List<String> symbols = List.of("AAPL", "GOOG", "MSFT"); // List of stock symbols
+            List<String> symbols = List.of("AAPL", "GOOG", "MSFT", "META", "ORCL", "ADBE", "IBM", "INTU", "TSLA"); // List of stock symbols
 
             for (String symbol : symbols) {
                 try {

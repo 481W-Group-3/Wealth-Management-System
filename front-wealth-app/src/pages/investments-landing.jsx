@@ -1,12 +1,13 @@
 import "./investment-landing.css";
 import InvestmentFields from "../components/investment-fields/investment-fields.jsx";
+import MarketPredictions from "../components/market-predictions/market-predictions.jsx";
 import React, { useState, useEffect } from "react";
 import {
   fetchInvestments,
   fetchInvestmentById,
   addInvestment,
   deleteInvestment as deleteInvestmentService,
-  fetchAssetAllocations,
+  fetchAssets,
   addAsset,
   deleteAsset as deleteAssetService,
 } from "../services/investmentService";
@@ -19,6 +20,7 @@ const InvestmentsLanding = () => {
     currentValue: 0,
   });
   const [investments, setInvestments] = useState([]);
+
 
   const [selectedInvestment, setSelectedInvestment] = useState(null);
 
@@ -35,7 +37,7 @@ const InvestmentsLanding = () => {
   useEffect(() => {
     const loadAssetsAndInvestments = async () => {
       try {
-        const fetchedAssets = await fetchAssetAllocations();
+        const fetchedAssets = await fetchAssets();
         const fetchedInvestments = await fetchInvestments();
         console.log(fetchedInvestments);
         console.log(fetchedAssets);
@@ -48,6 +50,8 @@ const InvestmentsLanding = () => {
 
     loadAssetsAndInvestments();
   }, []);
+
+  
 
   const rebalance = () => {
     const totalValue = assets.reduce(
@@ -344,8 +348,11 @@ const InvestmentsLanding = () => {
         </div>
 
         <h2>Market Predictions</h2>
+        <div>
+          <MarketPredictions />
+        </div>
         {/* Fetch market predictions */}
-        <table>
+        {/* <table>
           <thead>
             <tr>
               <th>Asset Type</th>
@@ -353,13 +360,12 @@ const InvestmentsLanding = () => {
             </tr>
           </thead>
           <tbody>
-            {/* Insert market prediction data here*/}
             <tr>
               <td>Property</td>
               <td>The future is bleak</td>
             </tr>
           </tbody>
-        </table>
+        </table> */}
       </div>
     </div>
   );

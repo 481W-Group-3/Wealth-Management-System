@@ -1,5 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import FormsForDashboard from '../components/user/FormsForDashboard';
+import {
+    fetchRetirementVariables,
+    storeRetirementVariables,
+    addProperty,
+  } from "../services/retirementService";
+  
+/*
+    TODO:
+    Move the results below the calculator
+    Rework the program to use the "card" system
+    Connect to the backend
+    Store variables in the back end
+    If no record exists for the user, create one before storing
+    Call variables from the back end
+    If life expectancy is below current age or retirement age, send an error and halt calculations.
+    Add "Years until retirement"
+*/
 
 const RetirementPage = () => {
 
@@ -12,6 +29,30 @@ const RetirementPage = () => {
     const [expectedInflationRate, setExpectedInflationRate] = useState('3');
     const [moneySaved, setMoneySaved] = useState('');
     const [retirementSavings, setRetirementSavings] = useState('');
+
+
+  // Fetch assets and investments from the backend
+  useEffect(() => {
+    const loadRetirementVariables = async () => {
+      try {
+        const fetchedVariables = await fetchRetirementVariables();
+        console.log(fetchedVariables);
+
+        /*setCurrentAge(fetchedVariables[0]);                 // 0
+        setRetirementAge(fetchedVariables[1]);              // 1
+        setLifeExpectancy(fetchedVariables[2]);             // 2
+        setPretaxIncome(fetchedVariables[3]);               // 3
+        setYearlyRetirementExpenses(fetchedVariables[4]);   // 4
+        setMoneySaved(fetchedVariables[5]);                 // 5*/
+
+      } catch (error) {
+        console.error("Failed to fetch previous retirement variables:", error);
+      }
+    };
+
+    loadRetirementVariables();
+  }, []);
+
 
     //Calculations
     const retirementCalculator = () => {
@@ -167,10 +208,12 @@ const RetirementPage = () => {
                                 onChange={(e) => setExpectedInflationRate(e.target.value)}
                             />
                             <br />
-                            <button type="button" onClick={retirementCalculator}>Calculate Results</button>
+                            
                         </div>
+                        <button type="button" onClick={retirementCalculator}>Calculate Results</button>
                         </form>
                     </div>
+                    
                     <div className ="retirementRightColumn">
                         <h3>Total Money Needed for Retirement</h3>
                         <label id="retirementCalcTotalAmount">$0</label>
@@ -216,9 +259,9 @@ const RetirementPage = () => {
                 }
 
                 .retirementTwoColumns {
-                     display: flex;
-                     gap: 30px;
-                     margin-bottom: 30px;
+                    
+                    gap: 30px;
+                    margin-bottom: 30px;
                     margin-left: 50px;
                     margin-right: 50px;
                     

@@ -1,5 +1,6 @@
 package com.wealth_management_system.BackWealthApp.controller;
 
+//import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +33,7 @@ public class RetirementController {
     }
 
     // Create a new retirement record
-    @PostMapping
+    @PostMapping("/add")
     @PreAuthorize("isAuthenticated()") 
     public ResponseEntity<Retirement> createRetirement(@RequestBody Retirement retirement) {
         Retirement savedRetirement = retirementService.saveRetirement(retirement);

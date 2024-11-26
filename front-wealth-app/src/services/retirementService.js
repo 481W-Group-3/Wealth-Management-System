@@ -3,19 +3,31 @@
 import apiClient from './apiClient';
 
 //Fetch variables
-export const fetchVariables = async (propertyData, user) => {
+export const fetchRetirementVariables = async () => {
     try {
-        const response = await apiClient.post('/api/properties/add', propertyData, user);
+        const response = await apiClient.post('/api/retirement');
+        console.log(response);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching retirement assets:', error);
+        return [];
+    }
+};
+
+//Updates and Stores variables
+export const storeRetirementVariables = async (retirement, user) => {
+    try {
+        const response = await apiClient.post(`/api/retirement/${id}`, retirement, user);
         return response.data;
     } catch (error) {
         throw error;
     }
 };
 
-//Store variables
-export const storeVariables = async (propertyData, user) => {
+// Add a Record to store variables (use if one does not exist)
+export const addProperty = async (retirement, user) => {
     try {
-        const response = await apiClient.post('/api/properties/add', propertyData, user);
+        const response = await apiClient.post('/api/retirement/add', retirement, user);
         return response.data;
     } catch (error) {
         throw error;

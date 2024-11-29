@@ -41,6 +41,10 @@ const InvestmentsLanding = () => {
         const fetchedInvestments = await fetchInvestments();
         console.log(fetchedInvestments);
         console.log(fetchedAssets);
+        for(let object of fetchedAssets) {
+          console.log(object.id);
+          console.log(object.type);
+        }
         setAssets(fetchedAssets);
         setInvestments(fetchedInvestments);
       } catch (error) {

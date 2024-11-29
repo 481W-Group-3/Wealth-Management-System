@@ -72,7 +72,7 @@ export const createLease = async (leaseData) => {
 };
 
 export const deleteLease = async (leaseId) => {
-    try{
+    try {
         await apiClient.delete(`/api/leases/delete/${leaseId}`);
     } catch (error) {
         throw error;
@@ -83,7 +83,7 @@ export const deleteLease = async (leaseId) => {
 export const linkLeaseToProperty = async (propertyId, leaseId) => {
     try {
         console.log("propertyId:", typeof propertyId, propertyId);
-console.log("leaseId:", typeof leaseId, leaseId);
+        console.log("leaseId:", typeof leaseId, leaseId);
 
         await apiClient.post(`/api/properties/linkLease/${propertyId}/${leaseId}`);
     } catch (error) {
@@ -120,3 +120,12 @@ export const calculateRevenue = async (propertyId) => {
         throw error;
     }
 };
+
+export const calculatePropertyTax = async (propertyId) => {
+    try {
+        const response = await apiClient.get(`/api/properties/${propertyId}/propertyTax`);
+        return response.data;
+    }catch(error) {
+        throw error;
+    }
+}

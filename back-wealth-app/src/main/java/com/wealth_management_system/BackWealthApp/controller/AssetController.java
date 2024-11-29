@@ -3,6 +3,7 @@ package com.wealth_management_system.BackWealthApp.controller;
 import java.security.Principal;
 import java.util.*;
 
+import com.wealth_management_system.BackWealthApp.serviceImpl.AssetServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ import com.wealth_management_system.BackWealthApp.service.UserService;
 @RequestMapping("/api/assets")
 public class AssetController {
 	@Autowired
-	private AssetService assetService;
+	private AssetServiceImpl assetService;
 	
 	@Autowired
 	private UserService userService;

@@ -15,6 +15,7 @@ export const fetchInvestments = async () => {
 export const fetchAssets = async () => {
     try {
         const response = await apiClient.get('/api/assets'); // Updated endpoint
+        console.log(response);
         return response.data;  // Assuming the API returns the array of assets
     } catch (error) {
         console.error('Error fetching assets:', error);

@@ -2,7 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import FormsForDashboard from '../components/user/FormsForDashboard';
-import { addProperty, listAllProperties, deleteProperty, linkLeaseToProperty, createLease, deleteLease } from '../services/propertyauth';
+import {
+  addProperty,
+  listAllProperties,
+  deleteProperty,
+  linkLeaseToProperty,
+  createLease,
+  deleteLease,
+  calculatePropertyTax
+} from '../services/propertyauth';
 
 import APINinja from "../assets/apininjas_logo.png";
 
@@ -21,7 +29,7 @@ const RealEstatePage = () => {
   const [viewingLeaseForProperty, setViewingLeaseForProperty] = useState(null);
   const [editingLease, setEditingLease] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
-
+  
   useEffect(() => {
     const fetchProperties = async () => {
       try {

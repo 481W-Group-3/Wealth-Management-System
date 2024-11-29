@@ -4,6 +4,7 @@ import com.wealth_management_system.BackWealthApp.domain.Maintenance;
 import com.wealth_management_system.BackWealthApp.domain.MyUser;
 import com.wealth_management_system.BackWealthApp.domain.Property;
 import com.wealth_management_system.BackWealthApp.domain.Renter;
+import com.wealth_management_system.BackWealthApp.propertyCalc.CalculatorService;
 import com.wealth_management_system.BackWealthApp.service.PropertyService;
 import com.wealth_management_system.BackWealthApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ public class PropertyController {
 
     @Autowired
     private PropertyService propertyService;
+    @Autowired
+    private CalculatorService calculatorService;
     
     @Autowired
     private UserService userService;
@@ -119,6 +122,19 @@ public class PropertyController {
     public ResponseEntity<Double> calculateRevenue(@PathVariable int propertyId) {
         double revenue = propertyService.calculateRevenue(propertyId);
         return ResponseEntity.ok(revenue);
+    }
+
+    @GetMapping("/{propertyId}/propertyTax")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<Double> calculateTax(@PathVariable int propertyId) {
+        Property property = propertyService.getPropertyById(propertyId);
+        try {
+            double propertyAmount = calculatorService.getPropertyTax(property.getPropertyValue(), property.getState(), property.getCounty(), property.getCity(), property.getZipCode()+"");
+            return ResponseEntity.ok(propertyAmount);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+
     }
 }
 

@@ -24,8 +24,10 @@ public class Property {
 	private int id;
 	private String address;
 	private double incomeMonthly;
+	private double propertyValue;
 	private String city;
 	private String state;
+	private String county;
 	private int zipCode;
 	private double taxMonthly;
 	private double insuranceMonthly;
@@ -217,6 +219,22 @@ public class Property {
 	public void setOccupied(boolean occupied) {
 		this.occupied = occupied;
 	}
+
+    public double getPropertyValue() {
+        return propertyValue;
+    }
+
+    public void setPropertyValue(double propertyValue) {
+        this.propertyValue = propertyValue;
+    }
+
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
+    }
 
 	/*
 	//Get renter

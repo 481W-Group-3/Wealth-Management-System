@@ -61,13 +61,15 @@ public class Property {
 	private MyUser user;
 	
 	//Constructor
-	public Property(String address, String city, String state, int zipCode, boolean occupied, double incomeMonthly) {
+	public Property(double propertyValue, String address, String city, String state, String county, int zipCode, boolean occupied, double incomeMonthly) {
+		this.propertyValue = propertyValue;
 		this.address = address;
 		this.occupied = occupied;
 		this.incomeMonthly = incomeMonthly;
 		this.city = city;
 		this.state = state;
 		this.zipCode = zipCode;
+		this.county = county;
 		this.maintenanceRecords = new HashSet<>();
 	}
 

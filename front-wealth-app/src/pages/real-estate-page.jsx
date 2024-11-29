@@ -9,7 +9,7 @@ import {
   linkLeaseToProperty,
   createLease,
   deleteLease,
-  calculatePropertyTax
+  calculatePropertyTax, calculateIndividualPropertyTax
 } from '../services/propertyauth';
 
 import APINinja from "../assets/apininjas_logo.png";
@@ -29,6 +29,16 @@ const RealEstatePage = () => {
   const [viewingLeaseForProperty, setViewingLeaseForProperty] = useState(null);
   const [editingLease, setEditingLease] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
+    
+    // const fetchTax = async () => {
+    //   try{
+    //     const result = calculateIndividualPropertyTax("100000", "MI", "Oakland", "Farmington Hills", "48331");
+    //     console.log(result);
+    //   } catch (error) {
+    //     console.log("property tax error: " + error);
+    //   }
+    // }
+    
   
   useEffect(() => {
     const fetchProperties = async () => {

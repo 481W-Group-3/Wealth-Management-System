@@ -126,15 +126,36 @@ public class PropertyController {
 
     @GetMapping("/{propertyId}/propertyTax")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<Double> calculateTax(@PathVariable int propertyId) {
+    public ResponseEntity<Double> calculatePropertyTax(@PathVariable int propertyId) {
         Property property = propertyService.getPropertyById(propertyId);
+        System.out.println(property);
         try {
             double propertyAmount = calculatorService.getPropertyTax(property.getPropertyValue(), property.getState(), property.getCounty(), property.getCity(), property.getZipCode()+"");
             return ResponseEntity.ok(propertyAmount);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
+    }
+    @GetMapping("/propertyTax/calculate")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<Double> calculateIndividualTax(@RequestParam String propertyValue,
+                                                         @RequestParam String state,
+                                                         @RequestParam String county,
+                                                         @RequestParam String city,
+                                                         @RequestParam String zipCode) {
+        System.out.println("This is the property value: " + propertyValue);
+        try {
+            double propertyAmount = calculatorService.getPropertyTax(Double.parseDouble(propertyValue), state, county, city, zipCode);
+            return ResponseEntity.ok(propertyAmount);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 
+    @GetMapping("/propertyTest")
+    @PreAuthorize("isAuthenticated()")
+    public Double testingTax(){
+        return 10.0;
     }
 }
 

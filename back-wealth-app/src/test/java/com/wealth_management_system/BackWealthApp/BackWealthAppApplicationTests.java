@@ -40,7 +40,7 @@ class BackWealthAppApplicationTests {
 
 	@Test
 	void APITest() throws Exception {
-		double value = calculatorService.getPropertyTax("100000", "MI", "Oakland", "Farmington Hills", "48331");
+		double value = calculatorService.getPropertyTax(100000, "MI", "Oakland", "Farmington Hills", "48331");
 		System.out.println(value);
 	}
 

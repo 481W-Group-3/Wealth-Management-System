@@ -60,7 +60,7 @@ const MarketPredictions = () => {
     const fetchInitialMarketPredictions = async () => {
       try {
         const predictions = await fetchMarketPredictions();
-        console.log("Fetched Market Predictions on load:", predictions);
+        console.log("Fetched Market Predictions on load");
       } catch (err) {
         console.error("Error fetching market predictions on load:", err);
         setError("Failed to load market predictions.");
@@ -99,8 +99,8 @@ const MarketPredictions = () => {
           // the actual fetching
           const data = await fetchStockData(symbol);
 
-          // Log the fetched data to check its structure
-          // for testing only
+          // Log the fetched data
+          // or testing only
           console.log("Fetched Data:", data);
 
           // combine dates and prices into pairs
@@ -145,16 +145,31 @@ const MarketPredictions = () => {
           labels = allDates.slice(allDates.length - 19, allDates.length);
 
           // data points for graph
-          datasets.push({
-            label: `${symbol}`,
-            data: allPrices.slice(
-              // only show the most recent 14 days
+          datasets.push(
+            // graph with dotted line for predictions
+            {
+              label: `Predictions`,
+              data: allPrices.slice(
+              // only show the most recent 14 days and 5 predictions
               sortedPrices.length - 14,
               allPrices.length
             ),
             borderColor: predefinedColors[stockSymbols.indexOf(symbol)],
+            borderDash: [5, 5], 
             fill: false,
-          });
+          },
+          // graph with solid line for past data
+          {
+            label: `${symbol}`,
+            data: sortedPrices.slice(
+              // only show the most recent 14 days
+              sortedPrices.length - 14,
+              sortedPrices.length
+            ),
+            borderColor: predefinedColors[stockSymbols.indexOf(symbol)],
+            fill: false,
+          }
+          );
         } catch (err) {
           console.error("Error fetching data for", symbol, err);
         }

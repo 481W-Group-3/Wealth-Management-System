@@ -350,21 +350,6 @@ const InvestmentsLanding = () => {
         <div>
           <MarketPredictions />
         </div>
-        {/* Fetch market predictions */}
-        {/* <table>
-          <thead>
-            <tr>
-              <th>Asset Type</th>
-              <th>Prediction</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Property</td>
-              <td>The future is bleak</td>
-            </tr>
-          </tbody>
-        </table> */}
       </div>
     </div>
   );

@@ -43,8 +43,10 @@
   min-width: 500px;
 }
 
+
 .investments-container table {
-  width: 100%;
+  margin: auto;
+  align-self: center;
   table-layout: auto;
   word-wrap: break-word;
   margin-bottom: 20px;

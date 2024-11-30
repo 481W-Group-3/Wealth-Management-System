@@ -27,8 +27,13 @@ const InvestmentFields = ({
     e.preventDefault();
 
     // will need to add name field here
-    const { investmentName, type, purchasePrice, currentValue, ...investmentDetails } =
-      newInvestment;
+    const {
+      investmentName,
+      type,
+      purchasePrice,
+      currentValue,
+      ...investmentDetails
+    } = newInvestment;
 
     // validate input based on the type of investment
     switch (type) {
@@ -195,11 +200,14 @@ const InvestmentFields = ({
             type="text"
             placeholder="Investment Name"
             value={newInvestment.investmentName || ""}
-            onChange={(e) => handleInputChange("investmentName", e.target.value)}
+            onChange={(e) =>
+              handleInputChange("investmentName", e.target.value)
+            }
           />
 
           {/* drop down list for different investment types  */}
           <select
+            className="typeDropDown"
             value={newInvestment.type}
             onChange={(e) => handleInputChange("type", e.target.value)}
           >

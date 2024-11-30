@@ -21,17 +21,14 @@ const InvestmentsLanding = () => {
   });
   const [investments, setInvestments] = useState([]);
 
-
   const [selectedInvestment, setSelectedInvestment] = useState(null);
 
-  // do we need this? principal initial definitely isn't used
   const [newInvestment, setNewInvestment] = useState({
     type: "",
     principalInitial: 0,
     currentValue: 0,
   });
   const [expenses, setExpenses] = useState([]);
-  const [newExpense, setNewExpense] = useState({ description: "", amount: "" });
 
   // Fetch assets and investments from the backend
   useEffect(() => {
@@ -41,7 +38,7 @@ const InvestmentsLanding = () => {
         const fetchedInvestments = await fetchInvestments();
         console.log(fetchedInvestments);
         console.log(fetchedAssets);
-        for(let object of fetchedAssets) {
+        for (let object of fetchedAssets) {
           console.log(object.id);
           console.log(object.type);
         }
@@ -54,8 +51,6 @@ const InvestmentsLanding = () => {
 
     loadAssetsAndInvestments();
   }, []);
-
-  
 
   const rebalance = () => {
     const totalValue = assets.reduce(

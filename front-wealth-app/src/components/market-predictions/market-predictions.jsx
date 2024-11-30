@@ -51,9 +51,9 @@ const MarketPredictions = () => {
   const predefinedColors = [
     "#2B5887", // blue
     "#DC3545", // red
-    "#1C732F", // green
+    "#9640B5", // purple
     "#EEB53A", // yellow
-    "#8325A5", // purple
+    "#568A74", // green
   ];
 
   useEffect(() => {
@@ -166,7 +166,6 @@ const MarketPredictions = () => {
 
         // if chartRef exists, render the chart with the new data
         if (chartRef.current) {
-          // Create a new chart and store the instance in the ref
           chartInstance.current = new Chart(chartRef.current, {
             type: "line",
             data: {
@@ -186,7 +185,6 @@ const MarketPredictions = () => {
 
   return (
     <div>
-      {/* <h1>Stock Market Predictions</h1> */}
       <div>
         {stockSymbols.map((symbol, index) => (
           <label key={index}>

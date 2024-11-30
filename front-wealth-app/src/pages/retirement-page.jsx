@@ -232,7 +232,7 @@ const RetirementPage = () => {
                     border-width: 0;
                     height: 500px;
                     background-color: white;
-                    box-shadow: rgba(0, 0, 0, 0.15) 0px 10px 20px;
+                    box-shadow: 0 6px 50px rgba(0, 0, 0, 0.1);
                 }
 
                 #retirementCalculator{

@@ -1,188 +1,162 @@
 .investments-container {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: white;
-    border-radius: 0.5rem;
-    /* Subtle light background */
-    /*font-family: 'Roboto', sans-serif; !* Modern font *!*/
-    color: #333;
+  padding: 20px;
+  max-width: 75%;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 0.5rem;
+  color: #333;
 }
 
-
-/* Headings for investment sections */
 .investments-container h1 {
-    /*font-size: 2.5rem;*/
-    /*font-weight: bold;*/
-    /* color: #2b5887; */
-    font-size: 1.875rem;
-    font-weight: 300;
-    text-align: center;
-    color: black;
-    margin-bottom: 30px;
+  font-size: 1.875rem;
+  font-weight: 300;
+  text-align: center;
+  color: black;
+  margin-bottom: 30px;
 }
 
 .investments-container h2,
 .investments-container h3 {
-    font-size: 1.75rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-    color: #495057;
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #495057;
 }
 
-/* canvas {
-    width: 100%;
-    height: 20px;
-} */
-
-
-
-
-.chart-container {
-    width: 100%;
-    height: 30px;
-  }
-
-/* Content container for card-like appearance */
 .investments-container .content {
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    /* Elevated shadow for a card effect */
-    background-color: #ffffff;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 6px 50px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/*.investments-container .content:hover {*/
-/*    transform: translateY(-5px);*/
-/*    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);*/
-/*}*/
-
-/* Two-column responsive layout */
 .investments-container .two-column-layout {
-    display: flex;
-    gap: 40px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
+  display: flex;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
 }
 
-/* Responsive columns */
 .investments-container .left-column,
 .investments-container .right-column {
-    flex: 1;
-    min-width: 300px;
-    /* Ensures columns don’t shrink too small */
+  flex: 1 1 30%;
+  min-width: 500px;
 }
 
-/* Tables: modern style */
 .investments-container table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    overflow: hidden;
+  width: 100%;
+  table-layout: auto;
+  word-wrap: break-word;
+  margin-bottom: 20px;
+  box-shadow: 0 0 0 2px rgba(150, 64, 181, 0.75);
+  background-color: #f8f9fa;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .investments-container th,
 .investments-container td {
-    text-align: left;
-    padding: 15px;
-    border-bottom: 1px solid #dee2e6;
+  text-align: left;
+  padding: 15px;
+  width: auto;
+  border-bottom: 1px solid #dee2e6;
+  word-wrap: break-word;
 }
 
 .investments-container th {
-    /*background-color: #2b5887;*/
-    background-color: #a7d6ac;
-    color: white;
-    font-weight: 600;
+  background-color: #b068ca;
+  color: white;
+  font-weight: 600;
 }
 
 .investments-container td {
-    color: #495057;
+  color: #495057;
 }
 
-/* Form styling: clean and modern */
 .investments-container form {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    text-align: left;
-    gap: 15px;
-    max-width: 400px;
-    margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  text-align: left;
+  gap: 15px;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
-.investments-container select {
-    border: 2px solid #1f4566;
-    border-radius: 8px;
-    font-size: 1rem;
-    padding: 12px 15px;
+.investments-container .typeDropDown {
+  border: 2px solid #1f4566;
+  width: 100%;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin: 0;
+  padding: 12px 15px;
 }
 
 .investments-container input {
-    padding: 12px 15px;
-    border-radius: 8px;
-    border: 2px solid #ced4da;
-    width: 100%;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 2px solid #ced4da;
+  width: 100%;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
 }
 
 .investments-container input:focus {
-    /*border-color: #2b5887;*/
-    border-color: #a7d6ac;
-    outline: none;
+  border-color: #a7d6ac;
+  outline: none;
 }
 
-/* Buttons: modern style */
 .investments-container button {
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    border: none;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-/* Add button */
 .investments-container .add-btn {
-    background-color: #2b5887;
-    color: white;
+  background-color: #2b5887;
+  color: white;
 }
 
 .investments-container .add-btn:hover {
-    background-color: #1f4566;
-    transform: translateY(-2px);
+  background-color: #1f4566;
+  transform: translateY(-2px);
 }
 
-/* Delete button */
 .investments-container .delete-btn {
-    background-color: #dc3545;
-    color: white;
+  background-color: #dc3545;
+  color: white;
 }
 
 .investments-container .delete-btn:hover {
-    background-color: #b52a38;
-    transform: translateY(-2px);
+  background-color: #b52a38;
+  transform: translateY(-2px);
 }
 
-/* Rebalance button */
 .investments-container .rebalance-btn {
-    background-color: #1C732F;
-    color: white;
+  background-color: #9640b5;
+  color: white;
 }
 
 .investments-container .rebalance-btn:hover {
-    background-color: #156125;
-    transform: translateY(-2px);
+  background-color: #7d3597;
+  transform: translateY(-2px);
 }
 
-/* Button container centered */
 .investments-container .button-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
 }
 
+.investments-container select {
+  border: 1px solid #495057;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  padding: 5px;
+  margin: 5px 10px;
+}

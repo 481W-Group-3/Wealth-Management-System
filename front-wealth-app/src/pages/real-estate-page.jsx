@@ -208,7 +208,7 @@ const RealEstatePage = () => {
         <h1 className="text-3xl font-light mb-6 text-center">Real Estate Management</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="bg-white rounded-lg shadow-md p-6 flex flex-col h-[600px]">
+          <div className="bg-white rounded-lg shadow-xl p-6 flex flex-col h-[600px]">
             <h2 className="text-2xl font-light mb-4 text-center">Add New Property</h2>
             <div className="flex-grow flex flex-col">
               <div className="w-full flex-grow">
@@ -237,7 +237,7 @@ const RealEstatePage = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-md p-6 flex flex-col h-[600px]">
+          <div className="bg-white rounded-lg shadow-xl p-6 flex flex-col h-[600px]">
             <h2 className="text-2xl font-light mb-4 text-center">Property List</h2>
             <div className="flex-grow overflow-hidden">
               <div className="h-full overflow-y-auto">

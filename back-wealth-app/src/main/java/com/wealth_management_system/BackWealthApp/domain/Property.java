@@ -26,9 +26,11 @@ public class Property {
 	private int id;
 	private String address;
 	private double incomeMonthly;
+	private double propertyValue;
 	private String city;
 	private String state;
 	private String zipCode;
+	private String county;
 	private double taxMonthly;
 	private double insuranceMonthly;
 	private double mortgageMonthly;
@@ -62,13 +64,15 @@ public class Property {
 	private MyUser user;
 	
 	//Constructor
-	public Property(String address, String city, String state, String zipCode, boolean occupied, double incomeMonthly) {
+	public Property(double propertyValue, String address, String city, String state, String county, String zipCode, boolean occupied, double incomeMonthly) {
+		this.propertyValue = propertyValue;
 		this.address = address;
 		this.occupied = occupied;
 		this.incomeMonthly = incomeMonthly;
 		this.city = city;
 		this.state = state;
 		this.zipCode = zipCode;
+		this.county = county;
 		this.maintenanceRecords = new HashSet<>();
 	}
 
@@ -100,7 +104,7 @@ public class Property {
 	
 	//Set city
 	public void setCity(String city) {
-		
+		this.city = city;
 	}
 	
 	//Get state
@@ -220,6 +224,22 @@ public class Property {
 	public void setOccupied(boolean occupied) {
 		this.occupied = occupied;
 	}
+
+    public double getPropertyValue() {
+        return propertyValue;
+    }
+
+    public void setPropertyValue(double propertyValue) {
+        this.propertyValue = propertyValue;
+    }
+
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
+    }
 
 	/*
 	//Get renter

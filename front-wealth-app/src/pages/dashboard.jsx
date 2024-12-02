@@ -40,7 +40,7 @@ const HomePage = () => {
     return (
         <div className="home-container">
             <div className="page-container">
-                <div className="content-rectangle" style={{ backgroundColor: '#f0f0f0' }}>
+                <div className="content-rectangle" style={{ backgroundColor: 'white' }}>
                     <h1 className="dashboard-title">Dashboard</h1>
                     <div className="card-grid">
                         {cardData.map((card, index) => (
@@ -57,10 +57,7 @@ const HomePage = () => {
                     justify-content: center;
                     align-items: flex-start;
                     padding: 20px 0;
-                    // background-image: url(${homeBackground});
-                    // background-size: cover;
-                    // background-position: center;
-                    // background-repeat: no-repeat;
+                    
                 }
 
                 .page-container {

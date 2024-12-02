@@ -2,7 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import FormsForDashboard from '../components/user/FormsForDashboard';
-import { addProperty, listAllProperties, deleteProperty, linkLeaseToProperty, createLease, deleteLease, updateProperty } from '../services/propertyauth';
+import {
+  addProperty,
+  listAllProperties,
+  deleteProperty,
+  linkLeaseToProperty,
+  createLease,
+  deleteLease,
+  updateProperty,
+  calculatePropertyTax,
+  calculateIndividualPropertyTax
+} from '../services/propertyauth';
 
 import APINinja from "../assets/apininjas_logo.png";
 
@@ -14,14 +24,24 @@ const EmptyState = ({ message }) => (
 
 const RealEstatePage = () => {
   const [properties, setProperties] = useState([]);
-  const [newProperty, setNewProperty] = useState({ address: '', incomeMonthly: '', occupied: false, city: '', state: '', zipcode: '' });
+  const [newProperty, setNewProperty] = useState({ address: '', incomeMonthly: '', occupied: false, city: '', state: '', zipcode: '', propertyValue: '' });
   const [expenses, setExpenses] = useState([]);
   const [newExpense, setNewExpense] = useState({ description: '', amount: '' });
   const [newLease, setNewLease] = useState({ startDate: '', endDate: '', tenantName: '', paymentMonthly: '', rentDueDay: '' });
   const [viewingLeaseForProperty, setViewingLeaseForProperty] = useState(null);
   const [editingLease, setEditingLease] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
-
+    
+    // const fetchTax = async () => {
+    //   try{
+    //     const result = calculateIndividualPropertyTax("100000", "MI", "Oakland", "Farmington Hills", "48331");
+    //     console.log(result);
+    //   } catch (error) {
+    //     console.log("property tax error: " + error);
+    //   }
+    // }
+    
+  
   useEffect(() => {
     const fetchProperties = async () => {
       try {
@@ -59,7 +79,7 @@ const RealEstatePage = () => {
     try {
       const addedProperty = await addProperty({ ...newProperty, incomeMonthly: 0 });
       setProperties([...properties, { ...addedProperty, leases: [] }]);
-      setNewProperty({ address: '', incomeMonthly: '', occupied: false, city: '', state: '', zipcode: '' });
+      setNewProperty({ address: '', incomeMonthly: '', occupied: false, city: '', state: '', zipcode: '', propertyValue: '' });
       setErrorMessage('');
     } catch (error) {
       console.error('Error adding property:', error);
@@ -141,9 +161,7 @@ const RealEstatePage = () => {
         }
       });
 
-      await updateProperty({
-        ...propertyToUpdate
-      })
+      await updateProperty(propertyToUpdate);
 
       // Reset the lease form fields
       setNewLease({ startDate: '', endDate: '', tenantName: '', rentDueDay: '', paymentMonthly: '' });
@@ -209,66 +227,71 @@ const RealEstatePage = () => {
       <h1 className="text-3xl font-light mb-6 text-center">Real Estate Management</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col h-[600px]">
+        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col min-h-[600px]">
           <h2 className="text-2xl font-light mb-4 text-center">Add New Property</h2>
-          <div className="flex-grow flex flex-col">
-            <div className="w-full flex-grow">
-              <FormsForDashboard
-                handleSubmit={handleAddProperty}
-                formFields={[
-                  {
-                    name: 'address',
-                    label: 'Street Address',
-                    type: 'text',
-                    value: newProperty.address,
-                    onChange: (e) => setNewProperty({ ...newProperty, address: e.target.value })
-                  },
-                  {
-                    name: 'city',
-                    label: 'City',
-                    type: 'text',
-                    value: newProperty.city,
-                    onChange: (e) => setNewProperty({ ...newProperty, city: e.target.value })
-                  },
-                  {
-                    name: 'state',
-                    label: 'State',
-                    type: 'text',
-                    value: newProperty.state,
-                    onChange: (e) => setNewProperty({ ...newProperty, state: e.target.value })
-                  },
-                  {
-                    name: 'zipcode',
-                    label: 'Zipcode',
-                    type: 'int',
-                    value: newProperty.zipcode,
-                    onChange: (e) => setNewProperty({ ...newProperty, zipcode: e.target.value })
-                  },
-                  {
-                    name: 'occupied',
-                    label: 'Occupied',
-                    type: 'checkbox',
-                    value: newProperty.occupied,
-                    onChange: (e) => setNewProperty({ ...newProperty, occupied: e.target.checked })
-                  }
-                ]}
-                errorMessage={errorMessage}
-                submitButtonText="Add Property"
-              />
-            </div>
+          <div className="flex-grow overflow-y-auto">
+            <FormsForDashboard
+              handleSubmit={handleAddProperty}
+              formFields={[
+                {
+                  name: 'address',
+                  label: 'Street Address',
+                  type: 'text',
+                  value: newProperty.address,
+                  onChange: (e) => setNewProperty({ ...newProperty, address: e.target.value })
+                },
+                {
+                  name: 'city',
+                  label: 'City',
+                  type: 'text',
+                  value: newProperty.city,
+                  onChange: (e) => setNewProperty({ ...newProperty, city: e.target.value })
+                },
+                {
+                  name: 'state',
+                  label: 'State',
+                  type: 'text',
+                  value: newProperty.state,
+                  onChange: (e) => setNewProperty({ ...newProperty, state: e.target.value })
+                },
+                {
+                  name: 'zipcode',
+                  label: 'Zipcode',
+                  type: 'int',
+                  value: newProperty.zipcode,
+                  onChange: (e) => setNewProperty({ ...newProperty, zipcode: e.target.value })
+                },
+                {
+                  name: 'propertyValue',
+                  label: 'Property Value',
+                  type: 'number',
+                  value: newProperty.propertyValue,
+                  onChange: (e) => setNewProperty({ ...newProperty, propertyValue: e.target.value })
+                },
+                {
+                  name: 'occupied',
+                  label: 'Occupied',
+                  type: 'checkbox',
+                  value: newProperty.occupied,
+                  onChange: (e) => setNewProperty({ ...newProperty, occupied: e.target.checked })
+                }
+              ]}
+              errorMessage={errorMessage}
+              submitButtonText="Add Property"
+            />
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col h-[600px]">
+        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col h-[800px]">
           <h2 className="text-2xl font-light mb-4 text-center">Property List</h2>
           <div className="flex-grow overflow-hidden">
             <div className="h-full overflow-y-auto">
               {properties.length === 0 ? (
-                <EmptyState message="No Properties" />
+                  <EmptyState message="No Properties"/>
               ) : (
-                <div className="rounded-lg overflow-hidden">
-                  <table className="w-full table-auto">
-                    <thead>
+                  <div className="rounded-lg overflow-hidden">
+                    <table className="w-full table-auto">
+                      <thead>
                       <tr className="bg-gray-100">
                         <th className="px-4 py-2 text-gray-600 font-medium">Address</th>
                         <th className="px-4 py-2 text-gray-600 font-medium">Monthly Income</th>
@@ -276,102 +299,102 @@ const RealEstatePage = () => {
                         <th className="px-4 py-2 text-gray-600 font-medium">Lease Info</th>
                         <th className="px-4 py-2 text-gray-600 font-medium">Action</th>
                       </tr>
-                    </thead>
-                    <tbody>
+                      </thead>
+                      <tbody>
                       {properties.map(property => (
-                        <React.Fragment key={property.id}>
-                          <tr className="hover:bg-gray-50">
-                            <td className="border-b px-4 py-2">{property.address}</td>
-                            <td className="border-b px-4 py-2">${calculateMonthlyIncome(property.id)}</td>
-                            <td className="border-b px-4 py-2">{property.occupied ? 'Occupied' : 'Vacant'}</td>
-                            <td className="border-b px-4 py-2 text-center">
-                              <button onClick={() => toggleLeaseView(property.id)}
-                                className="bg-blue-500 hover:bg-blue-700 text-white font-normal py-1 px-2 rounded">
-                                {viewingLeaseForProperty === property.id ? 'Hide Leases' : 'View Leases'}
-                              </button>
-                            </td>
-                            <td className="border-b px-4 py-2 text-center">
-                              <button onClick={() => handleDeleteProperty(property.id)}
-                                className="bg-red-500 hover:bg-red-700 text-white font-normal py-1 px-2 rounded">
-                                Delete
-                              </button>
-                            </td>
-                          </tr>
-                          {viewingLeaseForProperty === property.id && (
-                            <tr>
-                              <td colSpan="5" className="border-b px-4 py-2">
-                                <h3 className="text-xl font-light mb-2">Leases for {property.address}</h3>
-                                {property.leases && property.leases.map(lease => (
-                                  <div key={lease.id} className="mb-4 p-4 bg-gray-100 rounded">
-                                    <p>Tenant: {lease.tenantName}</p>
-                                    <p>Start Date: {lease.startDate.substring(0, 10)}</p>
-                                    <p>End Date: {lease.endDate.substring(0, 10)}</p>
-                                    <p>Monthly Income: ${lease.paymentMonthly}</p>
-                                    <p>Rent Collection Day: {lease.rentDueDay}</p>
-                                    <div className="text-center mt-2">
-                                      <button onClick={() => handleDeleteLease(property.id, lease.id)}
+                          <React.Fragment key={property.id}>
+                            <tr className="hover:bg-gray-50">
+                              <td className="border-b px-4 py-2">{property.address}</td>
+                              <td className="border-b px-4 py-2">${calculateMonthlyIncome(property.id)}</td>
+                              <td className="border-b px-4 py-2">{property.occupied ? 'Occupied' : 'Vacant'}</td>
+                              <td className="border-b px-4 py-2 text-center">
+                                <button onClick={() => toggleLeaseView(property.id)}
+                                        className="bg-blue-500 hover:bg-blue-700 text-white font-normal py-1 px-2 rounded">
+                                  {viewingLeaseForProperty === property.id ? 'Hide Leases' : 'View Leases'}
+                                </button>
+                              </td>
+                              <td className="border-b px-4 py-2 text-center">
+                                <button onClick={() => handleDeleteProperty(property.id)}
                                         className="bg-red-500 hover:bg-red-700 text-white font-normal py-1 px-2 rounded">
-                                        Delete Lease
-                                      </button>
-                                    </div>
-                                  </div>
-                                ))}
-                                <FormsForDashboard
-                                  handleSubmit={(e) => {
-                                    e.preventDefault();
-                                    handleAddOrUpdateLease(property.id);
-                                  }}
-                                  formFields={[
-                                    {
-                                      name: 'tenantName',
-                                      label: 'Tenant Name',
-                                      type: 'text',
-                                      value: newLease.tenantName,
-                                      onChange: (e) => setNewLease({ ...newLease, tenantName: e.target.value })
-                                    },
-                                    {
-                                      name: 'startDate',
-                                      label: 'Start Date',
-                                      type: 'date',
-                                      value: newLease.startDate,
-                                      onChange: (e) => setNewLease({ ...newLease, startDate: e.target.value })
-                                    },
-                                    {
-                                      name: 'endDate',
-                                      label: 'End Date',
-                                      type: 'date',
-                                      value: newLease.endDate,
-                                      onChange: (e) => setNewLease({ ...newLease, endDate: e.target.value })
-                                    },
-                                    {
-                                      name: 'paymentMonthly',
-                                      label: 'Rent Monthly',
-                                      type: 'number',
-                                      value: newLease.paymentMonthly,
-                                      onChange: (e) => setNewLease({
-                                        ...newLease,
-                                        paymentMonthly: e.target.value
-                                      })
-                                    },
-                                    {
-                                      name: 'rentDueDay',
-                                      label: 'Rent Collection Day',
-                                      type: 'number',
-                                      value: newLease.rentDueDay,
-                                      onChange: (e) => setNewLease({ ...newLease, rentDueDay: e.target.value })
-                                    }
-                                  ]}
-                                  submitButtonText={editingLease ? 'Update Lease' : 'Add Lease'}
-                                />
+                                  Delete
+                                </button>
                               </td>
                             </tr>
-                          )}
-                        </React.Fragment>
+                            {viewingLeaseForProperty === property.id && (
+                                <tr>
+                                  <td colSpan="5" className="border-b px-4 py-2">
+                                    <h3 className="text-xl font-light mb-2">Leases for {property.address}</h3>
+                                    {property.leases && property.leases.map(lease => (
+                                        <div key={lease.id} className="mb-4 p-4 bg-gray-100 rounded">
+                                          <p>Tenant: {lease.tenantName}</p>
+                                          <p>Start Date: {lease.startDate.substring(0, 10)}</p>
+                                          <p>End Date: {lease.endDate.substring(0, 10)}</p>
+                                          <p>Monthly Income: ${lease.paymentMonthly}</p>
+                                          <p>Rent Collection Day: {lease.rentDueDay}</p>
+                                          <div className="text-center mt-2">
+                                            <button onClick={() => handleDeleteLease(property.id, lease.id)}
+                                                    className="bg-red-500 hover:bg-red-700 text-white font-normal py-1 px-2 rounded">
+                                              Delete Lease
+                                            </button>
+                                          </div>
+                                        </div>
+                                    ))}
+                                    <FormsForDashboard
+                                        handleSubmit={(e) => {
+                                          e.preventDefault();
+                                          handleAddOrUpdateLease(property.id);
+                                        }}
+                                        formFields={[
+                                          {
+                                            name: 'tenantName',
+                                            label: 'Tenant Name',
+                                            type: 'text',
+                                            value: newLease.tenantName,
+                                            onChange: (e) => setNewLease({...newLease, tenantName: e.target.value})
+                                          },
+                                          {
+                                            name: 'startDate',
+                                            label: 'Start Date',
+                                            type: 'date',
+                                            value: newLease.startDate,
+                                            onChange: (e) => setNewLease({...newLease, startDate: e.target.value})
+                                          },
+                                          {
+                                            name: 'endDate',
+                                            label: 'End Date',
+                                            type: 'date',
+                                            value: newLease.endDate,
+                                            onChange: (e) => setNewLease({...newLease, endDate: e.target.value})
+                                          },
+                                          {
+                                            name: 'paymentMonthly',
+                                            label: 'Rent Monthly',
+                                            type: 'number',
+                                            value: newLease.paymentMonthly,
+                                            onChange: (e) => setNewLease({
+                                              ...newLease,
+                                              paymentMonthly: e.target.value
+                                            })
+                                          },
+                                          {
+                                            name: 'rentDueDay',
+                                            label: 'Rent Collection Day',
+                                            type: 'number',
+                                            value: newLease.rentDueDay,
+                                            onChange: (e) => setNewLease({...newLease, rentDueDay: e.target.value})
+                                          }
+                                        ]}
+                                        submitButtonText={editingLease ? 'Update Lease' : 'Add Lease'}
+                                    />
+                                  </td>
+                                </tr>
+                            )}
+                          </React.Fragment>
                       ))}
 
-                    </tbody>
-                  </table>
-                </div>
+                      </tbody>
+                    </table>
+                  </div>
               )}
             </div>
           </div>
@@ -447,15 +470,15 @@ const RealEstatePage = () => {
         </div>
       </div>
 
-
-      <div className="flex justify-center mt-8">
-        <img src={APINinja} alt={"apiNinja"} style={{ height: "30px", margin: "auto 0" }} />
-        <p style={{ margin: "auto 10px" }}>Implementing Api Ninja to find regional property tax rates</p>
-        {/*<button onClick={() => handleRedirect()} className="bg-green-500 hover:bg-green-700 text-white font-normal py-2 px-4 rounded">*/}
-        {/*  Go to Tax Software*/}
-        {/*</button>*/}
-      </div>
-    </div>
+    
+      // <div className="flex justify-center mt-8">
+      //   <img src={APINinja} alt={"apiNinja"} style={{ height: "30px", margin: "auto 0" }} />
+      //   <p style={{ margin: "auto 10px" }}>Implementing Api Ninja to find regional property tax rates</p>
+      //   {/*<button onClick={() => handleRedirect()} className="bg-green-500 hover:bg-green-700 text-white font-normal py-2 px-4 rounded">*/}
+      //   {/*  Go to Tax Software*/}
+      //   {/*</button>*/}
+      // </div>
+    // </div>
   );
 };
 

@@ -3,7 +3,7 @@ import FormsForDashboard from '../components/user/FormsForDashboard';
 import {
     fetchRetirementVariables,
     storeRetirementVariables,
-    addProperty,
+    addRetirementRecord,
   } from "../services/retirementService";
   
 /*
@@ -35,7 +35,7 @@ const RetirementPage = () => {
     const loadRetirementVariables = async () => {
       try {
         const fetchedVariables = await fetchRetirementVariables();
-        console.log(fetchedVariables);
+        console.log("output of fetched: " + fetchedVariables);
         if(fetchedVariables != null){
             setCurrentAge(fetchedVariables[0]);                 // 0
             setRetirementAge(fetchedVariables[1]);              // 1
@@ -53,6 +53,31 @@ const RetirementPage = () => {
     loadRetirementVariables();
   }, []);
 
+    const updateBackendAndCalculator = async () => {
+        //Logical Verifications
+        if(retirementAge < currentAge){
+           alert("Retirement Age is set lower than Current Age");
+        }
+        else if(retirementAge > lifeExpectancy|| currentAge > lifeExpectancy){
+            alert("Retirement Age or Current Age is greater than your life expectancy!");
+        }
+        else{
+            //Update or Add variables to backend
+            const storedData = {currentAge, retirementAge, lifeExpectancy, pretaxIncome, yearlyRetirementExpenses, moneySaved}
+            const fetchedVariables = await fetchRetirementVariables();
+            console.log("fetched variables 2: "+ fetchedVariables);
+            if (fetchedVariables != null){
+                //store variables
+                await storeRetirementVariables(0, storedData);
+            }
+            else{
+                //add record to store variables
+                await addRetirementRecord(storedData, 0);
+            }
+
+            retirementCalculator();
+        }
+    }
 
     //Calculations
     const retirementCalculator = () => {
@@ -224,7 +249,7 @@ const RetirementPage = () => {
                         </div>
                             
                         
-                        <button type="button" onClick={retirementCalculator}>Calculate Results</button>
+                        <button type="button" onClick={updateBackendAndCalculator}>Calculate Results</button>
                         </form>
                     </div>
                     

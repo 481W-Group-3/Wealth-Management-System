@@ -8,14 +8,14 @@ import {
   
 /*
     TODO:
-    Move the results below the calculator
-    Rework the program to use the "card" system
-    Connect to the backend
-    Store variables in the back end
-    If no record exists for the user, create one before storing
-    Call variables from the back end
-    If life expectancy is below current age or retirement age, send an error and halt calculations.
-    Add "Years until retirement"
+      - Move the results below the calculator
+      - Rework the program to use the "card" system
+    X - Connect to the backend
+      - Store variables in the back end
+      - If no record exists for the user, create one before storing
+      - Call variables from the back end
+      - If life expectancy is below current age or retirement age, send an error and halt calculations.
+      - Add "Years until retirement"
 */
 
 const RetirementPage = () => {
@@ -133,7 +133,7 @@ const RetirementPage = () => {
              <div className="retirementContent">
                 <div className="retirementTwoColumns">
                     <div className="retirementLeftColumn">
-                    <h2>Calculate Money Needed for Retirement</h2>
+                    <h2 className="inputTitle">Calculate Money Needed for Retirement</h2>
                         <form id="retirementCalculator">
                         <div className="moneyForRetirementLeftColumn">
                             <h3>Current Age</h3>
@@ -216,19 +216,28 @@ const RetirementPage = () => {
                     </div>
                     
                     <div className ="retirementRightColumn">
-                        <h3>Total Money Needed for Retirement</h3>
-                        <label id="retirementCalcTotalAmount">$0</label>
+                        <div>
+                            <h3>Total Money Needed for Retirement</h3>
+                            <label id="retirementCalcTotalAmount">$0</label>
+                        </div>
+                        <div>
+                            <h3>Money Saved by retirement</h3>
+                            <label id="retirementCalcMoneyInvested">$0</label>
+                        </div>
                         
-                        <h3>Money Saved by retirement</h3>
-                        <label id="retirementCalcMoneyInvested">$0</label>
                         
-                        <h3>Savings Still Needed for Retirement</h3>
-                        <div className="retirementResultsBox">
-                            <h3>Yearly</h3>
-                            <label id="retirementCalcPercentageNeededYearly">$0</label>
-                            <h3>Monthly</h3>
-                            <label id="retirementCalcPercentageNeededMonthly">$0</label>
-
+                        <div>
+                            <h3>Savings Still Needed for Retirement</h3>
+                            <div className="retirementResultsBox">
+                            <div>
+                                <h3>Yearly</h3>
+                                <label id="retirementCalcPercentageNeededYearly">$0</label>
+                            </div>
+                            <div>
+                                <h3>Monthly</h3>
+                                <label id="retirementCalcPercentageNeededMonthly">$0</label>
+                            </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -258,6 +267,10 @@ const RetirementPage = () => {
                 div {
                 text-align:center;
                 }
+                
+                inputTitle{
+                text-align:center;
+                }
 
                 .retirementTwoColumns {
                     
@@ -269,14 +282,28 @@ const RetirementPage = () => {
                 }
 
                 .retirementLeftColumn, .retirementRightColumn {
-                    flex: 1;
                     align-items: center;
                     border-style: solid;
                     border-radius: 5px;
                     border-width: 0;
-                    height: 500px;
+                    min-height: 200px;
+                    max-height: 500px;
                     background-color: white;
                     box-shadow: rgba(0, 0, 0, 0.15) 0px 10px 20px;
+                }
+
+                .retirementRightColumn{
+                    display:flex;
+                    flex-wrap: wrap;
+                    flex-direction: reverse-row;
+                    padding-top: 10px;
+                    
+                }
+
+                .retirementRightColumn div{
+                    margin-left: 5px;
+                    margin-right: 5px;
+                    width: 400px;
                 }
 
                 #retirementCalculator{
@@ -286,24 +313,24 @@ const RetirementPage = () => {
                     padding-bottom: 25px;
                 }
                 .retirmentLeftColumn form div {
-                    flex: 1;
+                    display:flex;
+                    flex-wrap: wrap;
+                    flex-direction: reverse-row;
                     align-items: center;
+                    margin-left: 5px;
+                    margin-right: 5px;
                 }
-
-                .retirementRightColumn{
-                    padding-top: 100px;
-                }
-
-                .moneyForRetirementLeftColumn{
-                padding-left: 10px;
-                }
-                .moneyForRetirementRightColumn {
-                    margin-top: 0;              
-                    padding-right: 10px;
-                }
-
+                
                 .retirementResultsBox{
-                    flex:2;
+                    text-align: center;
+                    max-width: 400px;
+                    min-width: 180px;
+                    display: flex;
+                    flex-wrap: wrap;
+                }
+
+                .retirementResultsBox h3{
+                    width: 100%;
                 }
                 
                 input, button, label{

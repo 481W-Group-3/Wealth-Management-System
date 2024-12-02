@@ -37,13 +37,14 @@ const RetirementPage = () => {
       try {
         const fetchedVariables = await fetchRetirementVariables();
         console.log(fetchedVariables);
-
-        /*setCurrentAge(fetchedVariables[0]);                 // 0
-        setRetirementAge(fetchedVariables[1]);              // 1
-        setLifeExpectancy(fetchedVariables[2]);             // 2
-        setPretaxIncome(fetchedVariables[3]);               // 3
-        setYearlyRetirementExpenses(fetchedVariables[4]);   // 4
-        setMoneySaved(fetchedVariables[5]);                 // 5*/
+        if(fetchedVariables != null){
+            setCurrentAge(fetchedVariables[0]);                 // 0
+            setRetirementAge(fetchedVariables[1]);              // 1
+            setLifeExpectancy(fetchedVariables[2]);             // 2
+            setPretaxIncome(fetchedVariables[3]);               // 3
+            setYearlyRetirementExpenses(fetchedVariables[4]);   // 4
+            setMoneySaved(fetchedVariables[5]);                 // 5
+        }
 
       } catch (error) {
         console.error("Failed to fetch previous retirement variables:", error);
@@ -108,7 +109,7 @@ const RetirementPage = () => {
         if(percentage > 100){
             percentage = 100;
         }
-        if(percentage == null){
+        if(percentage == null || isNaN(parseFloat(percentage))){
             percentage = 0;
         }
         if(time > 0){

@@ -5,7 +5,7 @@ import apiClient from './apiClient';
 //Fetch variables
 export const fetchRetirementVariables = async () => {
     try {
-        const response = await apiClient.post('/api/retirement');
+        const response = await apiClient.get('/api/retirement');
         console.log(response);
         return response.data;
     } catch (error) {

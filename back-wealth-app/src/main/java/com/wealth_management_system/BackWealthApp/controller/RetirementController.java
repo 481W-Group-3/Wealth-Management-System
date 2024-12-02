@@ -1,6 +1,6 @@
 package com.wealth_management_system.BackWealthApp.controller;
 
-//import java.security.Principal;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,18 +25,14 @@ import com.wealth_management_system.BackWealthApp.service.RetirementService;
 @RequestMapping("/api/retirement")
 public class RetirementController {
 	
-	private final RetirementService retirementService;
-
-    @Autowired
-    public RetirementController(RetirementService retirementService) {
-        this.retirementService = retirementService;
-    }
+	@Autowired
+	private RetirementService retirementService;
 
     // Create a new retirement record
     @PostMapping("/add")
     @PreAuthorize("isAuthenticated()") 
-    public ResponseEntity<Retirement> createRetirement(@RequestBody Retirement retirement) {
-        Retirement savedRetirement = retirementService.saveRetirement(retirement);
+    public ResponseEntity<Retirement> createRetirement(@RequestBody Retirement retirement, Principal principal) {
+        Retirement savedRetirement = retirementService.saveRetirement(retirement, principal.getName());
         return new ResponseEntity<>(savedRetirement, HttpStatus.CREATED);
     }
 

@@ -12,12 +12,13 @@ export const fetchInvestments = async () => {
     }
 };
 
-export const fetchAssetAllocations = async () => {
+export const fetchAssets = async () => {
     try {
         const response = await apiClient.get('/api/assets'); // Updated endpoint
+        console.log(response);
         return response.data;  // Assuming the API returns the array of assets
     } catch (error) {
-        console.error('Error fetching asset allocations:', error);
+        console.error('Error fetching assets:', error);
         return [];  // Return an empty array if there's an error
     }
 };
@@ -82,6 +83,33 @@ export const deleteAsset = async (id) => {
     } catch (error) {
         console.error('Error deleting asset:', error);
         return false;  // Return false or handle the error as needed
+    }
+};
+
+
+export const fetchMarketPredictions = async () => {
+    try {
+        // const testdata = await apiClient.post('/api/stocks/fetch-data');
+        // console.log("fetch data", testdata);
+        const response = await apiClient.get('/api/stocks');
+        console.log("recent", response);
+        return true;  // Return true on successful delete
+    } catch (error) {
+        console.error('Error fetching market predictions:', error);
+        return false;  // Return false or handle the error as needed
+    }
+};
+
+
+
+export const fetchStockData = async (symbol) => {
+    try {
+        const response = await apiClient.get(`/api/stocks/${symbol}`);
+        console.log("fetched", response)
+        return response.data;  // Returns the specified investment
+    } catch (error) {
+        console.error('Error fetching investments:', error);
+        return [];  // Return an empty array if there's an error
     }
 };
 

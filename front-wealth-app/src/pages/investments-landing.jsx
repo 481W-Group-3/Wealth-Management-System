@@ -1,12 +1,13 @@
 import "./investment-landing.css";
 import InvestmentFields from "../components/investment-fields/investment-fields.jsx";
+import MarketPredictions from "../components/market-predictions/market-predictions.jsx";
 import React, { useState, useEffect } from "react";
 import {
   fetchInvestments,
   fetchInvestmentById,
   addInvestment,
   deleteInvestment as deleteInvestmentService,
-  fetchAssetAllocations,
+  fetchAssets,
   addAsset,
   deleteAsset as deleteAssetService,
 } from "../services/investmentService";
@@ -22,23 +23,25 @@ const InvestmentsLanding = () => {
 
   const [selectedInvestment, setSelectedInvestment] = useState(null);
 
-  // do we need this? principal initial definitely isn't used
   const [newInvestment, setNewInvestment] = useState({
     type: "",
     principalInitial: 0,
     currentValue: 0,
   });
   const [expenses, setExpenses] = useState([]);
-  const [newExpense, setNewExpense] = useState({ description: "", amount: "" });
 
   // Fetch assets and investments from the backend
   useEffect(() => {
     const loadAssetsAndInvestments = async () => {
       try {
-        const fetchedAssets = await fetchAssetAllocations();
+        const fetchedAssets = await fetchAssets();
         const fetchedInvestments = await fetchInvestments();
         console.log(fetchedInvestments);
         console.log(fetchedAssets);
+        for (let object of fetchedAssets) {
+          console.log(object.id);
+          console.log(object.type);
+        }
         setAssets(fetchedAssets);
         setInvestments(fetchedInvestments);
       } catch (error) {
@@ -344,22 +347,9 @@ const InvestmentsLanding = () => {
         </div>
 
         <h2>Market Predictions</h2>
-        {/* Fetch market predictions */}
-        <table>
-          <thead>
-            <tr>
-              <th>Asset Type</th>
-              <th>Prediction</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* Insert market prediction data here*/}
-            <tr>
-              <td>Property</td>
-              <td>The future is bleak</td>
-            </tr>
-          </tbody>
-        </table>
+        <div>
+          <MarketPredictions />
+        </div>
       </div>
     </div>
   );

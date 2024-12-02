@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,9 +26,11 @@ public class Property {
 	private int id;
 	private String address;
 	private double incomeMonthly;
+	private double propertyValue;
 	private String city;
 	private String state;
-	private int zipCode;
+	private String zipCode;
+	private String county;
 	private double taxMonthly;
 	private double insuranceMonthly;
 	private double mortgageMonthly;
@@ -56,16 +60,19 @@ public class Property {
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
+	@JsonIgnoreProperties({"properties", "authorities", "password"}) 
 	private MyUser user;
 	
 	//Constructor
-	public Property(String address, String city, String state, int zipCode, boolean occupied, double incomeMonthly) {
+	public Property(double propertyValue, String address, String city, String state, String county, String zipCode, boolean occupied, double incomeMonthly) {
+		this.propertyValue = propertyValue;
 		this.address = address;
 		this.occupied = occupied;
 		this.incomeMonthly = incomeMonthly;
 		this.city = city;
 		this.state = state;
 		this.zipCode = zipCode;
+		this.county = county;
 		this.maintenanceRecords = new HashSet<>();
 	}
 
@@ -97,7 +104,7 @@ public class Property {
 	
 	//Set city
 	public void setCity(String city) {
-		
+		this.city = city;
 	}
 	
 	//Get state
@@ -111,12 +118,12 @@ public class Property {
 	}
 	
 	//Get zip
-	public int getZipCode() {
+	public String getZipCode() {
 		return zipCode;
 	}
 	
 	//Set zip
-	public void setZipCode(int zipCode) {
+	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
 	
@@ -217,6 +224,22 @@ public class Property {
 	public void setOccupied(boolean occupied) {
 		this.occupied = occupied;
 	}
+
+    public double getPropertyValue() {
+        return propertyValue;
+    }
+
+    public void setPropertyValue(double propertyValue) {
+        this.propertyValue = propertyValue;
+    }
+
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
+    }
 
 	/*
 	//Get renter

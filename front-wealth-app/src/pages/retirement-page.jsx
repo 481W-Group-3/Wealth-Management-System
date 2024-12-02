@@ -8,8 +8,7 @@ import {
   
 /*
     TODO:
-      - Move the results below the calculator
-      - Rework the program to use the "card" system
+    X - Move the results below the calculator
     X - Connect to the backend
       - Store variables in the back end
       - If no record exists for the user, create one before storing
@@ -135,7 +134,7 @@ const RetirementPage = () => {
                     <div className="retirementLeftColumn">
                     <h2 className="inputTitle">Calculate Money Needed for Retirement</h2>
                         <form id="retirementCalculator">
-                        <div className="moneyForRetirementLeftColumn">
+                        <div>
                             <h3>Current Age</h3>
                             <input
                                 type="number"
@@ -144,6 +143,8 @@ const RetirementPage = () => {
                                 min="0"
                                 onChange={(e) => setCurrentAge(e.target.value)}
                             />
+                        </div>
+                        <div>
                             <h3>Expected Retirement Age</h3>
                             <input 
                                 type="number"
@@ -152,6 +153,8 @@ const RetirementPage = () => {
                                 min="0"
                                 onChange={(e) => setRetirementAge(e.target.value)}>
                             </input>
+                        </div>
+                        <div>
                             <h3>Assumed Life Expectancy</h3>
                             <input 
                                 type="number"
@@ -160,6 +163,8 @@ const RetirementPage = () => {
                                 min="0"
                                 onChange={(e) => setLifeExpectancy(e.target.value)}
                             />
+                        </div>
+                        <div>
                             <h3>Current Pre-tax Income</h3>
                             <input 
                                 type="number"
@@ -167,6 +172,8 @@ const RetirementPage = () => {
                                 value={pretaxIncome}
                                 onChange={(e) => setPretaxIncome(e.target.value)}
                             />
+                        </div>
+                        <div>
                             <h3>Current Income Increase "%"</h3>
                             <input 
                                 type="number"
@@ -174,9 +181,10 @@ const RetirementPage = () => {
                                 value={incomeIncrease}
                                 onChange={(e) => setIncomeIncrease(e.target.value)}
                             />
-                            
                         </div>
-                        <div className="moneyForRetirementRightColumn">
+
+                        
+                        <div>
                             <h3>Percent of Income put into Savings "%"</h3>
                             <input 
                                 id="bottomInput"
@@ -186,6 +194,8 @@ const RetirementPage = () => {
                                 min="0"
                                 onChange={(e) => setMoneySaved(e.target.value)}
                             />
+                        </div>
+                        <div>
                             <h3>Current Savings for Retirement</h3>
                             <input 
                                 type="number"
@@ -193,7 +203,8 @@ const RetirementPage = () => {
                                 value={retirementSavings}
                                 onChange={(e) => setRetirementSavings(e.target.value)}
                             />
-                            <br />
+                        </div>
+                        <div>
                             <h3>Expected Yearly Expenses After Retirement</h3>
                             <input 
                                 type="number"
@@ -201,6 +212,8 @@ const RetirementPage = () => {
                                 value={yearlyRetirementExpenses}
                                 onChange={(e) => setYearlyRetirementExpenses(e.target.value)}
                             />
+                        </div>
+                        <div>
                             <h3>Expectated Inflation Rate "%"</h3>
                             <input 
                                 type="number"
@@ -208,9 +221,9 @@ const RetirementPage = () => {
                                 value={expectedInflationRate}
                                 onChange={(e) => setExpectedInflationRate(e.target.value)}
                             />
-                            <br />
-                            
                         </div>
+                            
+                        
                         <button type="button" onClick={retirementCalculator}>Calculate Results</button>
                         </form>
                     </div>
@@ -247,6 +260,7 @@ const RetirementPage = () => {
                 .retirement-container {
                     padding: 20px;
                     max-width: 1200px;
+                    min-width: 340px;
                     margin: 0 auto;
                     background: white;
                     border-radius: 0.5rem;
@@ -265,20 +279,19 @@ const RetirementPage = () => {
                 }
 
                 div {
-                text-align:center;
+                    text-align:center;
                 }
                 
-                inputTitle{
-                text-align:center;
+                .inputTitle{
+                    text-align:center;
+                    padding-top: 20px;
                 }
 
                 .retirementTwoColumns {
-                    
                     gap: 30px;
                     margin-bottom: 30px;
                     margin-left: 50px;
                     margin-right: 50px;
-                    
                 }
 
                 .retirementLeftColumn, .retirementRightColumn {
@@ -287,36 +300,38 @@ const RetirementPage = () => {
                     border-radius: 5px;
                     border-width: 0;
                     min-height: 200px;
-                    max-height: 500px;
+                    max-height: 2000px;
                     background-color: white;
-                    box-shadow: rgba(0, 0, 0, 0.15) 0px 10px 20px;
+                    box-shadow: 0 6px 50px rgba(0, 0, 0, 0.1);
                 }
 
                 .retirementRightColumn{
                     display:flex;
                     flex-wrap: wrap;
-                    flex-direction: reverse-row;
+                    flex-direction: row;
                     padding-top: 10px;
-                    
+                    justify-content: center;
                 }
 
                 .retirementRightColumn div{
                     margin-left: 5px;
                     margin-right: 5px;
                     width: 400px;
+                    align-self: center;
                 }
 
                 #retirementCalculator{
-                    
-                    display:flex;
-                    gap: 30px;
-                    padding-bottom: 25px;
-                }
-                .retirmentLeftColumn form div {
                     display:flex;
                     flex-wrap: wrap;
-                    flex-direction: reverse-row;
-                    align-items: center;
+                    flex-direction: row;
+                    gap: 10px;
+                    padding-bottom: 25px;
+                    justify-content: center;
+                }
+                .retirmentLeftColumn form div {
+
+                    padding-top: 10px;
+                    align-self: center;
                     margin-left: 5px;
                     margin-right: 5px;
                 }
@@ -327,10 +342,15 @@ const RetirementPage = () => {
                     min-width: 180px;
                     display: flex;
                     flex-wrap: wrap;
+                    justify-content: center;
                 }
 
                 .retirementResultsBox h3{
                     width: 100%;
+                }
+
+                .retirementResultsBox div{
+                    width: 160px;
                 }
                 
                 input, button, label{

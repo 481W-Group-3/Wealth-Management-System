@@ -25,7 +25,7 @@ public class AssetServiceImpl implements AssetService {
 
 	//Add an asset
 	@Override
-	// @isAuthenticated
+	//@isAuthenticated
 	public Asset addAsset(Asset asset, String username) {
 		MyUser user = userRepository.findMyUserByUsername(username);
 		asset.setUser(user);
@@ -48,7 +48,7 @@ public class AssetServiceImpl implements AssetService {
 
 	@Override
 	public Asset updateAsset(Asset asset) {
-		Asset existingAsset = assetRepository.findById(asset.id());
+		Asset existingAsset = assetRepository.findById(asset.getId());
 		if(existingAsset != null) {
 			Asset tempAsset = existingAsset;
 			tempAsset.setCurrentValue(asset.getCurrentValue());

@@ -469,14 +469,14 @@ const RealEstatePage = () => {
       </div>
 
     
-      // <div className="flex justify-center mt-8">
-      //   <img src={APINinja} alt={"apiNinja"} style={{ height: "30px", margin: "auto 0" }} />
-      //   <p style={{ margin: "auto 10px" }}>Implementing Api Ninja to find regional property tax rates</p>
-      //   {/*<button onClick={() => handleRedirect()} className="bg-green-500 hover:bg-green-700 text-white font-normal py-2 px-4 rounded">*/}
-      //   {/*  Go to Tax Software*/}
-      //   {/*</button>*/}
-      // </div>
-    // </div>
+      <div className="flex justify-center mt-8">
+        <img src={APINinja} alt={"apiNinja"} style={{ height: "30px", margin: "auto 0" }} />
+        <p style={{ margin: "auto 10px" }}>Implementing Api Ninja to find regional property tax rates</p>
+        {/*<button onClick={() => handleRedirect()} className="bg-green-500 hover:bg-green-700 text-white font-normal py-2 px-4 rounded">*/}
+        {/*  Go to Tax Software*/}
+        {/*</button>*/}
+      </div>
+     </div>
   );
 };
 

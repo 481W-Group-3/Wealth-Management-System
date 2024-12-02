@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,7 +28,7 @@ public class Property {
 	private double incomeMonthly;
 	private String city;
 	private String state;
-	private int zipCode;
+	private String zipCode;
 	private double taxMonthly;
 	private double insuranceMonthly;
 	private double mortgageMonthly;
@@ -56,10 +58,11 @@ public class Property {
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
+	@JsonIgnoreProperties({"properties", "authorities", "password"}) 
 	private MyUser user;
 	
 	//Constructor
-	public Property(String address, String city, String state, int zipCode, boolean occupied, double incomeMonthly) {
+	public Property(String address, String city, String state, String zipCode, boolean occupied, double incomeMonthly) {
 		this.address = address;
 		this.occupied = occupied;
 		this.incomeMonthly = incomeMonthly;
@@ -111,12 +114,12 @@ public class Property {
 	}
 	
 	//Get zip
-	public int getZipCode() {
+	public String getZipCode() {
 		return zipCode;
 	}
 	
 	//Set zip
-	public void setZipCode(int zipCode) {
+	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
 	

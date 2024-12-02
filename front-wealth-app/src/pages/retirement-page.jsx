@@ -1,5 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import FormsForDashboard from '../components/user/FormsForDashboard';
+import {
+    fetchRetirementVariables,
+    storeRetirementVariables,
+    addRetirementRecord,
+  } from "../services/retirementService";
+  
+/*
+    TODO:
+    X - Move the results below the calculator
+    X - Connect to the backend
+      - Store variables in the back end
+      - If no record exists for the user, create one before storing
+      - Call variables from the back end
+      - If life expectancy is below current age or retirement age, send an error and halt calculations.
+      - Add "Years until retirement"
+*/
 
 const RetirementPage = () => {
 
@@ -12,6 +28,56 @@ const RetirementPage = () => {
     const [expectedInflationRate, setExpectedInflationRate] = useState('3');
     const [moneySaved, setMoneySaved] = useState('');
     const [retirementSavings, setRetirementSavings] = useState('');
+
+
+  // Fetch assets and investments from the backend
+  useEffect(() => {
+    const loadRetirementVariables = async () => {
+      try {
+        const fetchedVariables = await fetchRetirementVariables();
+        console.log("output of fetched: " + fetchedVariables);
+        if(fetchedVariables != null){
+            setCurrentAge(fetchedVariables[0]);                 // 0
+            setRetirementAge(fetchedVariables[1]);              // 1
+            setLifeExpectancy(fetchedVariables[2]);             // 2
+            setPretaxIncome(fetchedVariables[3]);               // 3
+            setYearlyRetirementExpenses(fetchedVariables[4]);   // 4
+            setMoneySaved(fetchedVariables[5]);                 // 5
+        }
+
+      } catch (error) {
+        console.error("Failed to fetch previous retirement variables:", error);
+      }
+    };
+
+    loadRetirementVariables();
+  }, []);
+
+    const updateBackendAndCalculator = async () => {
+        //Logical Verifications
+        if(retirementAge < currentAge){
+           alert("Retirement Age is set lower than Current Age");
+        }
+        else if(retirementAge > lifeExpectancy|| currentAge > lifeExpectancy){
+            alert("Retirement Age or Current Age is greater than your life expectancy!");
+        }
+        else{
+            //Update or Add variables to backend
+            const storedData = {currentAge, retirementAge, lifeExpectancy, pretaxIncome, yearlyRetirementExpenses, moneySaved}
+            const fetchedVariables = await fetchRetirementVariables();
+            console.log("fetched variables 2: "+ fetchedVariables);
+            if (fetchedVariables != null){
+                //store variables
+                await storeRetirementVariables(0, storedData);
+            }
+            else{
+                //add record to store variables
+                await addRetirementRecord(storedData, 0);
+            }
+
+            retirementCalculator();
+        }
+    }
 
     //Calculations
     const retirementCalculator = () => {
@@ -67,7 +133,7 @@ const RetirementPage = () => {
         if(percentage > 100){
             percentage = 100;
         }
-        if(percentage == null){
+        if(percentage == null || isNaN(parseFloat(percentage))){
             percentage = 0;
         }
         if(time > 0){
@@ -91,9 +157,9 @@ const RetirementPage = () => {
              <div className="retirementContent">
                 <div className="retirementTwoColumns">
                     <div className="retirementLeftColumn">
-                    <h2>Calculate Money Needed for Retirement</h2>
+                    <h2 className="inputTitle">Calculate Money Needed for Retirement</h2>
                         <form id="retirementCalculator">
-                        <div className="moneyForRetirementLeftColumn">
+                        <div>
                             <h3>Current Age</h3>
                             <input
                                 type="number"
@@ -102,6 +168,8 @@ const RetirementPage = () => {
                                 min="0"
                                 onChange={(e) => setCurrentAge(e.target.value)}
                             />
+                        </div>
+                        <div>
                             <h3>Expected Retirement Age</h3>
                             <input 
                                 type="number"
@@ -110,6 +178,8 @@ const RetirementPage = () => {
                                 min="0"
                                 onChange={(e) => setRetirementAge(e.target.value)}>
                             </input>
+                        </div>
+                        <div>
                             <h3>Assumed Life Expectancy</h3>
                             <input 
                                 type="number"
@@ -118,6 +188,8 @@ const RetirementPage = () => {
                                 min="0"
                                 onChange={(e) => setLifeExpectancy(e.target.value)}
                             />
+                        </div>
+                        <div>
                             <h3>Current Pre-tax Income</h3>
                             <input 
                                 type="number"
@@ -125,6 +197,8 @@ const RetirementPage = () => {
                                 value={pretaxIncome}
                                 onChange={(e) => setPretaxIncome(e.target.value)}
                             />
+                        </div>
+                        <div>
                             <h3>Current Income Increase "%"</h3>
                             <input 
                                 type="number"
@@ -132,9 +206,10 @@ const RetirementPage = () => {
                                 value={incomeIncrease}
                                 onChange={(e) => setIncomeIncrease(e.target.value)}
                             />
-                            
                         </div>
-                        <div className="moneyForRetirementRightColumn">
+
+                        
+                        <div>
                             <h3>Percent of Income put into Savings "%"</h3>
                             <input 
                                 id="bottomInput"
@@ -144,6 +219,8 @@ const RetirementPage = () => {
                                 min="0"
                                 onChange={(e) => setMoneySaved(e.target.value)}
                             />
+                        </div>
+                        <div>
                             <h3>Current Savings for Retirement</h3>
                             <input 
                                 type="number"
@@ -151,7 +228,8 @@ const RetirementPage = () => {
                                 value={retirementSavings}
                                 onChange={(e) => setRetirementSavings(e.target.value)}
                             />
-                            <br />
+                        </div>
+                        <div>
                             <h3>Expected Yearly Expenses After Retirement</h3>
                             <input 
                                 type="number"
@@ -159,6 +237,8 @@ const RetirementPage = () => {
                                 value={yearlyRetirementExpenses}
                                 onChange={(e) => setYearlyRetirementExpenses(e.target.value)}
                             />
+                        </div>
+                        <div>
                             <h3>Expectated Inflation Rate "%"</h3>
                             <input 
                                 type="number"
@@ -166,25 +246,36 @@ const RetirementPage = () => {
                                 value={expectedInflationRate}
                                 onChange={(e) => setExpectedInflationRate(e.target.value)}
                             />
-                            <br />
-                            <button type="button" onClick={retirementCalculator}>Calculate Results</button>
                         </div>
+                            
+                        
+                        <button type="button" onClick={updateBackendAndCalculator}>Calculate Results</button>
                         </form>
                     </div>
+                    
                     <div className ="retirementRightColumn">
-                        <h3>Total Money Needed for Retirement</h3>
-                        <label id="retirementCalcTotalAmount">$0</label>
+                        <div>
+                            <h3>Total Money Needed for Retirement</h3>
+                            <label id="retirementCalcTotalAmount">$0</label>
+                        </div>
+                        <div>
+                            <h3>Money Saved by retirement</h3>
+                            <label id="retirementCalcMoneyInvested">$0</label>
+                        </div>
                         
-                        <h3>Money Saved by retirement</h3>
-                        <label id="retirementCalcMoneyInvested">$0</label>
                         
-                        <h3>Savings Still Needed for Retirement</h3>
-                        <div className="retirementResultsBox">
-                            <h3>Yearly</h3>
-                            <label id="retirementCalcPercentageNeededYearly">$0</label>
-                            <h3>Monthly</h3>
-                            <label id="retirementCalcPercentageNeededMonthly">$0</label>
-
+                        <div>
+                            <h3>Savings Still Needed for Retirement</h3>
+                            <div className="retirementResultsBox">
+                            <div>
+                                <h3>Yearly</h3>
+                                <label id="retirementCalcPercentageNeededYearly">$0</label>
+                            </div>
+                            <div>
+                                <h3>Monthly</h3>
+                                <label id="retirementCalcPercentageNeededMonthly">$0</label>
+                            </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -194,6 +285,7 @@ const RetirementPage = () => {
                 .retirement-container {
                     padding: 20px;
                     max-width: 1200px;
+                    min-width: 340px;
                     margin: 0 auto;
                     background: white;
                     border-radius: 0.5rem;
@@ -212,54 +304,78 @@ const RetirementPage = () => {
                 }
 
                 div {
-                text-align:center;
+                    text-align:center;
+                }
+                
+                .inputTitle{
+                    text-align:center;
+                    padding-top: 20px;
                 }
 
                 .retirementTwoColumns {
-                     display: flex;
-                     gap: 30px;
-                     margin-bottom: 30px;
+                    gap: 30px;
+                    margin-bottom: 30px;
                     margin-left: 50px;
                     margin-right: 50px;
-                    
                 }
 
                 .retirementLeftColumn, .retirementRightColumn {
-                    flex: 1;
                     align-items: center;
                     border-style: solid;
                     border-radius: 5px;
                     border-width: 0;
-                    height: 500px;
+                    min-height: 200px;
+                    max-height: 2000px;
                     background-color: white;
                     box-shadow: 0 6px 50px rgba(0, 0, 0, 0.1);
                 }
 
-                #retirementCalculator{
-                    
+                .retirementRightColumn{
                     display:flex;
-                    gap: 30px;
+                    flex-wrap: wrap;
+                    flex-direction: row;
+                    padding-top: 10px;
+                    justify-content: center;
+                }
+
+                .retirementRightColumn div{
+                    margin-left: 5px;
+                    margin-right: 5px;
+                    width: 400px;
+                    align-self: center;
+                }
+
+                #retirementCalculator{
+                    display:flex;
+                    flex-wrap: wrap;
+                    flex-direction: row;
+                    gap: 10px;
                     padding-bottom: 25px;
+                    justify-content: center;
                 }
                 .retirmentLeftColumn form div {
-                    flex: 1;
-                    align-items: center;
-                }
 
-                .retirementRightColumn{
-                    padding-top: 100px;
+                    padding-top: 10px;
+                    align-self: center;
+                    margin-left: 5px;
+                    margin-right: 5px;
                 }
-
-                .moneyForRetirementLeftColumn{
-                padding-left: 10px;
-                }
-                .moneyForRetirementRightColumn {
-                    margin-top: 0;              
-                    padding-right: 10px;
-                }
-
+                
                 .retirementResultsBox{
-                    flex:2;
+                    text-align: center;
+                    max-width: 400px;
+                    min-width: 180px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                }
+
+                .retirementResultsBox h3{
+                    width: 100%;
+                }
+
+                .retirementResultsBox div{
+                    width: 160px;
                 }
                 
                 input, button, label{

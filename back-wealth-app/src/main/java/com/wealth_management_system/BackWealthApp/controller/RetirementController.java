@@ -29,7 +29,7 @@ public class RetirementController {
 	private RetirementService retirementService;
 
     // Create a new retirement record
-    @PostMapping
+    @PostMapping("/add")
     @PreAuthorize("isAuthenticated()") 
     public ResponseEntity<Retirement> createRetirement(@RequestBody Retirement retirement, Principal principal) {
         Retirement savedRetirement = retirementService.saveRetirement(retirement, principal.getName());

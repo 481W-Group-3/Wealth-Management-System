@@ -295,7 +295,6 @@ const RealEstatePage = () => {
                       <tr className="bg-gray-100">
                         <th className="px-4 py-2 text-gray-600 font-medium">Address</th>
                         <th className="px-4 py-2 text-gray-600 font-medium">Monthly Income</th>
-                        <th className="px-4 py-2 text-gray-600 font-medium">Status</th>
                         <th className="px-4 py-2 text-gray-600 font-medium">Lease Info</th>
                         <th className="px-4 py-2 text-gray-600 font-medium">Action</th>
                       </tr>
@@ -306,7 +305,6 @@ const RealEstatePage = () => {
                             <tr className="hover:bg-gray-50">
                               <td className="border-b px-4 py-2">{property.address}</td>
                               <td className="border-b px-4 py-2">${calculateMonthlyIncome(property.id)}</td>
-                              <td className="border-b px-4 py-2">{property.occupied ? 'Occupied' : 'Vacant'}</td>
                               <td className="border-b px-4 py-2 text-center">
                                 <button onClick={() => toggleLeaseView(property.id)}
                                         className="bg-blue-500 hover:bg-blue-700 text-white font-normal py-1 px-2 rounded">

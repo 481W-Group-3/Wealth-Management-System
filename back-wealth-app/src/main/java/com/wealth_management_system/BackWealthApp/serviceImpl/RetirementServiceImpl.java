@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.wealth_management_system.BackWealthApp.domain.Investment;
 import com.wealth_management_system.BackWealthApp.domain.MyUser;
 import com.wealth_management_system.BackWealthApp.domain.Retirement;
 import com.wealth_management_system.BackWealthApp.repositry.RetirementRepository;
@@ -33,7 +34,7 @@ public class RetirementServiceImpl implements RetirementService{
     public Optional<Retirement> getRetirementById(int id) {
         return retirementRepository.findById(id);
     }
-
+    
     @Override
     public List<Retirement> getAllRetirements() {
         return retirementRepository.findAll();

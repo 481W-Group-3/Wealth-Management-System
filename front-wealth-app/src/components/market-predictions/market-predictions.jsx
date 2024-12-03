@@ -146,29 +146,29 @@ const MarketPredictions = () => {
 
           // data points for graph
           datasets.push(
+            // graph with solid line for past data
+            {
+              label: `${symbol}`,
+              data: sortedPrices.slice(
+                // only show the most recent 14 days
+                sortedPrices.length - 14,
+                sortedPrices.length
+              ),
+              borderColor: predefinedColors[stockSymbols.indexOf(symbol)],
+              fill: false,
+            },
             // graph with dotted line for predictions
             {
               label: `Predictions`,
               data: allPrices.slice(
-              // only show the most recent 14 days and 5 predictions
-              sortedPrices.length - 14,
-              allPrices.length
-            ),
-            borderColor: predefinedColors[stockSymbols.indexOf(symbol)],
-            borderDash: [5, 5], 
-            fill: false,
-          },
-          // graph with solid line for past data
-          {
-            label: `${symbol}`,
-            data: sortedPrices.slice(
-              // only show the most recent 14 days
-              sortedPrices.length - 14,
-              sortedPrices.length
-            ),
-            borderColor: predefinedColors[stockSymbols.indexOf(symbol)],
-            fill: false,
-          }
+                // only show the most recent 14 days and 5 predictions
+                sortedPrices.length - 14,
+                allPrices.length
+              ),
+              borderColor: predefinedColors[stockSymbols.indexOf(symbol)],
+              borderDash: [5, 5],
+              fill: false,
+            }
           );
         } catch (err) {
           console.error("Error fetching data for", symbol, err);

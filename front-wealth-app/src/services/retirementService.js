@@ -16,6 +16,7 @@ export const fetchRetirementVariables = async () => {
 
 //Updates and Stores variables
 export const storeRetirementVariables = async (id, retirement) => {
+    console.log(id, retirement);
     try {
         const response = await apiClient.put(`/api/retirement/${id}`, retirement);
         return response.data;

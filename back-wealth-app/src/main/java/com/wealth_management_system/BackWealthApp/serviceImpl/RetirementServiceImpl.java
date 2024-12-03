@@ -34,7 +34,7 @@ public class RetirementServiceImpl implements RetirementService{
     public Optional<Retirement> getRetirementById(int id) {
         return retirementRepository.findById(id);
     }
-    
+
     @Override
     public List<Retirement> getAllRetirements() {
         return retirementRepository.findAll();

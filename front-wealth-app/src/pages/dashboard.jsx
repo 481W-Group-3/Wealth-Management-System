@@ -18,23 +18,22 @@ const HomePage = () => {
     const cardData = [
         {
             title: 'Real Estate (Rental)',
-            description: 'Manage your income, Expense, Lease Tracking and more',
+            description: 'Manage your income, expenses, lease tracking, and more',
             link: '/real-estate',
             icon: '🏠'
         },
         {
             title: 'Investment Accounts',
-            description: 'Manage Asset allocation, potential market predictions, and rebalance your accounts.',
+            description: 'Manage asset allocation, potential market predictions, and rebalance your accounts',
             link: '/investments',
             icon: '📈'
         },
         {
-            title: 'Retirement Accounts',
-            description: 'Plan for your future with retirement account management',
+            title: 'Retirement Calculator',
+            description: 'Plan for your future with our retirement calculator',
             link: '/retirement',
             icon: '🕰️'
         }
-        // {title: 'Tax Software', description: 'Simplify your tax preparation process', link: '/taxes', icon: '💼'}
     ];
 
     return (

@@ -141,32 +141,21 @@ const MarketPredictions = () => {
           const allPrices = [...sortedPrices, ...predictedPrices];
 
           // use dates as labels
-          // only show the most recent 14 days
-          labels = allDates.slice(allDates.length - 19, allDates.length);
+          labels = allDates;
 
           // data points for graph
           datasets.push(
             // graph with solid line for past data
             {
               label: `${symbol}`,
-              data: allPrices.slice(allPrices.length-19, allPrices.length-5),
-              // data: sortedPrices.slice(
-              //   // only show the most recent 14 days
-              //   sortedPrices.length - 14,
-              //   sortedPrices.length
-              // ),
+              data: sortedPrices,
               borderColor: predefinedColors[stockSymbols.indexOf(symbol)],
               fill: false,
             },
             // graph with dotted line for predictions
             {
               label: `Predictions`,
-              data: allPrices.slice(allPrices.length-19, allPrices.length),
-              // data: allPrices.slice(
-              //   // only show the most recent 14 days and 5 predictions
-              //   sortedPrices.length - 14,
-              //   allPrices.length
-              // ),
+              data: allPrices,
               borderColor: predefinedColors[stockSymbols.indexOf(symbol)],
               borderDash: [5, 5],
               fill: false,

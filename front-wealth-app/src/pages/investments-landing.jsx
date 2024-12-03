@@ -214,8 +214,7 @@ const InvestmentsLanding = () => {
                   <th>Name</th>
                   <th>Type</th>
                   <th>Returns ($)</th>
-                  <th>Action</th>
-                  <th></th>
+                  <th className="action-column">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -226,37 +225,36 @@ const InvestmentsLanding = () => {
                       <td>{investment.type}</td>
                       <td>${formatNumber(investment.returns) || 0}</td>
                       <td>
-                        <button
-                          onClick={() => deleteInvestment(investment.id)}
-                          className="delete-btn"
-                        >
-                          Delete
-                        </button>
-                      </td>
-                      <td>
-                        <button
-                          onClick={() => handleDetailToggle(investment.id)}
-                          className="details-btn"
-                        >
-                          More Details
-                        </button>
+                        <div className="button-group">
+                          <button
+                            onClick={() => handleDetailToggle(investment.id)}
+                            className="details-btn"
+                          >
+                            More Details
+                          </button>
+                          <button
+                            onClick={() => deleteInvestment(investment.id)}
+                            className="delete-btn"
+                          >
+                            Delete
+                          </button>
+                        </div>
                       </td>
                     </tr>
-                    {selectedInvestment &&
-                      selectedInvestment.id === investment.id && (
-                        <tr className="investment-details">
-                          <td colSpan="5">
-                            {attributeMapping[selectedInvestment.type]?.map(
-                              (field) => (
-                                <p key={field}>
-                                  {formatFieldName(field)}: $
-                                  {formatNumber(selectedInvestment[field])}
-                                </p>
-                              )
-                            )}
-                          </td>
-                        </tr>
-                      )}
+                    {selectedInvestment && selectedInvestment.id === investment.id && (
+                      <tr className="investment-details">
+                        <td colSpan="4">
+                          {attributeMapping[selectedInvestment.type]?.map(
+                            (field) => (
+                              <p key={field}>
+                                {formatFieldName(field)}: $
+                                {formatNumber(selectedInvestment[field])}
+                              </p>
+                            )
+                          )}
+                        </td>
+                      </tr>
+                    )}
                   </React.Fragment>
                 ))}
               </tbody>
@@ -315,7 +313,7 @@ const InvestmentsLanding = () => {
                   <th>Asset Type</th>
                   <th>Allocation (%)</th>
                   <th>Current Value ($)</th>
-                  <th>Action</th>
+                  <th className="action-column">Action</th>
                 </tr>
               </thead>
               <tbody>

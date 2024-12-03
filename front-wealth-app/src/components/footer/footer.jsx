@@ -7,17 +7,15 @@ const Footer = () => {
             <div className={"page-container"}>
                 <div className="footer-container">
                     <nav className="footer-content">
-                        <h3>Quick Links</h3>
                         <a href="/"><p>Home</p></a>
-                        <a href="/about"><p>About</p></a>
-                        <a href="/services"><p>Services</p></a>
-                        <a href="/contact"><p>Contact</p></a>
+                        <a href="/dashboard"><p>Dashboard</p></a>
                     </nav>
                     <div className="footer-content">
                         <h3>Contact Us</h3>
+                        <hr />
                         <p>Email: support@money-mentor.com</p>
                         <p>Phone: (123) 456-7890</p>
-                        <p>Address: 123 Main St, Anytown, USA 12345</p>
+                        <p>Eastern Michigan University, Ypsilanti, MI 48197</p>
                     </div>
                 </div>
             </div>

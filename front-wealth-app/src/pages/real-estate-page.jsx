@@ -11,7 +11,10 @@ import {
   deleteLease,
   updateProperty,
   calculatePropertyTax,
-  calculateIndividualPropertyTax
+  calculateIndividualPropertyTax,
+  addExpense,
+  listAllExpenses,
+  deleteExpense
 } from '../services/propertyauth';
 
 import APINinja from "../assets/apininjas_logo.png";
@@ -26,7 +29,7 @@ const RealEstatePage = () => {
   const [properties, setProperties] = useState([]);
   const [newProperty, setNewProperty] = useState({ address: '', incomeMonthly: '', occupied: false, city: '', state: '', zipcode: '', propertyValue: '' });
   const [expenses, setExpenses] = useState([]);
-  const [newExpense, setNewExpense] = useState({ description: '', amount: '' });
+  const [newExpense, setNewExpense] = useState({ description: '', amount: '', propertyId: '' });
   const [newLease, setNewLease] = useState({ startDate: '', endDate: '', tenantName: '', paymentMonthly: '', rentDueDay: '' });
   const [viewingLeaseForProperty, setViewingLeaseForProperty] = useState(null);
   const [editingLease, setEditingLease] = useState(null);
@@ -74,6 +77,20 @@ const RealEstatePage = () => {
     fetchProperties();
   }, []);
 
+  useEffect(() => {
+    const fetchExpenses = async () => {
+      try {
+        const allExpenses = await listAllExpenses();
+        setExpenses(allExpenses || []);
+      } catch (error) {
+        console.error('Error fetching expenses:', error);
+        setErrorMessage('Failed to fetch expenses. Please try again.');
+      }
+    };
+
+    fetchExpenses();
+  }, []);
+
   const handleAddProperty = async (e) => {
     e.preventDefault();
     try {
@@ -104,14 +121,28 @@ const RealEstatePage = () => {
     }
   };
 
-  const handleAddExpense = (e) => {
+  const handleAddExpense = async (e) => {
     e.preventDefault();
-    setExpenses([...expenses, { ...newExpense, id: expenses.length + 1, amount: Number(newExpense.amount) }]);
-    setNewExpense({ description: '', amount: '' });
+    try {
+      const addedExpense = await addExpense(newExpense);
+      setExpenses([...expenses, addedExpense]);
+      setNewExpense({ description: '', amount: '', propertyId: '' });
+      setErrorMessage('');
+    } catch (error) {
+      console.error('Error adding expense:', error);
+      setErrorMessage('Failed to add expense. Please try again.');
+    }
   };
 
-  const handleDeleteExpense = (id) => {
-    setExpenses(expenses.filter(expense => expense.id !== id));
+  const handleDeleteExpense = async (id) => {
+    try {
+      await deleteExpense(id);
+      setExpenses(expenses.filter(expense => expense.id !== id));
+      setErrorMessage('');
+    } catch (error) {
+      console.error('Error deleting expense:', error);
+      setErrorMessage('Failed to delete expense. Please try again.');
+    }
   };
 
   const toggleLeaseView = (propertyId) => {
@@ -289,7 +320,7 @@ const RealEstatePage = () => {
               {properties.length === 0 ? (
                   <EmptyState message="No Properties"/>
               ) : (
-                  <div className="rounded-lg overflow-hidden">
+                  <div className="rounded-lg overflow-x-auto">
                     <table className="w-full table-auto">
                       <thead>
                       <tr className="bg-gray-100">
@@ -417,9 +448,23 @@ const RealEstatePage = () => {
                 {
                   name: 'amount',
                   label: 'Amount',
-                  type: 'number',
+                  type: 'number', 
                   value: newExpense.amount,
                   onChange: (e) => setNewExpense({ ...newExpense, amount: e.target.value })
+                },
+                {
+                  name: 'propertyId',
+                  label: 'Property',
+                  type: 'select',
+                  value: newExpense.propertyId,
+                  onChange: (e) => setNewExpense({ ...newExpense, propertyId: e.target.value }),
+                  options: [
+                    { value: '', label: 'General expense' },
+                    ...properties.map(property => ({
+                      value: property.id,
+                      label: property.address
+                    }))
+                  ]
                 }
               ]}
               submitButtonText="Add Expense"
@@ -434,12 +479,13 @@ const RealEstatePage = () => {
               {expenses.length === 0 ? (
                 <EmptyState message="No Expenses" />
               ) : (
-                <div className="rounded-lg overflow-hidden">
+                <div className="rounded-lg overflow-x-auto">
                   <table className="w-full table-auto">
                     <thead>
                       <tr className="bg-gray-100">
                         <th className="px-4 py-2 text-gray-600 font-medium">Description</th>
                         <th className="px-4 py-2 text-gray-600 font-medium">Amount</th>
+                        <th className="px-4 py-2 text-gray-600 font-medium">Property</th>
                         <th className="px-4 py-2 text-gray-600 font-medium">Action</th>
                       </tr>
                     </thead>
@@ -448,8 +494,14 @@ const RealEstatePage = () => {
                         <tr key={expense.id} className="hover:bg-gray-50">
                           <td className="border-b px-4 py-2">{expense.description}</td>
                           <td className="border-b px-4 py-2">${expense.amount}</td>
+                          <td className="border-b px-4 py-2">
+                            {expense.propertyId 
+                              ? properties.find(p => p.id === expense.propertyId)?.address || 'Unknown'
+                              : 'General expense'}
+                          </td>
                           <td className="border-b px-4 py-2 text-center">
-                            <button onClick={() => handleDeleteExpense(expense.id)}
+                            <button 
+                              onClick={() => handleDeleteExpense(expense.id)}
                               className="bg-red-500 hover:bg-red-700 text-white font-normal py-1 px-2 rounded">
                               Remove
                             </button>

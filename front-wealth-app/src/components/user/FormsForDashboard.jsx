@@ -14,6 +14,7 @@ const FormCards = ({
   forgotPasswordLink,
   createAccountLink
 }) => {
+
   return (
     <div className="w-full h-full flex flex-col">
       <div className="w-full flex-grow relative overflow-hidden rounded-lg" style={{ backgroundColor: '#dbdbdb' }}>
@@ -70,6 +71,19 @@ const FormCards = ({
                       />
                       <span className="text-sm text-gray-700">{field.label}</span>
                     </label>
+                  ) : field.type === 'select' ? (
+                    <select
+                      name={field.name}
+                      value={field.value}
+                      onChange={field.onChange}
+                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white"
+                    >
+                      {field.options.map(option => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
                   ) : (
                     <input
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white"

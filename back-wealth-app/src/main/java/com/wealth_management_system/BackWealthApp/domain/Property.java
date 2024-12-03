@@ -1,11 +1,12 @@
 package com.wealth_management_system.BackWealthApp.domain;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -46,11 +47,12 @@ public class Property {
 	@OneToMany(mappedBy = "property")
 	private Set<Renter> renter;
 	
-	@OneToMany(mappedBy = "property")
-    private List<Lease> leases;
+	//delete maintenance records and leases attached to property
+	@OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Lease> leases = new ArrayList<>();
 	private double revenue = incomeMonthly-taxMonthly-insuranceMonthly-mortgageMonthly;
-	@OneToMany(mappedBy = "property")
-    private Set<Maintenance> maintenanceRecords;
+	@OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Maintenance> maintenanceRecords = new ArrayList<>();
 	
 	/*
 	@ManyToOne
@@ -73,7 +75,7 @@ public class Property {
 		this.state = state;
 		this.zipCode = zipCode;
 		this.county = county;
-		this.maintenanceRecords = new HashSet<>();
+		this.maintenanceRecords = new ArrayList<>();
 	}
 
 

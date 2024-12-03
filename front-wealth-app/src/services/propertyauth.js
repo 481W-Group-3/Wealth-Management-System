@@ -147,3 +147,47 @@ export const calculateIndividualPropertyTax = async (propertyValue, state, count
         throw error;
     }
 }
+
+// Add a maintenance/expense
+export const addExpense = async (expenseData) => {
+    try {
+        const maintenanceData = {
+            descr: expenseData.description,
+            costTotal: expenseData.amount,
+            property: expenseData.propertyId ? { id: expenseData.propertyId } : null
+        };
+        const response = await apiClient.post('/api/maintenance/log', maintenanceData);
+        return {
+            id: response.data.id,
+            description: response.data.descr,
+            amount: response.data.costTotal,
+            propertyId: response.data.property?.id || null
+        };
+    } catch (error) {
+        throw error;
+    }
+};
+
+// List all maintenance/expenses
+export const listAllExpenses = async () => {
+    try {
+        const response = await apiClient.get('/api/maintenance/list');
+        return response.data.map(maintenance => ({
+            id: maintenance.id,
+            description: maintenance.descr,
+            amount: maintenance.costTotal,
+            propertyId: maintenance.property?.id || null
+        }));
+    } catch (error) {
+        throw error;
+    }
+};
+
+// Delete a maintenance/expense
+export const deleteExpense = async (expenseId) => {
+    try {
+        await apiClient.delete(`/api/maintenance/delete/${expenseId}`);
+    } catch (error) {
+        throw error;
+    }
+};

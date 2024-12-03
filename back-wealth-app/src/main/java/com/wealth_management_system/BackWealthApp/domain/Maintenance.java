@@ -1,10 +1,13 @@
 package com.wealth_management_system.BackWealthApp.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jdk.jfr.DataAmount;
-import java.util.*;
-
-import org.springframework.data.annotation.Transient;
 
 @Entity
 @Table(name = "maintenance")
@@ -24,19 +27,21 @@ public class Maintenance {
 	//private Date dateComplete;
 	
 	
-	@Transient
 	 @ManyToOne
 	 @JoinColumn(name = "property_id") // Foreign key column
 	 private Property property;
-//	
+
 	//Constructor
-	public Maintenance(String descr,Property property) {
+	public Maintenance(String descr) {
 		this.descr = descr;
 		//this.dateStarted = dateStarted;
 		//this.property = property;
-		this.property = property;
 	}
 
+	public Maintenance() {
+		this.descr = "no argument constructor";
+		this.property = null;
+	}
 	
 	//Get id
 	public int getId() {
@@ -118,19 +123,6 @@ public class Maintenance {
 	//Set the date of completion
 	public void setDateComplete(Date dateComplete) {
 		this.dateComplete = dateComplete;
-	}
-	*/
-	
-
-	/*
-	//Get the property where the work was done
-	public Property getProperty() {
-		return property;
-	}
-	
-	//Set the property where the work was done
-	public void setProperty(Property property) {
-		this.property = property;
 	}
 	*/
 

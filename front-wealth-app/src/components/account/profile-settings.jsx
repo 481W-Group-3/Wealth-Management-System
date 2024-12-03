@@ -13,6 +13,8 @@ import FormCards from '../user/FormsForDashboard.jsx';
 import welcomeImage from "../user/images/gradient.jpg";
 import UploadSVG from "../../assets/upload.svg?react";
 import {useDropzone} from "react-dropzone";
+import AdminView from "./admin-view.jsx";
+import {useLocation, Link} from "react-router-dom";
 
 
 const ProfileSettings = () => {
@@ -24,8 +26,6 @@ const ProfileSettings = () => {
     // const [newUsername, setNewUsername] = useState("");
     const [newEmail, setNewEmail] = useState("");
     const [imageSrc, setImageSrc] = useState(null);
-
-    console.log(error);
 
     const loadProfile = async () => {
         try {
@@ -129,7 +129,7 @@ const ProfileSettings = () => {
         toggleProfileEdit();
         loadProfile();
     }
-    
+
     // const byteToBase64 = (buffer) => {
     //     let binary ='';
     //     let bytes = new Uint8Array(buffer);
@@ -138,7 +138,7 @@ const ProfileSettings = () => {
     //     }
     //     return window.btoa(binary);
     // }
-    
+
     // const onDrop = useCallback((acceptedFiles) => {
     //     acceptedFiles.forEach((file) => {
     //         const reader = new FileReader()
@@ -161,7 +161,7 @@ const ProfileSettings = () => {
     //     })
     //
     // }, [])
-    
+
     // const {getRootProps, getInputProps} = useDropzone({onDrop})
 
     return (
@@ -213,12 +213,12 @@ const ProfileSettings = () => {
                     <h2>Upload Image</h2>
                     {/*<div {...getRootProps()} className={"image-upload"}>*/}
                     {/*    <input {...getInputProps()} />*/}
-                        <img src={UploadSVG} alt="upload"/>
+                    <img src={UploadSVG} alt="upload"/>
                     {/*</div>*/}
                     <button onClick={toggleImageUpload}> Exit</button>
                 </div>
             </div>
-            <div className={"profile-title"}>
+            <div className={"profile-title admin-title"}>
                 <h1>User List</h1>
                 <p>Admin Feature</p>
             </div>
@@ -240,7 +240,14 @@ const ProfileSettings = () => {
                             {userList.map((user) => (
                                 <tr key={user.id} className={"admin-feature"}>
                                     <td><p> {user.id}</p></td>
-                                    <td><p> {user.username}</p></td>
+                                    <td>
+                                        <Link to={{
+                                            pathname: `/profile/${user.id}`,
+                                            state: {from: user.id},
+                                        }}>
+                                            <p> {user.username}</p>
+                                        </Link>
+                                    </td>
                                     <td><p> {user.email}</p></td>
                                     <td><p> {user.role}</p></td>
                                     <td>

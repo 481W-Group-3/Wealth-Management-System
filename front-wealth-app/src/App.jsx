@@ -14,6 +14,7 @@ import RetirementPage from './pages/retirement-page.jsx';
 import ProtectedRoute from './components/ProtectedRoute';
 import UserPage from "./pages/user-page.jsx"; 
 import TaxSoftwarePage from "./pages/tax-software-page.jsx";
+import ViewUseDetailsPage from "./pages/view-use-details-page.jsx";
 
 function App() {
     return (
@@ -33,6 +34,7 @@ function App() {
                         <Route path="/real-estate" element={<ProtectedRoute><RealEstatePage /></ProtectedRoute>} />
                         <Route path="/investments" element={<ProtectedRoute><InvestmentsLanding /></ProtectedRoute>} />
                         <Route path="/profile-settings" element={<ProtectedRoute><UserPage/></ProtectedRoute>} />
+                        <Route path="/profile/:id" element={<ProtectedRoute><ViewUseDetailsPage/></ProtectedRoute>} />
                         <Route path="/test" element={<ProtectedRoute><TestComponent /></ProtectedRoute>} />
                         <Route path="/logout" element={<ProtectedRoute><LogoutPage /></ProtectedRoute>} />
                         <Route path="/retirement" element={<ProtectedRoute><RetirementPage /></ProtectedRoute>} />

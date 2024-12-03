@@ -10,11 +10,14 @@ import com.wealth_management_system.BackWealthApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/properties")
@@ -57,7 +60,15 @@ public class PropertyController {
         List<Property> properties = propertyService.listAllProperties(principal.getName());
         return ResponseEntity.ok(properties);
     }
-    
+
+    @GetMapping("/admin-list/{id}")
+    public List<Property> listUserProperties(@PathVariable int id, Authentication authentication) {
+        System.out.println("Getting the property details: " + id);
+        if (!authentication.getAuthorities().toString().contains("ADMIN"))
+            return null;
+        List<Property> properties = propertyService.listAllProperties(userService.getUserById(id).getUsername());
+        return properties;
+    }
     //Add a property to a user
     /*
     @GetMapping("{userId}/")

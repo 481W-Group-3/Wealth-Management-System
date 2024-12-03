@@ -5,6 +5,7 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,10 +24,8 @@ import java.util.Map;
 @RequestMapping(path = "/user")
 public class UserController {
 
-
     @Autowired
     private UserService userService;
-
 
     @PostMapping("/test")
     public String testConnection() {
@@ -44,9 +43,21 @@ public class UserController {
         map.put("role", user.getRole());
 
         System.out.println("Getting the details: " + user.getUsername() + " " + user.getEmail() + " " + user.getRole());
+        return map;
+    }
 
-//			model.addAttribute("user", user);
+    @GetMapping("/details/{id}")
+    public Map<String, String> getUserDetailData(@PathVariable int id, Authentication authentication) {
+        System.out.println("Getting the details: " + id);
+        if (!authentication.getAuthorities().toString().contains("ADMIN"))
+            return null;
+        MyUser user = userService.getUserById(id);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("username", user.getUsername());
+        map.put("email", user.getEmail());
+        map.put("role", user.getRole());
 
+        System.out.println("Getting the details: " + user.getUsername() + " " + user.getEmail() + " " + user.getRole());
         return map;
     }
 

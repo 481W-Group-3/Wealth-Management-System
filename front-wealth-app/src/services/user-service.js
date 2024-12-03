@@ -104,6 +104,16 @@ export const getUserProfile = async () => {
     }
 };
 
+export const getUserDetails = async (userId) => {
+    try {
+        const response = (await apiClient.get(`/user/details/${userId}`));
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching user details:', error);
+        throw error;
+    }
+}
+
 export const updateUserProfile = async (userData) => {
     try {
         const response = await apiClient.put('/user/update-email', userData);

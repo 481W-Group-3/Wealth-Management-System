@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import com.wealth_management_system.BackWealthApp.domain.Asset;
@@ -55,6 +56,19 @@ public class InvestmentController {
     public ResponseEntity<List<Investment>> listAllInvestments(Principal principal) {
         List<Investment> investments = investmentService.listAllInvestments(principal.getName());
         return new ResponseEntity<>(investments, HttpStatus.OK);
+    }
+
+    // List investment of user
+    @GetMapping("/list/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public List<Investment> listUserInvestments(@PathVariable int id, Authentication authentication) {
+        if (!authentication.getAuthorities().toString().contains("ADMIN"))
+            return null;
+        try {
+            return investmentService.listAllInvestments(userService.getUserById(id).getUsername());
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     // Update an investment

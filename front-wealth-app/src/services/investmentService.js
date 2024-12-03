@@ -23,6 +23,27 @@ export const fetchAssets = async () => {
     }
 };
 
+export const fetchUserInvestments = async (id) => {
+    try {
+        const response = await apiClient.get(`/api/investments/list/${id}`);
+        return response.data;  // Returns the array of investments
+    } catch (error) {
+        console.error('Error fetching investments:', error);
+        return [];  // Return an empty array if there's an error
+    }
+};
+
+export const fetchUserAssets = async (id) => {
+    try {
+        const response = await apiClient.get(`/api/assets/list/${id}`); 
+        console.log(response);
+        return response.data;  // Assuming the API returns the array of assets
+    } catch (error) {
+        console.error('Error fetching assets:', error);
+        return [];  // Return an empty array if there's an error
+    }
+};
+
 export const calculateReturn = async ({ principalInitial, currentValue }) => {
     try {
         const response = await apiClient.post('/api/investments/calculate-return', {

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,6 +57,18 @@ public class AssetController {
 
          List<Asset> assets = assetService.listAllAssets(principal.getName());
         return new ResponseEntity<>(assets, HttpStatus.OK);
+    }
+
+    @GetMapping("/list/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public List<Asset> getUserAssets(@PathVariable int id, Authentication authentication){
+        if (!authentication.getAuthorities().toString().contains("ADMIN"))
+            return null;
+        try {
+            return assetService.listAllAssets(userService.getUserById(id).getUsername());
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @PutMapping("/{id}")

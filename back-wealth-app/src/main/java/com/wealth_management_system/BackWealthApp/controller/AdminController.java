@@ -2,30 +2,26 @@ package com.wealth_management_system.BackWealthApp.controller;
 
 import java.util.*;
 
+import com.wealth_management_system.BackWealthApp.serviceImpl.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.wealth_management_system.BackWealthApp.domain.Admin;
 import com.wealth_management_system.BackWealthApp.domain.MyUser;
 import com.wealth_management_system.BackWealthApp.serviceImpl.AdminServiceImpl;
 
-@Controller
-@RequestMapping("/admin")
+@RestController
+@RequestMapping(path = "/admin")
 public class AdminController {
-	
-	private final AdminServiceImpl adminService;
 
-	//@Autowired
-	public AdminController(AdminServiceImpl adminService) {
-		this.adminService = adminService;
-	}
+	@Autowired
+	private AdminServiceImpl adminService;
+	@Autowired
+	private UserServiceImpl userService;
 
 	@PostMapping("/admin/create")
 	public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin){

@@ -32,6 +32,15 @@ export const listAllProperties = async () => {
     }
 };
 
+export const listUserProperties = async (userId) => {
+    try {
+        const response = await apiClient.get(`/api/properties/admin-list/${userId}`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
 // Update a property
 export const updateProperty = async (propertyData) => {
     try {

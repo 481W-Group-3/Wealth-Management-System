@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wealth_management_system.BackWealthApp.domain.Maintenance;
+import com.wealth_management_system.BackWealthApp.domain.Property;
 import com.wealth_management_system.BackWealthApp.serviceImpl.MaintenanceServiceImpl;
+import com.wealth_management_system.BackWealthApp.serviceImpl.PropertyServiceImpl;
 
 @RestController
 @RequestMapping("/api/maintenance")
@@ -24,8 +26,16 @@ public class MaintenanceController extends WebMvcAutoConfiguration {
 	@Autowired
 	private MaintenanceServiceImpl maintenanceService;
 	
+	@Autowired
+	private PropertyServiceImpl propertyService;
+	
 	@PostMapping("/log")
 	public ResponseEntity<Maintenance> logMaintenance(@RequestBody Maintenance maintenance) {
+		if (maintenance.getProperty() != null) {
+			Property property = propertyService.getPropertyById(maintenance.getProperty().getId());
+			maintenance.setProperty(property);
+		}
+		
 		Maintenance newMaintenance = maintenanceService.logMaintenance(maintenance);
 		return ResponseEntity.ok(newMaintenance);
 	}

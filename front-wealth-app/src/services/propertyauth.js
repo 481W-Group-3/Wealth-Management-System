@@ -153,8 +153,8 @@ export const addExpense = async (expenseData) => {
     try {
         const maintenanceData = {
             descr: expenseData.description,
-            costTotal: expenseData.amount,
-            property: expenseData.propertyId ? { id: expenseData.propertyId } : null
+            costTotal: Number(expenseData.amount),
+            property: expenseData.propertyId ? { id: Number(expenseData.propertyId) } : null
         };
         const response = await apiClient.post('/api/maintenance/log', maintenanceData);
         return {
@@ -164,6 +164,7 @@ export const addExpense = async (expenseData) => {
             propertyId: response.data.property?.id || null
         };
     } catch (error) {
+        console.error('Error details:', error.response?.data);
         throw error;
     }
 };

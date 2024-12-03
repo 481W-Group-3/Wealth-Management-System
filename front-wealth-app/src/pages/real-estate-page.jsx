@@ -34,6 +34,8 @@ const RealEstatePage = () => {
   const [viewingLeaseForProperty, setViewingLeaseForProperty] = useState(null);
   const [editingLease, setEditingLease] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
+  const [propertyErrorMessage, setPropertyErrorMessage] = useState('');
+  const [expenseErrorMessage, setExpenseErrorMessage] = useState('');
     
     // const fetchTax = async () => {
     //   try{
@@ -93,14 +95,24 @@ const RealEstatePage = () => {
 
   const handleAddProperty = async (e) => {
     e.preventDefault();
+    
+    if (!newProperty.address.trim() || 
+        !newProperty.city.trim() || 
+        !newProperty.state.trim() || 
+        !newProperty.zipcode.trim() || 
+        !newProperty.propertyValue) {
+        setPropertyErrorMessage('Please fill in all fields');
+        return;
+    }
+    
     try {
-      const addedProperty = await addProperty({ ...newProperty, incomeMonthly: 0 });
-      setProperties([...properties, { ...addedProperty, leases: [] }]);
-      setNewProperty({ address: '', incomeMonthly: '', occupied: false, city: '', state: '', zipcode: '', propertyValue: '' });
-      setErrorMessage('');
+        const addedProperty = await addProperty({ ...newProperty, incomeMonthly: 0 });
+        setProperties([...properties, { ...addedProperty, leases: [] }]);
+        setNewProperty({ address: '', incomeMonthly: '', occupied: false, city: '', state: '', zipcode: '', propertyValue: '' });
+        setPropertyErrorMessage('');
     } catch (error) {
-      console.error('Error adding property:', error);
-      setErrorMessage('Failed to add property. Please try again.');
+        console.error('Error adding property:', error);
+        setPropertyErrorMessage('Failed to add property. Please try again.');
     }
   };
 
@@ -114,6 +126,10 @@ const RealEstatePage = () => {
       }
       await deleteProperty(id);
       setProperties(properties.filter(property => property.id !== id));
+      
+      // Remove all expenses associated with this property
+      setExpenses(expenses.filter(expense => expense.propertyId !== id));
+      
       setErrorMessage('');
     } catch (error) {
       console.error('Error deleting property:', error);
@@ -123,14 +139,25 @@ const RealEstatePage = () => {
 
   const handleAddExpense = async (e) => {
     e.preventDefault();
+    
+    if (!newExpense.description.trim() || !newExpense.amount) {
+        setExpenseErrorMessage('Please fill in description and amount');
+        return;
+    }
+    
+    if (isNaN(newExpense.amount) || Number(newExpense.amount) <= 0) {
+        setExpenseErrorMessage('Please enter a valid positive amount');
+        return;
+    }
+    
     try {
-      const addedExpense = await addExpense(newExpense);
-      setExpenses([...expenses, addedExpense]);
-      setNewExpense({ description: '', amount: '', propertyId: '' });
-      setErrorMessage('');
+        const addedExpense = await addExpense(newExpense);
+        setExpenses([...expenses, addedExpense]);
+        setNewExpense({ description: '', amount: '', propertyId: '' });
+        setExpenseErrorMessage('');
     } catch (error) {
-      console.error('Error adding expense:', error);
-      setErrorMessage('Failed to add expense. Please try again.');
+        console.error('Error adding expense:', error);
+        setExpenseErrorMessage('Failed to add expense. Please try again.');
     }
   };
 
@@ -151,55 +178,77 @@ const RealEstatePage = () => {
   };
 
   const handleAddOrUpdateLease = async (propertyId) => {
+    // Check if required fields are empty
+    if (!newLease.tenantName.trim() || 
+        !newLease.startDate || 
+        !newLease.endDate || 
+        !newLease.paymentMonthly || 
+        !newLease.rentDueDay) {
+        setErrorMessage('Please fill in all lease fields');
+        return;
+    }
+    
+    // Validate payment is a positive number
+    if (isNaN(newLease.paymentMonthly) || Number(newLease.paymentMonthly) <= 0) {
+        setErrorMessage('Please enter a valid positive monthly payment');
+        return;
+    }
+    
+    // Validate rent due day is between 1 and 31
+    if (Number(newLease.rentDueDay) < 1 || Number(newLease.rentDueDay) > 31) {
+        setErrorMessage('Rent due day must be between 1 and 31');
+        return;
+    }
+    
     try {
-      const leaseData = {
-        tenantName: newLease.tenantName,
-        startDate: new Date(newLease.startDate).toISOString(),
-        endDate: new Date(newLease.endDate).toISOString(),
-        paymentMonthly: newLease.paymentMonthly,
-        rentDueDay: newLease.rentDueDay,
-        property: { id: propertyId }
-      };
+        const leaseData = {
+            tenantName: newLease.tenantName,
+            startDate: new Date(newLease.startDate).toISOString(),
+            endDate: new Date(newLease.endDate).toISOString(),
+            paymentMonthly: newLease.paymentMonthly,
+            rentDueDay: newLease.rentDueDay,
+            property: { id: propertyId }
+        };
 
-      const createdLease = await createLease(leaseData);
+        const createdLease = await createLease(leaseData);
 
-      await linkLeaseToProperty(propertyId, createdLease.id);
+        await linkLeaseToProperty(propertyId, createdLease.id);
 
-      setProperties(properties.map(property => {
-        if (property.id === propertyId) {
-          const updatedLeases = [...property.leases, createdLease];
+        setProperties(properties.map(property => {
+            if (property.id === propertyId) {
+                const updatedLeases = [...property.leases, createdLease];
 
-          return {
-            ...property,
-            leases: updatedLeases,
-            monthlyIncome: calculateMonthlyIncome(updatedLeases),
-          };
-        }
+                return {
+                    ...property,
+                    leases: updatedLeases,
+                    monthlyIncome: calculateMonthlyIncome(updatedLeases),
+                };
+            }
 
-        return property;
-      }));
+            return property;
+        }));
 
-      let propertyToUpdate;
-      properties.map(property => {
-        if (property.id === propertyId) {
-          const updatedLeases = [...property.leases, createdLease];
+        let propertyToUpdate;
+        properties.map(property => {
+            if (property.id === propertyId) {
+                const updatedLeases = [...property.leases, createdLease];
 
-          propertyToUpdate = {
-            ...property,
-            leases: updatedLeases,
-            monthlyIncome: calculateMonthlyIncome(updatedLeases),
-          };
-        }
-      });
+                propertyToUpdate = {
+                    ...property,
+                    leases: updatedLeases,
+                    monthlyIncome: calculateMonthlyIncome(updatedLeases),
+                };
+            }
+        });
 
-      await updateProperty(propertyToUpdate);
+        await updateProperty(propertyToUpdate);
 
-      // Reset the lease form fields
-      setNewLease({ startDate: '', endDate: '', tenantName: '', rentDueDay: '', paymentMonthly: '' });
-      setErrorMessage('');
+        // Reset the lease form fields
+        setNewLease({ startDate: '', endDate: '', tenantName: '', rentDueDay: '', paymentMonthly: '' });
+        setErrorMessage('');
     } catch (error) {
-      console.error('Error adding lease:', error);
-      setErrorMessage('Failed to add lease. Please try again.');
+        console.error('Error adding lease:', error);
+        setErrorMessage('Failed to add lease. Please try again.');
     }
   };
 
@@ -307,7 +356,7 @@ const RealEstatePage = () => {
                   onChange: (e) => setNewProperty({ ...newProperty, occupied: e.target.checked })
                 }
               ]}
-              errorMessage={errorMessage}
+              errorMessage={propertyErrorMessage}
               submitButtonText="Add Property"
             />
           </div>
@@ -467,6 +516,7 @@ const RealEstatePage = () => {
                   ]
                 }
               ]}
+              errorMessage={expenseErrorMessage}
               submitButtonText="Add Expense"
             />
           </div>

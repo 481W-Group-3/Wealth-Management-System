@@ -7,7 +7,7 @@ export const fetchRetirementVariables = async () => {
     try {
         const response = await apiClient.get('/api/retirement');
         console.log(response);
-        return response.data;
+        return response.data[0];
     } catch (error) {
         console.error('Error fetching retirement assets:', error);
         return [];

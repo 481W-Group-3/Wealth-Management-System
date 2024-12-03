@@ -35,7 +35,7 @@ const RetirementPage = () => {
     const loadRetirementVariables = async () => {
       try {
         const fetchedVariables = await fetchRetirementVariables();
-        console.log("output of fetched: " + fetchedVariables);
+        console.log("output of fetched: ", fetchedVariables);
         if(fetchedVariables != null){
             setCurrentAge(fetchedVariables[0]);                 // 0
             setRetirementAge(fetchedVariables[1]);              // 1
@@ -65,7 +65,7 @@ const RetirementPage = () => {
             //Update or Add variables to backend
             const storedData = {currentAge, retirementAge, lifeExpectancy, pretaxIncome, yearlyRetirementExpenses, moneySaved}
             const fetchedVariables = await fetchRetirementVariables();
-            console.log("fetched variables 2: "+ fetchedVariables);
+            console.log("fetched variables 2: ", fetchedVariables);
             if (fetchedVariables != null){
                 //store variables
                 await storeRetirementVariables(fetchedVariables.id, storedData);

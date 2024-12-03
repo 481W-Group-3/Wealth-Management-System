@@ -3,7 +3,7 @@ app = "back-wealth-app"
 
 [[services]]
 internal_port = 8080
-processes = ["java -jar target/your-app-name-0.0.1-SNAPSHOT.jar"]
+processes = ["java -jar target/BackWealthApp-0.0.1-SNAPSHOT.jar"]
 
 [[services.ports]]
 port = 80

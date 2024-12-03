@@ -90,7 +90,7 @@ public class SecurityConfig {
 		CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowCredentials(true);
 		configuration.addAllowedOriginPattern("*"); // Your frontend origin
-		configuration.addAllowedOrigin("https://wealth-management-eight.vercel.app"); // online site
+		configuration.addAllowedOrigin("https://wealth-management-eight.vercel.app/*"); // online site
 		configuration.addAllowedHeader("*"); // Allow all headers
 		configuration.addAllowedMethod("*"); // Allow all methods
 

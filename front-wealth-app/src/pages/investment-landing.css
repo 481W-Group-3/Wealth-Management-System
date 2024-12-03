@@ -59,6 +59,12 @@
   overflow: hidden;
 }
 
+.investments-container tr {
+  width: 100%;
+  display: table;
+  table-layout: fixed;
+}
+
 .investments-container th,
 .investments-container td {
   text-align: left;

@@ -50,6 +50,7 @@ public class StockController {
 	     */
 	    
 	    @PostMapping("/fetch-data")
+		@PreAuthorize("isAuthenticated()")
 	    public void fetchStockDataManually() {
 	        s.fetchAndStoreStockData();
 	    }

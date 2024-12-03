@@ -12,6 +12,8 @@ import com.wealth_management_system.BackWealthApp.predictions.AlphaVantageAPI;
 import com.wealth_management_system.BackWealthApp.service.StockDataFetcherService;
 import com.wealth_management_system.BackWealthApp.service.StockDataService;
 
+
+
 @Service
 public class StockDataFetcherServiceImpl implements StockDataFetcherService {
 
@@ -28,10 +30,7 @@ public class StockDataFetcherServiceImpl implements StockDataFetcherService {
     @Scheduled(fixedRate = 86400000) // Run once every 24 hours
     public void fetchAndStoreStockData() {
         if (isScheduledTaskInitialized) {
-            List<String> symbols = List.of("AAPL", "GOOG", "MSFT", "META", "ORCL", "ADBE", "IBM", "INTU", "TSLA"); // List
-                                                                                                                   // of
-                                                                                                                   // stock
-                                                                                                                   // symbols
+            List<String> symbols = List.of("AAPL", "GOOG", "MSFT", "META", "ORCL", "ADBE", "IBM", "INTU", "TSLA"); // List of stock symbols
 
             for (String symbol : symbols) {
                 try {
@@ -63,3 +62,7 @@ public class StockDataFetcherServiceImpl implements StockDataFetcherService {
         }
     }
 }
+
+
+
+

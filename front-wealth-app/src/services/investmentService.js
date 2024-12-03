@@ -111,8 +111,9 @@ export const deleteAsset = async (id) => {
 export const fetchMarketPredictions = async () => {
     try {
         const response = await apiClient.get('/api/stocks');
+        // const response = await apiClient.post('/api/fetch-data');
         console.log("recent", response);
-        return true;  // Return true on successful delete
+        return true;  // Return true on success
     } catch (error) {
         console.error('Error fetching market predictions:', error);
         return false;  // Return false or handle the error as needed

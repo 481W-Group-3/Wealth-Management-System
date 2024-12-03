@@ -2,7 +2,8 @@
 
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8080';  // Adjust as per your backend URL
+// const BASE_URL = 'http://localhost:8080';  // Adjust as per your backend URL
+const BASE_URL = 'https://wealth-management-system-3.onrender.com';
 
 const apiClient = axios.create({
     baseURL: BASE_URL,

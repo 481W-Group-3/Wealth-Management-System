@@ -111,11 +111,11 @@ export const deleteAsset = async (id) => {
 export const fetchMarketPredictions = async () => {
     try {
         const response = await apiClient.get('/api/stocks');
-        // const response = await apiClient.post('/api/fetch-data');
+        // const results = await apiClient.post('/api/stocks/fetch-data');
         console.log("recent", response);
         return true;  // Return true on success
     } catch (error) {
-        console.error('Error fetching market predictions:', error);
+        console.error('Error fetching stock data:', error);
         return false;  // Return false or handle the error as needed
     }
 };
@@ -126,9 +126,9 @@ export const fetchStockData = async (symbol) => {
     try {
         const response = await apiClient.get(`/api/stocks/${symbol}`);
         console.log("fetched", response)
-        return response.data;  // Returns the specified investment
+        return response.data;  // Returns the specified stock data
     } catch (error) {
-        console.error('Error fetching investments:', error);
+        console.error('Error fetching data:', error);
         return [];  // Return an empty array if there's an error
     }
 };

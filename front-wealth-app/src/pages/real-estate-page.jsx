@@ -61,6 +61,13 @@ const RealEstatePage = () => {
         zipcode: ''
     });
 
+    const [lastSubmittedDetails, setLastSubmittedDetails] = useState({
+        value: '',
+        state: '',
+        county: '',
+        city: '',
+        zipcode: ''
+    });
 
     useEffect(() => {
         const fetchProperties = async () => {
@@ -329,7 +336,8 @@ const RealEstatePage = () => {
         e.preventDefault();
 
         if (propertyTaxDetail.state.length !== 2) {
-            setCalcualtorError("Enter a valid State Initial ex. 'MI'")
+            setCalcualtorError("Enter a valid State Initial ex. 'MI'");
+            return;
         }
 
         try {
@@ -338,14 +346,26 @@ const RealEstatePage = () => {
                 propertyTaxDetail.state,
                 propertyTaxDetail.county,
                 propertyTaxDetail.city,
-                propertyTaxDetail.zipcode);
-            console.log(result);
+                propertyTaxDetail.zipcode
+            );
+            
+            // Store the current values before resetting
+            setLastSubmittedDetails({...propertyTaxDetail});
+            
             setTaxResult(result);
+            // Reset the form fields
+            setPropertyTaxDetail({
+                value: '',
+                state: '',
+                county: '',
+                city: '',
+                zipcode: ''
+            });
         } catch (error) {
             console.log("property tax error: " + error);
             setCalcualtorError("Value Error, Please try again");
         }
-    }
+    };
 
     const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0);
 
@@ -651,7 +671,7 @@ const RealEstatePage = () => {
                                     name: 'state',
                                     label: 'State (Initials)',
                                     type: 'text',
-                                    value: propertyTaxDetail.amount,
+                                    value: propertyTaxDetail.state,
                                     onChange: (e) => setPropertyTaxDetail({
                                         ...propertyTaxDetail,
                                         state: e.target.value
@@ -698,22 +718,20 @@ const RealEstatePage = () => {
                     <h2 className="text-2xl font-light mb-4 text-center">Property Tax</h2>
                     <div className="flex-grow overflow-hidden">
                         <div className="h-full overflow-y-auto">
-                            {taxResult !== 0 ?
-                                (
-                                    <div>
-                                        <h3>Calculating the Annual Property Tax for: </h3>
-                                        <h3>Value: ${propertyTaxDetail.value}</h3>
-                                        <br/>
-                                        <h3>Property Location is:</h3>
-                                        <h3>State: {propertyTaxDetail.state}</h3>
-                                        <h3>County: {propertyTaxDetail.county}</h3>
-                                        <h3>City: {propertyTaxDetail.city}</h3>
-                                        <h3>Zip Code: {propertyTaxDetail.zipcode}</h3>
-                                    </div>
-                                ) : (
-                                    <h3>Enter Calculations for Property Tax</h3>
-                                )
-                            }
+                            {taxResult !== 0 ? (
+                                <div>
+                                    <h3>Calculating the Annual Property Tax for: </h3>
+                                    <h3>Value: ${lastSubmittedDetails.value}</h3>
+                                    <br/>
+                                    <h3>Property Location is:</h3>
+                                    <h3>State: {lastSubmittedDetails.state}</h3>
+                                    <h3>County: {lastSubmittedDetails.county}</h3>
+                                    <h3>City: {lastSubmittedDetails.city}</h3>
+                                    <h3>Zip Code: {lastSubmittedDetails.zipcode}</h3>
+                                </div>
+                            ) : (
+                                <h3>Enter Calculations for Property Tax</h3>
+                            )}
                         </div>
                     </div>
                     <div className="mt-4 p-4 bg-gray-100 rounded">

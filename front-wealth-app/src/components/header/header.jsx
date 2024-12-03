@@ -55,7 +55,16 @@ const Header = ({ isLandingPage = false }) => {
                                 {user.username}
                             </button>
                             {isDropdownOpen && (
-                                <div ref={dropdownRef} className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+                                <div 
+                                    ref={dropdownRef} 
+                                    className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1" 
+                                    style={{
+                                        zIndex: 9999,
+                                        position: 'fixed',
+                                        top: '60px',  // Adjust this value based on your header height
+                                        right: '20px'
+                                    }}
+                                >
                                     <Link 
                                         to="/profile-settings" 
                                         className="dropdown-item block px-4 py-2 text-sm text-gray-700"
@@ -77,7 +86,11 @@ const Header = ({ isLandingPage = false }) => {
             </div>
             <style jsx>{`
                 .header-container {
-                    /* Add any additional styles for the header container here */
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    z-index: 9998;
                 }
                 .header-container a,
                 .header-container button {
@@ -103,6 +116,8 @@ const Header = ({ isLandingPage = false }) => {
                     border-radius: 9999px;
                 }
                 .dropdown-item {
+                    position: relative;
+                    z-index: 50;
                     display: block;
                     width: 100%;
                     text-align: left;

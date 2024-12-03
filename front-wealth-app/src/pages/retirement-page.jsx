@@ -298,7 +298,8 @@ const RetirementPage = () => {
           border-radius: 0.5rem;
           color: #333;
           position: relative;
-          z-index: 0;
+          margin-top: 95px;
+          overflow: visible;
         }
 
         .retirement-container h1 {

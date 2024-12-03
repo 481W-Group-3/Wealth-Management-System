@@ -108,7 +108,7 @@ const AdminView = (user) => {
                                             <td><p> not specified </p></td>
                                         )
                                     }
-                                    <td><p>{property.propertyValue}</p></td>
+                                    <td><p>${property.propertyValue}</p></td>
                                 </tr>
                             ))}
                             </tbody>

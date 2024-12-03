@@ -43,6 +43,10 @@
     background: #436a59;
 }
 
+.username-select:hover{
+    color: grey;
+}
+
 .profile-component {
     margin: 20px 0;
 }

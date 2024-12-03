@@ -140,6 +140,7 @@ export const calculatePropertyTax = async (propertyId) => {
 }
 
 export const calculateIndividualPropertyTax = async (propertyValue, state, county, city, zip) => {
+    console.log(propertyValue, state, county, city, zip);
     try {
         const response = await apiClient.get(`/api/properties/propertyTax/calculate`, {
             params: {
@@ -150,7 +151,6 @@ export const calculateIndividualPropertyTax = async (propertyValue, state, count
                 zipCode: zip
             }
         });
-        // const response = await apiClient.get('/api/properties/propertyTest');
         return response.data;
     }catch(error) {
         throw error;

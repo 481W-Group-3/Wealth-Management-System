@@ -178,7 +178,7 @@ const ProfileSettings = () => {
                         {/*    :*/}
                         {/*    <img className={"profile-photo"} src={imageSrc} alt="profile photo"/>*/}
                         {/*}*/}
-                        <button onClick={toggleImageUpload}>Change Photo</button>
+                        {/*<button onClick={toggleImageUpload}>Change Photo</button>*/}
                     </div>
                     <div className={"profile-text"}>
                         <div className={"profile-component"}>
@@ -220,7 +220,7 @@ const ProfileSettings = () => {
             </div>
             <div className={"profile-title admin-title"}>
                 <h1>User List</h1>
-                <p>Admin Feature</p>
+                <p>Admin Feature (Select Username for More Details)</p>
             </div>
             <div className={"admin-features"}>
                 {userList ?
@@ -245,7 +245,7 @@ const ProfileSettings = () => {
                                             pathname: `/profile/${user.id}`,
                                             state: {from: user.id},
                                         }}>
-                                            <p> {user.username}</p>
+                                            <p className={"username-select"}> {user.username}</p>
                                         </Link>
                                     </td>
                                     <td><p> {user.email}</p></td>

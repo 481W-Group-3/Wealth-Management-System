@@ -40,14 +40,14 @@ const Header = ({ isLandingPage = false }) => {
     };
     
     return (
-        <div className="header-container shadow-md" style={{ backgroundColor: '#69a289' }}>
-            <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-                <Link to="/dashboard" className="focus:outline-none">
+        <div className="header-container shadow-md" style={{ backgroundColor: '#69a289', height: '75px', minHeight: '75px', maxHeight: '75px' }}>
+            <div className="container mx-auto px-4 flex justify-between items-center h-full">
+                <Link to="/dashboard" className="focus:outline-none h-full flex items-center">
                     <img src={logo} alt="logo" className="h-10 w-auto" />
                 </Link>
                 {!isLandingPage && isAuthenticated && user && (
-                    <div className="flex items-center">
-                        <div className="relative" ref={dropdownRef}>
+                    <div className="flex items-center h-full">
+                        <div className="relative flex items-center">
                             <button
                                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                                 className="username-button font-medium focus:outline-none px-3 py-1 rounded-full text-[#000000] hover:text-white hover:bg-[#964734]/10"

@@ -284,140 +284,138 @@ const RetirementPage = () => {
     
             <style jsx>{`
                 .retirement-container {
-                    padding: 20px;
-                    max-width: 1200px;
-                    min-width: 340px;
-                    margin: 0 auto;
-                    background: white;
+                    padding: 2rem;
+                    max-width: 75%;
+                    margin: 2rem auto;
+                    background-color: white;
                     border-radius: 0.5rem;
+                    color: #333;
+                    position: relative;
+                    z-index: 0;
                 }
                 
-                .retirement-container h1{
+                .retirement-container h1 {
                     font-size: 1.875rem;
                     font-weight: 300;
-                }
-
-                h1, h2, h3, h4 {
-                    color: #333;
-                    margin-bottom: 5px;
-                    margin-top: 10px;
                     text-align: center;
+                    color: black;
+                    margin-bottom: 30px;
                 }
 
-                div {
-                    text-align:center;
+                h2 {
+                    font-size: 2xl;
+                    font-weight: 300;
+                    color: #374151;
+                    margin-bottom: 1.5rem;
                 }
-                
-                .inputTitle{
-                    text-align:center;
-                    padding-top: 20px;
+
+                .retirement-container h3,
+                .retirementLeftColumn h3,
+                .retirementRightColumn h3 {
+                    font-size: 1rem;
+                    color: #4B5563;
+                    margin-bottom: 0.5rem;
+                    font-weight: 400;
                 }
 
                 .retirementTwoColumns {
-                    gap: 30px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 20px;
                     margin-bottom: 30px;
-                    margin-left: 50px;
-                    margin-right: 50px;
                 }
 
                 .retirementLeftColumn, .retirementRightColumn {
-                    align-items: center;
-                    border-style: solid;
-                    border-radius: 5px;
-                    border-width: 0;
-                    min-height: 200px;
-                    max-height: 2000px;
-                    background-color: white;
-                    box-shadow: 0 6px 50px rgba(0, 0, 0, 0.1);
+                    flex: 1;
+                    min-width: 300px;
+                    max-width: 100%;
+                    background: #dbdbdb;
+                    border-radius: 12px;
+                    padding: 2rem;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
                 }
 
-                .retirementRightColumn{
-                    display:flex;
-                    flex-wrap: wrap;
-                    flex-direction: row;
-                    padding-top: 10px;
-                    justify-content: center;
-                }
-
-                .retirementRightColumn div{
-                    margin-left: 5px;
-                    margin-right: 5px;
-                    width: 400px;
-                    align-self: center;
-                }
-
-                #retirementCalculator{
-                    display:flex;
-                    flex-wrap: wrap;
-                    flex-direction: row;
-                    gap: 10px;
-                    padding-bottom: 25px;
-                    justify-content: center;
-                }
-                .retirmentLeftColumn form div {
-
-                    padding-top: 10px;
-                    align-self: center;
-                    margin-left: 5px;
-                    margin-right: 5px;
-                }
-                
-                .retirementResultsBox{
-                    text-align: center;
-                    max-width: 400px;
-                    min-width: 180px;
-                    display: flex;
-                    flex-wrap: wrap;
-                    justify-content: center;
-                }
-
-                .retirementResultsBox h3{
-                    width: 100%;
-                }
-
-                .retirementResultsBox div{
-                    width: 160px;
-                }
-                
-                input, button, label{
-                border-radius: 4px;
-                    padding-left: 70px;
-                    padding-right: 70px;
-                    padding-top: 7.5px;
-                    padding-bottom: 7.5px;
+                #retirementCalculator {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                    gap: 1.5rem;
+                    padding: 1rem;
                 }
 
                 input {
-                    border-style: solid;
-                    border-color: gray;
-                    background-color: lightblue;
+                    width: 100%;
+                    padding: 0.75rem 1rem;
+                    border: 1px solid #E5E7EB;
+                    border-radius: 8px;
+                    background-color: #ffffff;
+                    font-size: 1rem;
+                    transition: all 0.2s;
                 }
 
-                #bottonInput {
-                    margin-bottom:5px;
+                input:focus {
+                    outline: none;
+                    border-color: #69a289;
+                    box-shadow: 0 0 0 3px rgba(105, 162, 137, 0.1);
+                }
+
+                button {
+                    background-color: #69a289;
+                    color: white;
+                    padding: 1rem 2rem;
+                    border: none;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    font-weight: 400;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                    width: 100%;
+                    max-width: 300px;
+                    margin: 2rem auto;
+                }
+
+                button:hover {
+                    background-color: #558b73;
+                }
+
+                .retirementRightColumn {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1.5rem;
+                }
+
+                .retirementRightColumn div {
+                    background: #ffffff;
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                    margin-bottom: 1rem;
+                    transition: all 0.2s ease;
+                }
+
+                .retirementRightColumn div:hover {
+                    box-shadow: 0 2px 4px rgba(105, 162, 137, 0.1);
+                    transform: translateY(-2px);
                 }
 
                 label {
-                    text-align: center;
-                    background-color: lightblue;
-                    margin-bottom: 20px;
-                }
-                
-                button {
-                background-color: #2b5887;
-                color: white;
-                margin-top: 30px;
+                    display: block;
+                    background-color: #edf2f7;
+                    padding: 1rem;
+                    border-radius: 8px;
+                    font-size: 1.25rem;
+                    font-weight: 600;
+                    color: #69a289;
                 }
 
-                h1{
-                background-color: white;
-                border-radius: 5px;
-                border-style: solid;
-                border-width: 0;
-                width: 600px;
-                place-self: center;
+                .retirementResultsBox {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 1rem;
                 }
 
+                .retirementResultsBox div {
+                    background: #edf2f7;
+                    margin-bottom: 0;
+                }
             `}</style>
     
     

@@ -68,11 +68,12 @@ const RetirementPage = () => {
             console.log("fetched variables 2: "+ fetchedVariables);
             if (fetchedVariables != null){
                 //store variables
-                await storeRetirementVariables(0, storedData);
+                await storeRetirementVariables(fetchedVariables.id, storedData);
+
             }
             else{
                 //add record to store variables
-                await addRetirementRecord(storedData, 0);
+                await addRetirementRecord(storedData);
             }
 
             retirementCalculator();

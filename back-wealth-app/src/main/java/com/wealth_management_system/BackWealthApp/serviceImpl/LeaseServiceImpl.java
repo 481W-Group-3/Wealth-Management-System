@@ -23,10 +23,10 @@ public class LeaseServiceImpl implements LeaseService {
 	private RenterRepository renterRepository;
 	@Autowired
 	private LeaseRepository leaseRepository;
-	
+
 	@Override
 	public Lease createLease(Lease lease) {
-		
+
 		Lease newLease = leaseRepository.save(lease);
 		return newLease;
 	}
@@ -40,12 +40,12 @@ public class LeaseServiceImpl implements LeaseService {
 
 	@Override
 	public List<Lease> listAllLeases() {
-		
+
 		return null;
 	}
-	
+
 	@Override
-	public List<Lease> listByProperty(int propertyId){
+	public List<Lease> listByProperty(int propertyId) {
 		Optional<Property> property = propertyRepository.findById(propertyId);
 		List<Lease> leases = property.get().getLeases();
 		return leases;
@@ -66,13 +66,13 @@ public class LeaseServiceImpl implements LeaseService {
 	@Override
 	public void linkLeaseToProperty(int leaseId, int propertyId) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void linkRenterToLease(int leaseId, int renterId) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class LeaseServiceImpl implements LeaseService {
 	@Override
 	public void sendLeaseRenewalReminders(int leaseId) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

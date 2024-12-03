@@ -6,8 +6,8 @@ import java.util.Optional;
 import com.wealth_management_system.BackWealthApp.domain.Retirement;
 
 public interface RetirementService {
-	
-	// Create a new retirement record
+
+    // Create a new retirement record
     Retirement saveRetirement(Retirement retirement, String username);
 
     // Retrieve a retirement record by ID
@@ -27,6 +27,5 @@ public interface RetirementService {
 
     // Estimate savings at retirement (example method)
     double estimateRetirementSavings(int currentSavings, int income, int retirementAge, int currentAge);
-
 
 }

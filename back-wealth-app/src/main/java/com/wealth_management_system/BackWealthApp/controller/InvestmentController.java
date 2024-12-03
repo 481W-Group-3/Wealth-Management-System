@@ -7,9 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import com.wealth_management_system.BackWealthApp.domain.Asset;
 import com.wealth_management_system.BackWealthApp.domain.Investment;
-import com.wealth_management_system.BackWealthApp.domain.Property;
 import com.wealth_management_system.BackWealthApp.service.InvestmentService;
 import com.wealth_management_system.BackWealthApp.service.UserService;
 
@@ -22,7 +20,7 @@ public class InvestmentController {
 
     @Autowired
     private InvestmentService investmentService;
-    
+
     @Autowired
     private UserService userService;
 
@@ -30,21 +28,13 @@ public class InvestmentController {
     @PostMapping("/create")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Investment> addInvestment(@RequestBody Investment investment, Principal principal) {
-    	System.out.println("Received investment: " + investment);
-    	System.out.println("investment amount is: " + investment.getPrincipalInitial());
-    	System.out.println("current amount is: " + investment.getCurrentValue());
-    	System.out.println("investmemt type is: " + investment.getType());
-    	//System.out.println("investment amount is: " + investment.getPrincipalInitial());
-    	
         Investment newInvestment = investmentService.addInvestment(investment, principal.getName());
         return new ResponseEntity<>(newInvestment, HttpStatus.CREATED);
     }
-    
-
 
     // Get investment by ID
     @GetMapping("/{id}")
-    @PreAuthorize("isAuthenticated()") 
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Investment> getInvestmentById(@PathVariable int id) {
         Investment investment = investmentService.getInvestmentById(id);
         return new ResponseEntity<>(investment, HttpStatus.OK);
@@ -52,7 +42,7 @@ public class InvestmentController {
 
     // List all investments
     @GetMapping
-    @PreAuthorize("isAuthenticated()") 
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<Investment>> listAllInvestments(Principal principal) {
         List<Investment> investments = investmentService.listAllInvestments(principal.getName());
         return new ResponseEntity<>(investments, HttpStatus.OK);
@@ -73,7 +63,7 @@ public class InvestmentController {
 
     // Update an investment
     @PutMapping("/{id}")
-    @PreAuthorize("isAuthenticated()") 
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Investment> updateInvestment(@PathVariable int id, @RequestBody Investment investment) {
         investment.setId(id); // Assuming Investment has an 'id' field
         Investment updatedInvestment = investmentService.updateInvestment(investment);
@@ -82,44 +72,17 @@ public class InvestmentController {
 
     // Delete an investment
     @DeleteMapping("/{id}")
-    @PreAuthorize("isAuthenticated()") 
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Void> deleteInvestment(@PathVariable int id) {
         investmentService.deleteInvestment(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    /*
-    // Link investment to property
-    @PostMapping("/{investmentId}/properties/{propertyId}")
-    @PreAuthorize("isAuthenticated()") 
-    public ResponseEntity<Void> linkInvestmentToProperty(@PathVariable int investmentId, @PathVariable int propertyId) {
-        investmentService.linkInvestmentToProperty(investmentId, propertyId);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    // Get properties by investment ID
-    @GetMapping("/{investmentId}/properties")
-    @PreAuthorize("isAuthenticated()") 
-    public ResponseEntity<List<Property>> getPropertiesByInvestment(@PathVariable int investmentId) {
-        List<Property> properties = investmentService.getPropertiesByInvestment(investmentId);
-        return new ResponseEntity<>(properties, HttpStatus.OK);
-    }
-    */
-
-    // Get asset by investment ID
-   /* @GetMapping("/{investmentId}/asset")
-    public ResponseEntity<Asset> getAssetByInvestment(@PathVariable int investmentId) {
-        Asset asset = investmentService.getAssetByInvestment(investmentId);
-        return new ResponseEntity<>(asset, HttpStatus.OK);
-    }*/
-
     // Rebalance portfolio
     @PostMapping("/{investmentId}/rebalance")
-    @PreAuthorize("isAuthenticated()") 
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Void> rebalancePortfolio(@PathVariable int investmentId) {
         investmentService.rebalancePortfolio(investmentId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
-
-

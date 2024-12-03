@@ -1,5 +1,5 @@
 
-app = "back-wealth-app"
+app = "wealth-management-system"
 
 [[services]]
 internal_port = 8080

@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp back-wealth-app/target/BackWealthApp-0.0.1-SNAPSHOT.jar com.wealth_management_system.BackWealthApp
+web: java -jar back-wealth-app/target/BackWealthApp-0.0.1-SNAPSHOT.jar 

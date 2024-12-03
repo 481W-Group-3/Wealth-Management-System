@@ -1,6 +1,5 @@
 package com.wealth_management_system.BackWealthApp.serviceImpl;
 
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -14,10 +13,8 @@ import com.wealth_management_system.BackWealthApp.service.StockDataService;
 import jakarta.transaction.Transactional;
 
 @Service
-public class StockDataServiceImpl implements StockDataService{
+public class StockDataServiceImpl implements StockDataService {
 
-	
-    
     @Autowired
     private StockRepository stockRepository;
 
@@ -34,20 +31,17 @@ public class StockDataServiceImpl implements StockDataService{
         return stockRepository.findByDateAfter(oneMonthAgo);
     }
 
-    
     @Transactional
     public void saveOrUpdateStockData(StockData stockData) {
-       
+
         stockRepository.save(stockData);
     }
 
-   
     public void deleteBySymbol(String symbol) {
-        
+
         stockRepository.deleteBySymbol(symbol);
     }
 
-    
     public List<StockData> findAll() {
         return stockRepository.findAll();
     }
@@ -58,7 +52,5 @@ public class StockDataServiceImpl implements StockDataService{
         System.out.println("Deleting data older than: " + cutoffDate + " for symbol: " + symbol);
         stockRepository.deleteBySymbolAndDateBefore(symbol, cutoffDate);
     }
- 
-
 
 }

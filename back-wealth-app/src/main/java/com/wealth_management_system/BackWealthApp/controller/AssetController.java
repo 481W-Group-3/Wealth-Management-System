@@ -19,30 +19,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wealth_management_system.BackWealthApp.domain.Asset;
-import com.wealth_management_system.BackWealthApp.service.AssetService;
 import com.wealth_management_system.BackWealthApp.service.UserService;
 
 @RestController
 @RequestMapping("/api/assets")
 public class AssetController {
-	@Autowired
-	private AssetServiceImpl assetService;
-	
-	@Autowired
-	private UserService userService;
+    @Autowired
+    private AssetServiceImpl assetService;
+
+    @Autowired
+    private UserService userService;
 
     @PostMapping("/create")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<Asset> addAsset(@RequestBody Asset asset, Principal principal){
+    public ResponseEntity<Asset> addAsset(@RequestBody Asset asset, Principal principal) {
         Asset newAsset = assetService.addAsset(asset, principal.getName());
         return new ResponseEntity<>(newAsset, HttpStatus.CREATED);
-
-        //return ResponseEntity.ok(newAsset);
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<Asset> getAssetById(@PathVariable int id){
+    public ResponseEntity<Asset> getAssetById(@PathVariable int id) {
         Asset asset = assetService.getAssetById(id);
         if (asset != null) {
             return ResponseEntity.ok(asset);
@@ -52,16 +49,14 @@ public class AssetController {
 
     @GetMapping
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<List<Asset>> getAllAssets(Principal principal){
-        //return assetService.listAllAssets(principal.getName());
-
-         List<Asset> assets = assetService.listAllAssets(principal.getName());
+    public ResponseEntity<List<Asset>> getAllAssets(Principal principal) {
+        List<Asset> assets = assetService.listAllAssets(principal.getName());
         return new ResponseEntity<>(assets, HttpStatus.OK);
     }
 
     @GetMapping("/list/{id}")
     @PreAuthorize("isAuthenticated()")
-    public List<Asset> getUserAssets(@PathVariable int id, Authentication authentication){
+    public List<Asset> getUserAssets(@PathVariable int id, Authentication authentication) {
         if (!authentication.getAuthorities().toString().contains("ADMIN"))
             return null;
         try {
@@ -73,7 +68,7 @@ public class AssetController {
 
     @PutMapping("/{id}")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<Asset> updateAsset(@PathVariable int id, @RequestBody Asset asset){
+    public ResponseEntity<Asset> updateAsset(@PathVariable int id, @RequestBody Asset asset) {
         asset.setId(id); // Assuming Asset has a setId method
         Asset updatedAsset = assetService.updateAsset(asset);
         return ResponseEntity.ok(updatedAsset);
@@ -81,44 +76,9 @@ public class AssetController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<String> deleteAsset(@PathVariable int id){
+    public ResponseEntity<String> deleteAsset(@PathVariable int id) {
         assetService.deleteAsset(id);
         return ResponseEntity.ok("Asset deleted successfully");
     }
-    /*
-	@PostMapping("/asset")
-    @PreAuthorize("isAuthenticated()")
-	public ResponseEntity<Asset> addAsset(@RequestBody Asset asset){
-		Asset newAsset = assetService.addAsset(asset);
-		return ResponseEntity.ok(newAsset);
-	}
-	
-	@GetMapping("/asset/{id}")
-    @PreAuthorize("isAuthenticated()")
-	public ResponseEntity<Asset> getAssetById(@PathVariable int id){
-		Optional<Asset> asset = assetService.getAssetById(id);
-		return asset.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-	}
-	
-	@GetMapping("/asset")
-    @PreAuthorize("isAuthenticated()")
-	public List<Asset> getAllAssets(){
-		return assetService.listAllAssets();
-	}
-	
-	@PutMapping("/assets/{id}")
-    @PreAuthorize("isAuthenticated()")
-	public ResponseEntity<Asset> updateAsset(@RequestBody Asset asset){
-		Asset updatedAsset = assetService.updateAsset(asset);
-		return ResponseEntity.ok(updatedAsset);
-	}
-	
-	@DeleteMapping("/asset/{id}")
-    @PreAuthorize("isAuthenticated()")
-	public ResponseEntity<String> deleteAsset(@PathVariable int id){
-		assetService.deleteAsset(id);
-		return ResponseEntity.ok("Asset deleted successfully");
-	}
-	*/
-	
+
 }

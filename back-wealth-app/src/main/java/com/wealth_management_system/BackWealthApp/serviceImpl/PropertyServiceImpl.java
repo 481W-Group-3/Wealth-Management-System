@@ -32,7 +32,6 @@ public class PropertyServiceImpl implements PropertyService {
 	private MaintenanceRepository maintenanceRepository;
 	@Autowired
 	private UserRepository userRepository;
-	
 
 	@Override
 	public Property addProperty(Property property, String username) {
@@ -43,9 +42,9 @@ public class PropertyServiceImpl implements PropertyService {
 
 	@Override
 	public Property getPropertyById(int id) {
-		if(propertyRepository.findById(id).isPresent()) {
+		if (propertyRepository.findById(id).isPresent()) {
 			return propertyRepository.findById(id).get();
-		}else {
+		} else {
 			throw new RuntimeException("Property not find");
 		}
 	}
@@ -59,67 +58,56 @@ public class PropertyServiceImpl implements PropertyService {
 	@Override
 	public Property updateProperty(Property property) {
 		if (propertyRepository.existsById(property.getId())) {
-            return propertyRepository.save(property);
-        } else {
-            throw new RuntimeException("Property not found for update");
-        }
+			return propertyRepository.save(property);
+		} else {
+			throw new RuntimeException("Property not found for update");
+		}
 	}
 
 	@Override
 	public void deleteProperty(int id) {
 		propertyRepository.deleteById(id);
-		
+
 	}
 
 	@Override
 	public void linkRenterToProperty(int propertyId, int renterId) {
-		 Property property = getPropertyById(propertyId);
-	        Renter renter = renterRepository.findById(renterId)
-	                .orElseThrow(() -> new RuntimeException("Renter not found"));
+		Property property = getPropertyById(propertyId);
+		Renter renter = renterRepository.findById(renterId)
+				.orElseThrow(() -> new RuntimeException("Renter not found"));
 
-	        
-	        property.addRenter(renter);
-	        propertyRepository.save(property);
-		
+		property.addRenter(renter);
+		propertyRepository.save(property);
+
 	}
 
 	@Override
 	public void linkLeaseToProperty(int propertyId, int leaseId) {
-		 Property property = getPropertyById(propertyId);
-	       
-	     Lease lease = leaseRepository.findById(leaseId).orElseThrow(() -> new RuntimeException("Lease not found"));
-	      property.addLease(lease); 
-	        propertyRepository.save(property);
-		
+		Property property = getPropertyById(propertyId);
+
+		Lease lease = leaseRepository.findById(leaseId).orElseThrow(() -> new RuntimeException("Lease not found"));
+		property.addLease(lease);
+		propertyRepository.save(property);
+
 	}
 
 	@Override
 	public List<Renter> getRentersByProperty(int propertyId) {
-		 Property property = getPropertyById(propertyId);
-	     return renterRepository.findByProperty(property);
+		Property property = getPropertyById(propertyId);
+		return renterRepository.findByProperty(property);
 	}
 
 	@Override
 	public List<Maintenance> getMaintenanceByProperty(int propertyId) {
 		Property property = getPropertyById(propertyId);
-        return maintenanceRepository.findByProperty(property);
+		return maintenanceRepository.findByProperty(property);
 	}
 
 	@Override
 	public double calculateRevenue(int propertyId) {
-		 Property property = getPropertyById(propertyId);
-		 return property.getRevenue();
-	     //return property.calculateRevenue();
+		Property property = getPropertyById(propertyId);
+		return property.getRevenue();
+		// return property.calculateRevenue();
 	}
-
-	/*
-	@Override
-	public List<Property> getUserProperties(int UserId) {
-		// TODO Auto-generated method stub
-		MyUser user = userRepository.findById(UserId);
-		return propertyRepository.findByUser(user);
-	}
-	*/
-	
 
 }

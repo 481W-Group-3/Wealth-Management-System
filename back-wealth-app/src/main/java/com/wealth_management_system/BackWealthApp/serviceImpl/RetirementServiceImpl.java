@@ -6,27 +6,25 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.wealth_management_system.BackWealthApp.domain.Investment;
 import com.wealth_management_system.BackWealthApp.domain.MyUser;
 import com.wealth_management_system.BackWealthApp.domain.Retirement;
 import com.wealth_management_system.BackWealthApp.repositry.RetirementRepository;
 import com.wealth_management_system.BackWealthApp.repositry.UserRepository;
-import com.wealth_management_system.BackWealthApp.repositry.UserRepositry;
 import com.wealth_management_system.BackWealthApp.service.RetirementService;
 
 @Service
-public class RetirementServiceImpl implements RetirementService{
-	
-	@Autowired
-	private RetirementRepository retirementRepository;
+public class RetirementServiceImpl implements RetirementService {
+
+    @Autowired
+    private RetirementRepository retirementRepository;
 
     @Autowired
     private UserRepository userRepository;
 
     @Override
     public Retirement saveRetirement(Retirement retirement, String username) {
-    	MyUser user = userRepository.findMyUserByUsername(username);
-    	retirement.setUser(user);
+        MyUser user = userRepository.findMyUserByUsername(username);
+        retirement.setUser(user);
         return retirementRepository.save(retirement);
     }
 

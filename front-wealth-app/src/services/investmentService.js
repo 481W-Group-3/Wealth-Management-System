@@ -110,8 +110,6 @@ export const deleteAsset = async (id) => {
 
 export const fetchMarketPredictions = async () => {
     try {
-        // const testdata = await apiClient.post('/api/stocks/fetch-data');
-        // console.log("fetch data", testdata);
         const response = await apiClient.get('/api/stocks');
         console.log("recent", response);
         return true;  // Return true on successful delete

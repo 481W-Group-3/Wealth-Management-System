@@ -1,0 +1,11 @@
+app = "wealth-management-system"
+
+[build]
+dockerfile = "Dockerfile"
+
+[[services]]
+internal_port = 8080
+
+[[services.ports]]
+port = 80
+handlers = ["http"]

@@ -10,7 +10,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/login' : 'http://localhost:8080'
+      '/login' : 'https://wealth-management-system-3.onrender.com'
     }, // Specify the port for the dev server
     cors: true,  // Enable CORS
   },

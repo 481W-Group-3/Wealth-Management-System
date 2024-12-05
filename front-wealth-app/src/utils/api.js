@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const API_URL = 'https://wealth-management-system-3.onrender.com';
-const API_URL = 'http://localhost:8080'; // Replace with your actual API URL
+const API_URL = 'https://wealth-management-system-3.onrender.com';
+// const API_URL = 'http://localhost:8080'; // Replace with your actual API URL
 export const loginUser = async (email, password) => {
   try {
     const response = await axios.post(`${API_URL}/loginUser`, { email, password });
